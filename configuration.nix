@@ -10,6 +10,9 @@
       ./hardware-configuration.nix
       ./laptop.nix
     ];
+    
+  hardware.enableAllFirmware = true;
+  hardware.enableRedistributableFirmware = true;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
