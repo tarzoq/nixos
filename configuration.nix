@@ -202,14 +202,18 @@
     gimp
     ffmpeg
     yt-dlp
-    mpv
+    mpv #media player
+    audacious #music player
     discord
     audacity
     fastfetch
     kitty # needed for hyprland
-    pciutils
+    pciutils #lspci etc
     libsForQt5.qt5.qtwayland
     kdePackages.qtwayland
+    jq #json parser, required for zoom
+    #avizo #OSD for volume and brightness
+    swayosd #OSD for volume and brightness
     # hyprland
     hyprlock
     hypridle
@@ -230,7 +234,7 @@
     brightnessctl
     playerctl
     btop
-    cheese
+    cheese #camera
     # Dolphin KDE
     kdePackages.kio # needed since 25.11
     kdePackages.kio-fuse #to mount remote filesystems via FUSE
