@@ -225,6 +225,7 @@
     hyprshutdown
     hyprmon
     hyprcursor
+    hyprshot
     kanshi
     swaynotificationcenter
     #hyprlandPlugins.hyprspace
