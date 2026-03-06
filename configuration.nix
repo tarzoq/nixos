@@ -136,7 +136,9 @@
 
   programs.waybar.enable = true;
   # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
+  #services.displayManager.sddm.enable = true;
+  programs.regreet.enable = true;
+  services.greetd.enable = true;
   #  services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
@@ -200,6 +202,7 @@
     git
     brave
     gimp
+    vscode
     ffmpeg
     yt-dlp
     mpv #media player
