@@ -134,11 +134,23 @@
     ];
   };
 
-  programs.waybar.enable = true;
+  programs.waybar = {
+    enable = true;
+  };
   # Enable the KDE Plasma Desktop Environment.
   #services.displayManager.sddm.enable = true;
-  programs.regreet.enable = true;
-  services.greetd.enable = true;
+  services.displayManager.ly = {
+    enable = true;
+    settings = {
+      animation = "matrix";
+      hide_borders = true;
+      clock = "%c";
+      bigclock = true;
+      hide_f1_commands = true;
+      #load = true;
+      #save = true;
+    };
+  };
   #  services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
@@ -177,7 +189,7 @@
   users.users.user = {
     isNormalUser = true;
     description = "user";
-    extraGroups = [ "networkmanager" "wheel" "keyd" ];
+    extraGroups = [ "networkmanager" "wheel" "keyd" "video" "render" ];
     packages = with pkgs; [
       kdePackages.kate
     #  thunderbird
