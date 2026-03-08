@@ -3,14 +3,16 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, lib, pkgs, ... }:
-
-{
+let
+  USER = "user";
+in {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./laptop.nix
+      ./hibernate.nix
     ];
-    
+
   hardware.enableAllFirmware = true;
   hardware.enableRedistributableFirmware = true;
 
@@ -18,42 +20,22 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.kernelParams = ["resume_offset=65572864"]; # sudo filefrag -v /var/lib/swapfile | head
+  boot.initrd.systemd.enable = true;
 
-  boot.resumeDevice = "/dev/disk/by-uuid/253b6ad1-b80b-4441-9081-4e2f54a17782"; # lsblk -f
-  
   # networking.networkmanager.wifi.powersave = false;
   powerManagement.enable = true;
- 
-  systemd.services.network-before-hibernate = {
-    description = "Stop network before hibernation";
-    before = [ "systemd-hibernate.service" ];
-    wantedBy = [ "systemd-hibernate.service" ];
-    script = ''
-      /run/current-system/sw/bin/modprobe -r ath11k_pci
-      systemctl stop NetworkManager
-    '';
-    serviceConfig.Type = "oneshot";
-  };
-  # lspci -k | grep -A3 -i network
-  systemd.services.network-after-hibernate = {
-    description = "Start network after hibernation";
-    after = [ "post-resume.service" ];
-    wantedBy = [ "post-resume.service" ];
-    script = ''
-      sleep 3
-      /run/current-system/sw/bin/modprobe ath11k_pci
-      systemctl start NetworkManager
-    '';
-    serviceConfig.Type = "oneshot";
+
+  security.polkit = {
+    enable = true;
   };
 
-  swapDevices = [ # https://nixos.wiki/wiki/Hibernation
-    {
-      device = "/var/lib/swapfile";
-      size = 32 * 1024; # 32GB in MB
-    }
-  ];
+  #powerManagement.powerDownCommands = ''
+  #  /run/current-system/sw/bin/hyprlock
+  #'';
+  #
+  #powerManagement.resumeCommands = ''
+  #  /run/current-system/sw/bin/hyprlock
+  #'';
 
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
@@ -81,9 +63,6 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-
-  # remember Wi-Fi passwords
-  services.gnome.gnome-keyring.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Stockholm";
@@ -114,50 +93,91 @@
   };
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
  
-  programs.obs-studio = {
-    enable = true;
-
-    # optional Nvidia hardware acceleration
-    package = (
-      pkgs.obs-studio.override {
-        cudaSupport = true;
-      }
-    );
-
-    plugins = with pkgs.obs-studio-plugins; [
-      wlrobs
-      obs-backgroundremoval
-      obs-pipewire-audio-capture
-      obs-vaapi #optional AMD hardware acceleration
-      obs-gstreamer
-      obs-vkcapture
-    ];
-  };
+  #programs.obs-studio = {
+  #  enable = true;
+  #  # optional Nvidia hardware acceleration
+  #  package = (
+  #    pkgs.obs-studio.override {
+  #      cudaSupport = true;
+  #    }
+  #  );
+  #  plugins = with pkgs.obs-studio-plugins; [
+  #    wlrobs
+  #    obs-backgroundremoval
+  #    obs-pipewire-audio-capture
+  #    obs-vaapi #optional AMD hardware acceleration
+  #    obs-gstreamer
+  #    obs-vkcapture
+  #  ];
+  #};
 
   programs.waybar = {
     enable = true;
-  };
+  }; 
+
+  #services.greetd = {
+  #  enable = true;
+  #  settings = {
+  #    initial_session = {
+  #      command = "uwsm start hyprland.desktop";
+  #      user = "${USER}";
+  #    };
+  #    #mandatory fallback required by greetd
+  #    default_session = {
+  #      command = "uwsm start hyprland.desktop";
+  #      user = "greeter";
+  #    };
+  #  };
+  #};
+
+  security.pam.services.hyprlock = {};
+  security.pam.services.hyprland.enableGnomeKeyring = true;
+  security.pam.services.gdm.enableGnomeKeyring = true;
+
+  # remember Wi-Fi passwords
+  services.gnome.gnome-keyring.enable = true;
+
   # Enable the KDE Plasma Desktop Environment.
-  #services.displayManager.sddm.enable = true;
-  services.displayManager.ly = {
-    enable = true;
-    settings = {
-      animation = "matrix";
-      hide_borders = true;
-      clock = "%c";
-      bigclock = true;
-      hide_f1_commands = true;
-      #load = true;
-      #save = true;
+  #services.desktopManager.plasma6.enable = true;
+
+  services.displayManager = {
+    defaultSession = "hyprland-uwsm";
+    gdm = {
+      enable = true;
+      wayland = true;
+    };
+    autoLogin = {
+      enable = true;
+      user = "${USER}";
     };
   };
-  #  services.desktopManager.plasma6.enable = true;
+  
+  programs.uwsm = {
+    enable = true;
+    waylandCompositors = {
+      hyprland = {
+        prettyName = "Hyprland";
+        comment = "Hyprland compositor managed by UWSM";
+        binPath = "/run/current-system/sw/bin/start-hyprland";
+      };
+    };
+  };
+
+  # services.displayManager.ly = {
+  #   enable = true;
+  #   settings = {
+  #     animation = "matrix";
+  #     hide_borders = true;
+  #     clock = "%c";
+  #     bigclock = true;
+  #     hide_f1_commands = true;
+  #   };
+  # };
 
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "se";
     variant = "";
-    # xkbOptions = "caps:super";
   };
 
   # Configure console keymap
@@ -182,19 +202,15 @@
     #media-session.enable = true;
   };
 
+  # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.users.${USER} = {
+    isNormalUser = true;
+    description = "${USER}";
+    extraGroups = [ "networkmanager" "wheel" "keyd" "video" "render" ];
+  };
+
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.user = {
-    isNormalUser = true;
-    description = "user";
-    extraGroups = [ "networkmanager" "wheel" "keyd" "video" "render" ];
-    packages = with pkgs; [
-      kdePackages.kate
-    #  thunderbird
-    ];
-  };
 
   programs.steam.enable = true;
   # Install firefox.
@@ -223,29 +239,33 @@
     audacity
     fastfetch
     kitty # needed for hyprland
+    psmisc # killall
+    usbutils # lsusb
+    lshw # hardwareinfo
     pciutils #lspci etc
+    dmidecode
+    ethtool
     libsForQt5.qt5.qtwayland
     kdePackages.qtwayland
     jq #json parser, required for zoom
-    #avizo #OSD for volume and brightness
     swayosd #OSD for volume and brightness
-    # hyprland
     hyprlock
     hypridle
     hyprpaper
     hyprsunset
     hyprpicker
-    hyprpolkitagent
     hyprpwcenter
     hyprshutdown
     hyprmon
     hyprcursor
+    hyprpolkitagent
     hyprshot
     kanshi
     swaynotificationcenter
     #hyprlandPlugins.hyprspace
     # Else
     networkmanagerapplet
+    pam_fde_boot_pw
     rofi
     brightnessctl
     playerctl
