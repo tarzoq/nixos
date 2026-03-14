@@ -1,16 +1,19 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, lib, pkgs, ... }:
 let
   USER = "user";
+  stateVersion = "25.11";
+  #home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/master.tar.gz";
+  #dotfiles = "${config.home.homeDirectory}/nixos-dotfiles/config";
+  #create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
 in {
   imports =
-    [ # Include the results of the hardware scan.
+    [
       ./hardware-configuration.nix
       ./laptop.nix
       ./hibernate.nix
+      #(import "${home-manager}/nixos")
+      #(import ./flake.nix).hardwareModule
+      #(builtins.getFlake "github:NixOS/nixos-hardware").nixosModules.lenovo-thinkpad-t14s-amd-gen4
     ];
 
   hardware.enableAllFirmware = true;
@@ -25,20 +28,36 @@ in {
   # networking.networkmanager.wifi.powersave = false;
   powerManagement.enable = true;
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   security.polkit = {
     enable = true;
   };
 
-  #powerManagement.powerDownCommands = ''
-  #  /run/current-system/sw/bin/hyprlock
-  #'';
-  #
-  #powerManagement.resumeCommands = ''
-  #  /run/current-system/sw/bin/hyprlock
-  #'';
-
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
+
+  # 1. Define the Path Unit
+  systemd.paths."watcher-home.nix" = {
+    wantedBy = [ "multi-user.target" ];
+    pathConfig = {
+      PathChanged = "/etc/nixos/home.nix"; # Or PathExists, DirectoryNotEmpty, etc.
+      Unit = "my-service.service"; # The service to activate
+    };
+  };
+
+  # 2. Define the corresponding Service
+  systemd.services."service-home.nix" = {
+    description = "Watch home.nix for changes";
+    #script = ''
+    #  "/run/current-system/sw/bin/brave"
+    #'';
+    serviceConfig = {
+      Type = "oneshot";
+      User = "user";
+      ExecStart = "${pkgs.bash}/bin/bash -c '/run/current-system/sw/bin/brave' &"; 
+    };
+  };
 
   services.keyd = {
     enable = true;
@@ -57,12 +76,24 @@ in {
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
   # Enable networking
   networking.networkmanager.enable = true;
+
+  #https://nixos.wiki/wiki/Bluetooth
+  services.blueman.enable = true;
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings = {
+      General = {
+        Experimental = true; # Needed to show battery charge
+	FastConnectable = false; # Faster connects, however, more power consumption
+      };
+      Policy = {
+        AutoEnable = true; # Enable all controllers when found
+      };
+    };
+  };
 
   # Set your time zone.
   time.timeZone = "Europe/Stockholm";
@@ -70,6 +101,7 @@ in {
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
+  # run "locale" to view all fields
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "sv_SE.UTF-8";
     LC_IDENTIFICATION = "sv_SE.UTF-8";
@@ -84,7 +116,7 @@ in {
 
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
-  services.xserver.enable = true;
+  #services.xserver.enable = true;
 
   programs.hyprland = {
    enable = true;
@@ -130,15 +162,15 @@ in {
   #  };
   #};
 
+  # Enable the KDE Plasma Desktop Environment.
+  #services.desktopManager.plasma6.enable = true;
+
   security.pam.services.hyprlock = {};
   security.pam.services.hyprland.enableGnomeKeyring = true;
   security.pam.services.gdm.enableGnomeKeyring = true;
 
   # remember Wi-Fi passwords
   services.gnome.gnome-keyring.enable = true;
-
-  # Enable the KDE Plasma Desktop Environment.
-  #services.desktopManager.plasma6.enable = true;
 
   services.displayManager = {
     defaultSession = "hyprland-uwsm";
@@ -152,6 +184,9 @@ in {
     };
   };
   
+  #https://www.reddit.com/r/NixOS/comments/1qo9alr/need_help_with_gdmhyprlanduwsm_problem/
+  #https://github.com/NixOS/nixpkgs/issues/484328
+  #https://github.com/NixOS/nixpkgs/commit/9128dd3103ce1305cd8e2d4dde2f249608447b4c
   programs.uwsm = {
     enable = true;
     waylandCompositors = {
@@ -202,6 +237,8 @@ in {
     #media-session.enable = true;
   };
 
+  #programs.zsh.enable = true;
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${USER} = {
     isNormalUser = true;
@@ -225,6 +262,7 @@ in {
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    pinta
     wget
     neovim
     git
@@ -237,6 +275,7 @@ in {
     audacious #music player
     discord
     audacity
+    remmina
     fastfetch
     kitty # needed for hyprland
     psmisc # killall
@@ -245,10 +284,13 @@ in {
     pciutils #lspci etc
     dmidecode
     ethtool
+    cmatrix #for fun
     libsForQt5.qt5.qtwayland
     kdePackages.qtwayland
+    pavucontrol #audio device settings
     jq #json parser, required for zoom
     swayosd #OSD for volume and brightness
+    # hyprland
     hyprlock
     hypridle
     hyprpaper
@@ -262,6 +304,7 @@ in {
     hyprshot
     kanshi
     swaynotificationcenter
+    libnotify
     #hyprlandPlugins.hyprspace
     # Else
     networkmanagerapplet
@@ -270,13 +313,9 @@ in {
     brightnessctl
     playerctl
     btop
-    cheese #camera
-    # Dolphin KDE
-    kdePackages.kio # needed since 25.11
-    kdePackages.kio-fuse #to mount remote filesystems via FUSE
-    kdePackages.kio-extras #extra protocols support (sftp, fish and more)
-    kdePackages.qtsvg
-    kdePackages.dolphin
+    guvcview #camera
+    kdePackages.kamoso #camera
+    home-manager
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -304,6 +343,6 @@ in {
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "25.11"; # Did you read the comment?
+  system.stateVersion = "${stateVersion}"; # Did you read the comment?
 
 }

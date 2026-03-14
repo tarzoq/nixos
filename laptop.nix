@@ -20,7 +20,4 @@
       STOP_CHARGE_THRESH_BAT0 = 100; 
       };
   };
-  environment.systemPackages = with pkgs; [
-    cmatrix
-  ];
 }
