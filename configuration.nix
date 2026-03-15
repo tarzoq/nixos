@@ -9,11 +9,9 @@ in {
   imports =
     [
       ./hardware-configuration.nix
-      ./laptop.nix
-      ./hibernate.nix
-      #(import "${home-manager}/nixos")
-      #(import ./flake.nix).hardwareModule
-      #(builtins.getFlake "github:NixOS/nixos-hardware").nixosModules.lenovo-thinkpad-t14s-amd-gen4
+      #./laptop.nix
+      ./pc.nix
+      #./hibernate.nix
     ];
 
   hardware.enableAllFirmware = true;
@@ -42,22 +40,29 @@ in {
     wantedBy = [ "multi-user.target" ];
     pathConfig = {
       PathChanged = "/etc/nixos/home.nix"; # Or PathExists, DirectoryNotEmpty, etc.
-      Unit = "my-service.service"; # The service to activate
+      Unit = "watcher-home.nix.service"; # The service to activate
     };
   };
 
   # 2. Define the corresponding Service
-  systemd.services."service-home.nix" = {
+  systemd.services."watcher-home.nix" = {
     description = "Watch home.nix for changes";
     #script = ''
-    #  "/run/current-system/sw/bin/brave"
+    #  /run/current-system/sw/bin/notify-send "Home Manager" "Rebuild Done!"
     #'';
     serviceConfig = {
       Type = "oneshot";
       User = "user";
-      ExecStart = "${pkgs.bash}/bin/bash -c '/run/current-system/sw/bin/brave' &"; 
+      #ExecStart = "${pkgs.bash}/bin/bash -c '/run/current-system/sw/bin/brave' &"; 
+      ExecStart = "${pkgs.bash}/bin/bash -c '/run/current-system/sw/bin/notify-send \"Home Manager\" \"Rebuild Done!\"'"; 
+    };
+    environment.DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus";
+    unitConfig = {
+      StartLimitBurst = 10;
+      StartLimitIntervalSec = 60;
     };
   };
+  #services.systembus-notify.enable = true;
 
   services.keyd = {
     enable = true;
@@ -125,23 +130,23 @@ in {
   };
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
  
-  #programs.obs-studio = {
-  #  enable = true;
-  #  # optional Nvidia hardware acceleration
-  #  package = (
-  #    pkgs.obs-studio.override {
-  #      cudaSupport = true;
-  #    }
-  #  );
-  #  plugins = with pkgs.obs-studio-plugins; [
-  #    wlrobs
-  #    obs-backgroundremoval
-  #    obs-pipewire-audio-capture
-  #    obs-vaapi #optional AMD hardware acceleration
-  #    obs-gstreamer
-  #    obs-vkcapture
-  #  ];
-  #};
+  programs.obs-studio = {
+    enable = true;
+    # optional Nvidia hardware acceleration
+    package = (
+      pkgs.obs-studio.override {
+        cudaSupport = true;
+      }
+    );
+    plugins = with pkgs.obs-studio-plugins; [
+      wlrobs
+      obs-backgroundremoval
+      obs-pipewire-audio-capture
+      obs-vaapi #optional AMD hardware acceleration
+      obs-gstreamer
+      obs-vkcapture
+    ];
+  };
 
   programs.waybar = {
     enable = true;
@@ -256,6 +261,15 @@ in {
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  programs.git = {
+    enable = true;
+    config = {
+      safe = { # needed for home-manager
+      	directory = "/etc/nixos";
+      };
+    };
+  };
+
   # https://nixos.wiki/wiki/Fonts
   fonts.packages = builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 
@@ -265,7 +279,6 @@ in {
     pinta
     wget
     neovim
-    git
     brave
     gimp
     vscode
@@ -274,6 +287,7 @@ in {
     mpv #media player
     audacious #music player
     discord
+    protonvpn-gui
     audacity
     remmina
     fastfetch
@@ -316,6 +330,8 @@ in {
     guvcview #camera
     kdePackages.kamoso #camera
     home-manager
+    spotify
+    teams-for-linux
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

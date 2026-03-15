@@ -41,7 +41,7 @@
         #  };
         #}
           # add your model from this list: https://github.com/NixOS/nixos-hardware/blob/master/flake.nix
-      nixos-hardware.nixosModules.lenovo-thinkpad-t14s-amd-gen4
+      #nixos-hardware.nixosModules.lenovo-thinkpad-t14s-amd-gen4
       ];
     };
   };
