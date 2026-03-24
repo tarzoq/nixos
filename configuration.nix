@@ -2,17 +2,26 @@
 let
   USER = "user";
   stateVersion = "25.11";
-  #home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/master.tar.gz";
-  #dotfiles = "${config.home.homeDirectory}/nixos-dotfiles/config";
-  #create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
 in {
+  #options = with lib; with types; {
+  #  tarzoq = mkOption { type = str; };
+  #  age = mkOption { type = int; };
+  #};
+  #config = {
+  #  tarzoq = "Yes, that is my alias";
+  #  age = 21;
+  #};
   imports =
     [
-      ./hardware-configuration.nix
+      /etc/nixos/hardware-configuration.nix
       #./laptop.nix
-      ./pc.nix
+      ./hosts/pc.nix
+      #./hypr.nix
+      ./niri.nix
       #./hibernate.nix
     ];
+
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   hardware.enableAllFirmware = true;
   hardware.enableRedistributableFirmware = true;
@@ -28,41 +37,34 @@ in {
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  security.polkit = {
-    enable = true;
-  };
-
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
 
-  # 1. Define the Path Unit
-  systemd.paths."watcher-home.nix" = {
-    wantedBy = [ "multi-user.target" ];
-    pathConfig = {
-      PathChanged = "/etc/nixos/home.nix"; # Or PathExists, DirectoryNotEmpty, etc.
-      Unit = "watcher-home.nix.service"; # The service to activate
-    };
-  };
+  ## 1. Define the Path Unit
+  #systemd.paths."watcher-home.nix" = {
+  #  wantedBy = [ "multi-user.target" ];
+  #  pathConfig = {
+  #    PathChanged = "/etc/nixos/home.nix"; # Or PathExists, DirectoryNotEmpty, etc.
+  #    Unit = "watcher-home.nix.service"; # The service to activate
+  #  };
+  #};
 
-  # 2. Define the corresponding Service
-  systemd.services."watcher-home.nix" = {
-    description = "Watch home.nix for changes";
-    #script = ''
-    #  /run/current-system/sw/bin/notify-send "Home Manager" "Rebuild Done!"
-    #'';
-    serviceConfig = {
-      Type = "oneshot";
-      User = "user";
-      #ExecStart = "${pkgs.bash}/bin/bash -c '/run/current-system/sw/bin/brave' &"; 
-      ExecStart = "${pkgs.bash}/bin/bash -c '/run/current-system/sw/bin/notify-send \"Home Manager\" \"Rebuild Done!\"'"; 
-    };
-    environment.DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus";
-    unitConfig = {
-      StartLimitBurst = 10;
-      StartLimitIntervalSec = 60;
-    };
-  };
-  #services.systembus-notify.enable = true;
+  ##2. Define the corresponding Service
+  #systemd.services."watcher-home.nix" = {
+  #  description = "Watch home.nix for changes";
+  #  serviceConfig = {
+  #    Type = "oneshot";
+  #    User = "user";
+  #    #ExecStart = "${pkgs.bash}/bin/bash -c '/run/current-system/sw/bin/brave' &"; 
+  #    ExecStart = "${pkgs.bash}/bin/bash -c '/run/current-system/sw/bin/notify-send \"Home Manager\" \"Rebuild Done!\"'"; 
+  #  };
+  #  environment.DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus";
+  #  unitConfig = {
+  #    StartLimitBurst = 10;
+  #    StartLimitIntervalSec = 60;
+  #  };
+  #};
+  ##services.systembus-notify.enable = true;
 
   services.keyd = {
     enable = true;
@@ -123,62 +125,44 @@ in {
   # You can disable this if you're only using the Wayland session.
   #services.xserver.enable = true;
 
-  programs.hyprland = {
-   enable = true;
-   withUWSM = true; # recommended for most users
-   xwayland.enable = true; # Xwayland can be disabled.
-  };
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  
  
-  programs.obs-studio = {
-    enable = true;
-    # optional Nvidia hardware acceleration
-    package = (
-      pkgs.obs-studio.override {
-        cudaSupport = true;
-      }
-    );
-    plugins = with pkgs.obs-studio-plugins; [
-      wlrobs
-      obs-backgroundremoval
-      obs-pipewire-audio-capture
-      obs-vaapi #optional AMD hardware acceleration
-      obs-gstreamer
-      obs-vkcapture
-    ];
-  };
-
-  programs.waybar = {
-    enable = true;
-  }; 
-
-  #services.greetd = {
+  #programs.obs-studio = {
   #  enable = true;
-  #  settings = {
-  #    initial_session = {
-  #      command = "uwsm start hyprland.desktop";
-  #      user = "${USER}";
-  #    };
-  #    #mandatory fallback required by greetd
-  #    default_session = {
-  #      command = "uwsm start hyprland.desktop";
-  #      user = "greeter";
-  #    };
-  #  };
+  #  # optional Nvidia hardware acceleration
+  #  package = (
+  #    pkgs.obs-studio.override {
+  #      cudaSupport = true;
+  #    }
+  #  );
+  #  plugins = with pkgs.obs-studio-plugins; [
+  #    wlrobs
+  #    obs-backgroundremoval
+  #    obs-pipewire-audio-capture
+  #    obs-vaapi #optional AMD hardware acceleration
+  #    obs-gstreamer
+  #    obs-vkcapture
+  #  ];
   #};
 
-  # Enable the KDE Plasma Desktop Environment.
-  #services.desktopManager.plasma6.enable = true;
+  programs.waybar.enable = true;
 
-  security.pam.services.hyprlock = {};
-  security.pam.services.hyprland.enableGnomeKeyring = true;
-  security.pam.services.gdm.enableGnomeKeyring = true;
+  #security.pam.services.hyprlock = {};
+  #security.pam.services.hyprland.enableGnomeKeyring = true;
 
+  # niri
+  security.polkit.enable = true;
   # remember Wi-Fi passwords
   services.gnome.gnome-keyring.enable = true;
+  security.pam.services.swaylock = {};
+  security.pam.services.gdm.enableGnomeKeyring = true;
+
+  xdg.portal.config.niri = {
+    "org.freedesktop.impl.portal.FileChooser" = ["gtk" ]; # or "kde"
+  };
 
   services.displayManager = {
-    defaultSession = "hyprland-uwsm";
+    #defaultSession = "hyprland-uwsm";
     gdm = {
       enable = true;
       wayland = true;
@@ -189,20 +173,7 @@ in {
     };
   };
   
-  #https://www.reddit.com/r/NixOS/comments/1qo9alr/need_help_with_gdmhyprlanduwsm_problem/
-  #https://github.com/NixOS/nixpkgs/issues/484328
-  #https://github.com/NixOS/nixpkgs/commit/9128dd3103ce1305cd8e2d4dde2f249608447b4c
-  programs.uwsm = {
-    enable = true;
-    waylandCompositors = {
-      hyprland = {
-        prettyName = "Hyprland";
-        comment = "Hyprland compositor managed by UWSM";
-        binPath = "/run/current-system/sw/bin/start-hyprland";
-      };
-    };
-  };
-
+ 
   # services.displayManager.ly = {
   #   enable = true;
   #   settings = {
@@ -257,17 +228,17 @@ in {
   programs.steam.enable = true;
   # Install firefox.
   #programs.firefox.enable = true;
-  programs.thunar.enable = true;
-  # Allow unfree packages
+  #programs.thunar.enable = true;
+
   nixpkgs.config.allowUnfree = true;
 
   programs.git = {
     enable = true;
-    config = {
-      safe = { # needed for home-manager
-      	directory = "/etc/nixos";
-      };
-    };
+    #config = {
+    #  safe = { # needed for home-manager
+    #  	directory = "/etc/nixos";
+    #  };
+    #};
   };
 
   # https://nixos.wiki/wiki/Fonts
@@ -278,7 +249,9 @@ in {
   environment.systemPackages = with pkgs; [
     pinta
     wget
+    tree #ls alternative
     neovim
+    gnome-text-editor
     brave
     gimp
     vscode
@@ -299,40 +272,48 @@ in {
     dmidecode
     ethtool
     cmatrix #for fun
-    libsForQt5.qt5.qtwayland
-    kdePackages.qtwayland
+    #libsForQt5.qt5.qtwayland
+    #kdePackages.qtwayland
     pavucontrol #audio device settings
-    jq #json parser, required for zoom
+    #jq #json parser, required for zooming in and out
     swayosd #OSD for volume and brightness
-    # hyprland
-    hyprlock
-    hypridle
-    hyprpaper
-    hyprsunset
-    hyprpicker
-    hyprpwcenter
-    hyprshutdown
-    hyprmon
-    hyprcursor
-    hyprpolkitagent
-    hyprshot
-    kanshi
+    #hyprland
+    # hyprlock
+    # hypridle
+    # hyprpaper
+    # hyprsunset
+    # hyprpicker
+    # hyprpwcenter
+    # hyprshutdown
+    # hyprmon
+    # hyprcursor
+    # hyprpolkitagent
+    # hyprshot
+    # kanshi
     swaynotificationcenter
     libnotify
     #hyprlandPlugins.hyprspace
     # Else
     networkmanagerapplet
-    pam_fde_boot_pw
+    #######pam_fde_boot_pw
     rofi
     brightnessctl
     playerctl
     btop
-    guvcview #camera
-    kdePackages.kamoso #camera
-    home-manager
+    #######guvcview #camera
     spotify
     teams-for-linux
+    egl-wayland #needed for nvidia
+    alacritty
+    fuzzel
+    swaylock
+    mako
+    swayidle
+    xwayland-satellite
   ];
+
+  services.tailscale.enable = true;
+  #environment.systemPackages = pkgs.tail-tray;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
