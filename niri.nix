@@ -3,7 +3,10 @@
   programs.niri = {
    enable = true;
   };
-  #environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
+  xdg.portal.config.niri = {
+    "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ]; # or "kde"
+  };
 
   #https://www.reddit.com/r/NixOS/comments/1qo9alr/need_help_with_gdmhyprlanduwsm_problem/
   #https://github.com/NixOS/nixpkgs/issues/484328
@@ -18,4 +21,9 @@
   #    };
   #  };
   #};
+  environment.systemPackages = with pkgs; [
+    swayidle
+    mako
+    xwayland-satellite
+  ];
 }

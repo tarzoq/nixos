@@ -1,6 +1,10 @@
 { config, pkgs, ... }:
 
 {
+  imports =
+    [
+      ./modules/hibernate.nix
+    ];
   #https://nixos.wiki/wiki/Laptop
   services.tlp = {
     enable = true;

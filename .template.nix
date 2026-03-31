@@ -1,3 +1,5 @@
+# Idea with this file was to have all you need to change during new installation in here, so making a copy of this file and making your changes and not uploading them to git would help.
+
 { config, lib, pkgs, ... }:
 let
   USER = "user";

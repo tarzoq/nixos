@@ -3,26 +3,20 @@ let
   USER = "user";
   stateVersion = "25.11";
 in {
-  #options = with lib; with types; {
-  #  tarzoq = mkOption { type = str; };
-  #  age = mkOption { type = int; };
-  #};
-  #config = {
-  #  tarzoq = "Yes, that is my alias";
-  #  age = 21;
-  #};
   imports =
     [
       /etc/nixos/hardware-configuration.nix
-      #./laptop.nix
+      ./hypr.nix
+      #./niri.nix
+      #./hosts/laptop.nix
       ./hosts/pc.nix
-      #./hypr.nix
-      ./niri.nix
-      #./hibernate.nix
     ];
 
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  environment.sessionVariables.NIXOS_OZONE_WL = "1"; # force applications to use wayland
 
+  programs.dms-shell.enable = true; #dankmaterialshell
+
+  # good to haves to hardware support
   hardware.enableAllFirmware = true;
   hardware.enableRedistributableFirmware = true;
 
@@ -36,36 +30,14 @@ in {
   powerManagement.enable = true;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.warn-dirty = false;
 
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
 
-  ## 1. Define the Path Unit
-  #systemd.paths."watcher-home.nix" = {
-  #  wantedBy = [ "multi-user.target" ];
-  #  pathConfig = {
-  #    PathChanged = "/etc/nixos/home.nix"; # Or PathExists, DirectoryNotEmpty, etc.
-  #    Unit = "watcher-home.nix.service"; # The service to activate
-  #  };
-  #};
-
-  ##2. Define the corresponding Service
-  #systemd.services."watcher-home.nix" = {
-  #  description = "Watch home.nix for changes";
-  #  serviceConfig = {
-  #    Type = "oneshot";
-  #    User = "user";
-  #    #ExecStart = "${pkgs.bash}/bin/bash -c '/run/current-system/sw/bin/brave' &"; 
-  #    ExecStart = "${pkgs.bash}/bin/bash -c '/run/current-system/sw/bin/notify-send \"Home Manager\" \"Rebuild Done!\"'"; 
-  #  };
-  #  environment.DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus";
-  #  unitConfig = {
-  #    StartLimitBurst = 10;
-  #    StartLimitIntervalSec = 60;
-  #  };
-  #};
   ##services.systembus-notify.enable = true;
 
+  # Found somewhere on StackOverFlow
   services.keyd = {
     enable = true;
     keyboards = {
@@ -73,7 +45,7 @@ in {
         ids = [ "*" ];
         settings = {
           main = {
-            capslock = "overload(meta, esc)"; # Example: capslock becomes Super, or Esc on tap
+            capslock = "overload(meta, esc)"; # Capslock becomes Super, or Esc on tap
           };
         };
       };
@@ -127,43 +99,56 @@ in {
 
   
  
-  #programs.obs-studio = {
-  #  enable = true;
-  #  # optional Nvidia hardware acceleration
-  #  package = (
-  #    pkgs.obs-studio.override {
-  #      cudaSupport = true;
-  #    }
-  #  );
-  #  plugins = with pkgs.obs-studio-plugins; [
-  #    wlrobs
-  #    obs-backgroundremoval
-  #    obs-pipewire-audio-capture
-  #    obs-vaapi #optional AMD hardware acceleration
-  #    obs-gstreamer
-  #    obs-vkcapture
-  #  ];
-  #};
+  programs.obs-studio = {
+    enable = true;
+    # optional Nvidia hardware acceleration
+    package = (
+      pkgs.obs-studio.override {
+        cudaSupport = true;
+      }
+    );
+    plugins = with pkgs.obs-studio-plugins; [
+      wlrobs
+      obs-backgroundremoval
+      obs-pipewire-audio-capture
+      obs-vaapi #optional AMD hardware acceleration
+      obs-gstreamer
+      obs-vkcapture
+    ];
+  };
 
-  programs.waybar.enable = true;
+  #programs.waybar.enable = true;
 
-  #security.pam.services.hyprlock = {};
-  #security.pam.services.hyprland.enableGnomeKeyring = true;
+  security.pam.services.hyprlock = {};
 
   # niri
   security.polkit.enable = true;
   # remember Wi-Fi passwords
   services.gnome.gnome-keyring.enable = true;
-  security.pam.services.swaylock = {};
   security.pam.services.gdm.enableGnomeKeyring = true;
 
-  xdg.portal.config.niri = {
-    "org.freedesktop.impl.portal.FileChooser" = ["gtk" ]; # or "kde"
+  # noctalia
+  services.power-profiles-daemon.enable = true;
+  services.upower.enable = true;
+
+  #https://wiki.nixos.org/wiki/Polkit
+  systemd.user.services.polkit-gnome-authentication-agent-1 = {
+    description = "polkit-gnome-authentication-agent-1";
+    wantedBy = [ "graphical-session.target" ];
+    wants = [ "graphical-session.target" ];
+    after = [ "graphical-session.target" ];
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+      Restart = "on-failure";
+      RestartSec = 1;
+      TimeoutStopSec = 10;
+    };
   };
 
   services.displayManager = {
-    #defaultSession = "hyprland-uwsm";
     gdm = {
+      # default session for hyprland: hyprland-uwsm
       enable = true;
       wayland = true;
     };
@@ -172,26 +157,12 @@ in {
       user = "${USER}";
     };
   };
-  
- 
-  # services.displayManager.ly = {
-  #   enable = true;
-  #   settings = {
-  #     animation = "matrix";
-  #     hide_borders = true;
-  #     clock = "%c";
-  #     bigclock = true;
-  #     hide_f1_commands = true;
-  #   };
-  # };
 
-  # Configure keymap in X11
+  # Configure keymap in X11 - only for X11?
   services.xserver.xkb = {
     layout = "se";
     variant = "";
   };
-
-  # Configure console keymap
   console.keyMap = "sv-latin1";
 
   # Enable CUPS to print documents.
@@ -226,11 +197,7 @@ in {
   services.libinput.enable = true;
 
   programs.steam.enable = true;
-  # Install firefox.
-  #programs.firefox.enable = true;
   #programs.thunar.enable = true;
-
-  nixpkgs.config.allowUnfree = true;
 
   programs.git = {
     enable = true;
@@ -244,8 +211,9 @@ in {
   # https://nixos.wiki/wiki/Fonts
   fonts.packages = builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+
+  nixpkgs.config.allowUnfree = true;
+  # List packages installed in system profile. To search, run: $ nix search wget
   environment.systemPackages = with pkgs; [
     pinta
     wget
@@ -260,7 +228,7 @@ in {
     mpv #media player
     audacious #music player
     discord
-    protonvpn-gui
+    proton-vpn
     audacity
     remmina
     fastfetch
@@ -272,74 +240,25 @@ in {
     dmidecode
     ethtool
     cmatrix #for fun
-    #libsForQt5.qt5.qtwayland
-    #kdePackages.qtwayland
     pavucontrol #audio device settings
-    #jq #json parser, required for zooming in and out
     swayosd #OSD for volume and brightness
-    #hyprland
-    # hyprlock
-    # hypridle
-    # hyprpaper
-    # hyprsunset
-    # hyprpicker
-    # hyprpwcenter
-    # hyprshutdown
-    # hyprmon
-    # hyprcursor
-    # hyprpolkitagent
-    # hyprshot
-    # kanshi
+    hyprlock
     swaynotificationcenter
     libnotify
-    #hyprlandPlugins.hyprspace
     # Else
     networkmanagerapplet
-    #######pam_fde_boot_pw
     rofi
     brightnessctl
     playerctl
     btop
-    #######guvcview #camera
     spotify
     teams-for-linux
-    egl-wayland #needed for nvidia
-    alacritty
-    fuzzel
-    swaylock
-    mako
-    swayidle
-    xwayland-satellite
+    nautilus
+    polkit_gnome
   ];
 
   services.tailscale.enable = true;
   #environment.systemPackages = pkgs.tail-tray;
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "${stateVersion}"; # Did you read the comment?
-
+  system.stateVersion = "${stateVersion}";
 }

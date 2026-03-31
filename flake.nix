@@ -7,7 +7,12 @@
     #flake-parts.url = "github:hercules-ci/flake-parts";
     #import-tree.url = "github:vic/import-tree";
 
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    #nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
+    #noctalia = {
+    #  url = "github:noctalia-dev/noctalia-shell";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -15,7 +20,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, home-manager, ... }: 
+  outputs = inputs@{ self, nixpkgs, nixos-hardware, home-manager, ... }: 
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs {
@@ -26,8 +31,10 @@
     };
   in {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      specialArgs = { inherit inputs; };
       modules = [
         ./configuration.nix
+	      #./noctalia.nix
         home-manager.nixosModules.home-manager
         {
           home-manager = {
@@ -37,8 +44,8 @@
             backupFileExtension = "backup";
           };
         }
-          # add your model from this list: https://github.com/NixOS/nixos-hardware/blob/master/flake.nix
-      #nixos-hardware.nixosModules.lenovo-thinkpad-t14s-amd-gen4
+        # add your model from this list: https://github.com/NixOS/nixos-hardware/blob/master/flake.nix
+        #nixos-hardware.nixosModules.lenovo-thinkpad-t14s-amd-gen4
       ];
     };
   };
