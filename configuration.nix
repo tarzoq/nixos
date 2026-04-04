@@ -1,26 +1,24 @@
-{ config, lib, pkgs, ... }:
-let
-  USER = "user";
-  stateVersion = "25.11";
-in {
+{ config, lib, pkgs, vars, ... }:
+{
   imports =
     [
       /etc/nixos/hardware-configuration.nix
-      ./hypr.nix
-      #./niri.nix
-      #./hosts/laptop.nix
-      ./hosts/pc.nix
+      #./hypr.nix
+      ./niri.nix
+      ./modules/tailscale.nix
+      ./hosts/laptop.nix
+      #./hosts/pc.nix
     ];
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1"; # force applications to use wayland
 
-  programs.dms-shell.enable = true; #dankmaterialshell
+  #programs.dms-shell.enable = true; #dankmaterialshell
 
   # good to haves to hardware support
   hardware.enableAllFirmware = true;
   hardware.enableRedistributableFirmware = true;
 
-  # Bootloader.
+  # Bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -52,14 +50,14 @@ in {
     };
   };
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "${vars.system.hostname}"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Enable networking
   networking.networkmanager.enable = true;
 
   #https://nixos.wiki/wiki/Bluetooth
-  services.blueman.enable = true;
+  #services.blueman.enable = true;
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
@@ -96,8 +94,6 @@ in {
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
   #services.xserver.enable = true;
-
-  
  
   programs.obs-studio = {
     enable = true;
@@ -117,9 +113,7 @@ in {
     ];
   };
 
-  #programs.waybar.enable = true;
-
-  security.pam.services.hyprlock = {};
+  #security.pam.services.hyprlock = {};
 
   # niri
   security.polkit.enable = true;
@@ -128,7 +122,7 @@ in {
   security.pam.services.gdm.enableGnomeKeyring = true;
 
   # noctalia
-  services.power-profiles-daemon.enable = true;
+  services.power-profiles-daemon.enable = false;
   services.upower.enable = true;
 
   #https://wiki.nixos.org/wiki/Polkit
@@ -146,6 +140,9 @@ in {
     };
   };
 
+  #networking.nftables.enable #tailscale.nix
+  #networking.firewall.enable #tailscale.nix
+
   services.displayManager = {
     gdm = {
       # default session for hyprland: hyprland-uwsm
@@ -154,7 +151,7 @@ in {
     };
     autoLogin = {
       enable = true;
-      user = "${USER}";
+      user = "${vars.user.name}";
     };
   };
 
@@ -187,9 +184,9 @@ in {
   #programs.zsh.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.${USER} = {
+  users.users."${vars.user.name}" = {
     isNormalUser = true;
-    description = "${USER}";
+    description = "${vars.user.name}";
     extraGroups = [ "networkmanager" "wheel" "keyd" "video" "render" ];
   };
 
@@ -199,14 +196,46 @@ in {
   programs.steam.enable = true;
   #programs.thunar.enable = true;
 
-  programs.git = {
-    enable = true;
-    #config = {
-    #  safe = { # needed for home-manager
-    #  	directory = "/etc/nixos";
-    #  };
-    #};
-  };
+  #programs.git = {
+  #  enable = true;
+  #  #config = {
+  #  #  safe = { # needed for home-manager
+  #  #  	directory = "/etc/nixos";
+  #  #  };
+  #  #};
+  #  settings = {
+  #    user = {
+  #      name = "${vars.user.alias}";
+  #      email = "${vars.user.email}";
+  #    };
+  #    credential-helper = "${
+  #        pkgs.git.override { withLibsecret = true; }
+  #      }/bin/git-credential-libsecret";
+  #  };
+  #};
+
+  #programs.chromium = {
+  #  enable = true;
+  #  homepageLocation = "https://homepage.tarzoq.com";
+  #  #https://discourse.nixos.org/t/is-there-a-way-to-force-disable-private-window-with-tor-from-brave-at-installation-time/74920
+  #  #extensions = [
+  #  #  "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
+  #  #];
+  #  extraOpts = {
+  #    "RestoreOnStartup" = 1; # 1 = Load a specific URL
+  #    "RestoreOnStartupURLs" = [ "https://homepage.tarzoq.com" ];
+  #    "NewTabPageLocation" = "https://homepage.tarzoq.com"; # Specific to new tabs
+  #    #https://support.brave.app/hc/en-us/articles/360039248271-Group-Policy
+  #    "TorDisabled" = true;
+  #    "BraveRewardsDisabled" = true;
+  #    "BraveWalletDisabled" = true;
+  #    "BraveVPNDisabled" = true;
+  #    "BraveAIChatEnabled" = false;
+  #    "BraveNewsDisabled" = true;
+  #    "BraveTalkDisabled" = true;
+  #    "BraveWebDiscoveryEnabled" = false;
+  #  };
+  #};
 
   # https://nixos.wiki/wiki/Fonts
   fonts.packages = builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
@@ -215,7 +244,7 @@ in {
   nixpkgs.config.allowUnfree = true;
   # List packages installed in system profile. To search, run: $ nix search wget
   environment.systemPackages = with pkgs; [
-    pinta
+    pinta #painter
     wget
     tree #ls alternative
     neovim
@@ -230,23 +259,23 @@ in {
     discord
     proton-vpn
     audacity
-    remmina
+    #remmina
     fastfetch
     kitty # needed for hyprland
     psmisc # killall
     usbutils # lsusb
     lshw # hardwareinfo
     pciutils #lspci etc
-    dmidecode
+    dmidecode #info about bios
     ethtool
     cmatrix #for fun
     pavucontrol #audio device settings
     swayosd #OSD for volume and brightness
-    hyprlock
+    #hyprlock
     swaynotificationcenter
     libnotify
     # Else
-    networkmanagerapplet
+    #networkmanagerapplet
     rofi
     brightnessctl
     playerctl
@@ -255,10 +284,10 @@ in {
     teams-for-linux
     nautilus
     polkit_gnome
+    xeyes #troubleshoot xwayland
+    xdg-desktop-portal-gtk
+    unzip
   ];
 
-  services.tailscale.enable = true;
-  #environment.systemPackages = pkgs.tail-tray;
-
-  system.stateVersion = "${stateVersion}";
+  system.stateVersion = "${vars.system.stateVersion}";
 }

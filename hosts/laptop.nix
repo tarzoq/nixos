@@ -3,7 +3,7 @@
 {
   imports =
     [
-      ./modules/hibernate.nix
+      ../modules/hibernate.nix
     ];
   #https://nixos.wiki/wiki/Laptop
   services.tlp = {
@@ -23,5 +23,9 @@
       START_CHARGE_THRESH_BAT0 = 40;
       STOP_CHARGE_THRESH_BAT0 = 100; 
       };
+  };
+  services.hardware.openrgb = {
+    enable = true;
+    package = pkgs.openrgb-with-all-plugins;
   };
 }

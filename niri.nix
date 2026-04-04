@@ -25,5 +25,6 @@
     swayidle
     mako
     xwayland-satellite
+    jq #required for json one-liner command
   ];
 }

@@ -6,20 +6,44 @@ prefer-no-csd
 // Input device configuration.
 // Find the full list of options on the wiki:
 
+// Add lines like this to spawn processes at startup.
+// Note that running niri as a session supports xdg-desktop-autostart,
+// which may be more convenient to use.
+// See the binds section below for more spawn examples.
+
+debug {
+    wait-for-frame-completion-before-queueing
+}
+
+// This line starts waybar, a commonly used bar for Wayland compositors.
+spawn-sh-at-startup "noctalia-shell"
+spawn-sh-at-startup "tailscale systray"
+
+// To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
+// spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
+
 environment {
     // Tvingar Electron-appar som Brave att använda Wayland
     ELECTRON_OZONE_PLATFORM_HINT "auto"
     
-    // NVIDIA-specifika drivrutiner för hårdvaruacceleration
-    LIBVA_DRIVER_NAME "nvidia"
-    __GLX_VENDOR_LIBRARY_NAME "nvidia"
-    
-    // Förbättrar VA-API stöd på NVIDIA
-    NVD_BACKEND "direct"
+    //// NVIDIA-specifika drivrutiner för hårdvaruacceleration
+    //LIBVA_DRIVER_NAME "nvidia"
+    //__GLX_VENDOR_LIBRARY_NAME "nvidia"
+    //
+    //// Förbättrar VA-API stöd på NVIDIA
+    //NVD_BACKEND "direct"
     
     // Standard Wayland-identifierare (motsvarar XDG_CURRENT_DESKTOP)
     XDG_CURRENT_DESKTOP "niri"
     XDG_SESSION_TYPE "wayland"
+
+    //https://www.reddit.com/r/niri/comments/1m8zpx4/comment/ncgkcbf/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+    //GSK_RENDERER "ngl"
+    // For GTK3/4 apps (like Audacity)
+    //GDK_SCALE "1" 
+      
+    // For Qt apps
+    //QT_SCALE_FACTOR "1"
 }
 
 
@@ -50,21 +74,23 @@ input {
     touchpad {
         // off
         tap
-        // dwt
-        // dwtp
+        dwt
+        dwtp
         // drag false
-        // drag-lock
+        drag-lock
         natural-scroll
-        // accel-speed 0.2
+	scroll-factor 0.7
+        accel-speed 0.2
         accel-profile "flat"
-        // scroll-method "two-finger"
+        scroll-method "two-finger"
         // disabled-on-external-mouse
     }
 
     mouse {
         // off
         // natural-scroll
-        // accel-speed 0.2
+        accel-speed -0.5
+	//scroll-factor 0.5
         accel-profile "flat"
         // scroll-method "no-scroll"
     }
@@ -72,9 +98,9 @@ input {
     trackpoint {
         // off
         // natural-scroll
-        // accel-speed 0.2
+        accel-speed 0.0
         accel-profile "flat"
-        // scroll-method "on-button-down"
+        scroll-method "on-button-down"
         // scroll-button 273
         // scroll-button-lock
         // middle-emulation
@@ -87,6 +113,11 @@ input {
     // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
     focus-follows-mouse max-scroll-amount="25%"
 }
+
+//output "eDP-1" {
+//    mode "1920x1200"
+//    scale 1
+//}
 
 // You can configure outputs by their name, which you can find
 // by running `niri msg outputs` while inside a niri instance.
@@ -151,16 +182,22 @@ layout {
         // Proportion sets the width as a fraction of the output width, taking gaps into account.
         // For example, you can perfectly fit four windows sized "proportion 0.25" on an output.
         // The default preset widths are 1/3, 1/2 and 2/3 of the output.
-        proportion 0.33333
+        proportion 0.33334
         proportion 0.5
         proportion 0.66667
+	//proportion 1.0
 
         // Fixed sets the width in logical pixels exactly.
         // fixed 1920
     }
 
     // You can also customize the heights that "switch-preset-window-height" (Mod+Shift+R) toggles between.
-    // preset-window-heights { }
+    preset-window-heights {
+        proportion 0.33334
+        proportion 0.5
+        proportion 0.66667
+        proportion 1.0
+    }
 
     // You can change the default width of the new windows.
     default-column-width { proportion 0.5; }
@@ -287,17 +324,6 @@ layout {
     }
 }
 
-// Add lines like this to spawn processes at startup.
-// Note that running niri as a session supports xdg-desktop-autostart,
-// which may be more convenient to use.
-// See the binds section below for more spawn examples.
-
-// This line starts waybar, a commonly used bar for Wayland compositors.
-//spawn-at-startup "noctalia-shell"
-
-// To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
-// spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
-
 hotkey-overlay {
     // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
     skip-at-startup
@@ -324,9 +350,11 @@ screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 animations {
     // Uncomment to turn off all animations.
     // off
-
+    workspace-switch {
+        spring damping-ratio=1.0 stiffness=1000 epsilon=0.0001
+    }
     // Slow down all animations by this factor. Values below 1 speed them up instead.
-    // slowdown 3.0
+    slowdown 0.9
 }
 
 // Window rules let you adjust behavior for individual windows.
@@ -343,14 +371,14 @@ window-rule {
     default-column-width {}
 }
 
-// Open the Firefox picture-in-picture player as floating by default.
-window-rule {
-    // This app-id regular expression will work for both:
-    // - host Firefox (app-id is "firefox")
-    // - Flatpak Firefox (app-id is "org.mozilla.firefox")
-    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
-    open-floating true
-}
+//// Open the Bitwarden as floating by default.
+//window-rule {
+//    // This app-id regular expression will work for both:
+//    // - host Firefox (app-id is "firefox")
+//    // - Flatpak Firefox (app-id is "org.mozilla.firefox")
+//    match app-id="brave" title="^Bitwarden$"
+//    open-floating true
+//}
 
 // Example: block out two password managers from screen capture.
 // (This example rule is commented out with a "/-" in front.)
@@ -368,13 +396,20 @@ window-rule {
 window-rule {
     geometry-corner-radius 12
     clip-to-geometry true
-    opacity 0.95
+    opacity 0.9
     draw-border-with-background false //https://www.reddit.com/r/niri/comments/1qa1m97/opacity_in_alacritty/
 }
 
 window-rule {
     match app-id="brave" title="YouTube"
     opacity 1.0
+}
+
+//workaround for brave/chromium browsers on wayland reading raw libinput instead of scroll stack
+window-rule {
+    match app-id="brave"
+    match app-id="discord"
+    scroll-factor 0.15
 }
 
 binds {
@@ -389,14 +424,20 @@ binds {
     // `niri msg action do-something`.
 
     Mod+Shift+Period { show-hotkey-overlay; }
+    // Rotate screen with AltGr + Arrow
+    Mod5+Left hotkey-overlay-title="Rotate screen: left" { spawn-sh "niri msg output $(niri msg --json focused-output | jq -r '.name') transform 90"; }
+    Mod5+Up hotkey-overlay-title="Rotate screen: up" { spawn-sh "niri msg output $(niri msg --json focused-output | jq -r '.name') transform normal"; }
+    Mod5+Right hotkey-overlay-title="Rotate screen: right" { spawn-sh "niri msg output $(niri msg --json focused-output | jq -r '.name') transform 270"; }
+    Mod5+Down hotkey-overlay-title="Rotate screen: down" { spawn-sh "niri msg output $(niri msg --json focused-output | jq -r '.name') transform 180"; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     //Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Mod+W hotkey-overlay-title="Run an Application: rofi" { spawn-sh "pkill rofi || rofi -show drun -show-icons"; }
     Mod+B hotkey-overlay-title="Run an Application: brave" { spawn "brave"; }
-    Super+Alt+L hotkey-overlay-title="Lock the Screen: hyprlock" { spawn-sh "hyprlock"; }
-
+    Super+Alt+L hotkey-overlay-title="Lock the Screen: hyprlock" { spawn-sh "loginctl lock-session"; }
+    //noctalia-shell ipc show
+    Mod+Shift+G hotkey-overlay-title="Noctalia: Background" { spawn-sh "noctalia-shell ipc call wallpaper toggle"; }
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
     // For example, this is a standard bind to toggle the screen reader (orca).
@@ -437,7 +478,9 @@ binds {
     Mod+Right { focus-column-right; }
     Mod+H     { focus-column-left; }
     Mod+J     { focus-window-down; }
+    //Mod+J     { focus-window-or-workspace-down; }
     Mod+K     { focus-window-up; }
+    //Mod+K     { focus-window-or-workspace-up; }
     Mod+L     { focus-column-right; }
 
     Mod+Ctrl+Left  { move-column-left; }
@@ -647,12 +690,13 @@ binds {
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
     // The quit action will show a confirmation dialog to avoid accidental exits.
-    Mod+Shift+E { quit; }
-    Ctrl+Alt+Delete { quit; }
+    Mod+Shift+Q { quit; }
+    //Ctrl+Alt+Delete { quit; }
+    Ctrl+Alt+Delete hotkey-overlay-title="Suspend" { spawn-sh "systemctl suspend"; }
 
     // Powers off the monitors. To turn them back on, do any input like
     // moving the mouse or pressing any other key.
     Mod+Shift+P { power-off-monitors; }
 }
 
-include "dms/cursor.kdl"
+include "cursor.kdl"
