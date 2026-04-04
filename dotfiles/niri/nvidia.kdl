@@ -1,0 +1,6 @@
+environment {
+    LIBVA_DRIVER_NAME "nvidia"
+    __GLX_VENDOR_LIBRARY_NAME "nvidia"
+    // Förbättrar VA-API stöd på NVIDIA
+    NVD_BACKEND "direct"
+}

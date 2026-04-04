@@ -4,6 +4,11 @@
    enable = true;
   };
 
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    config.common.default = "gtk";
+  };
   xdg.portal.config.niri = {
     "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ]; # or "kde"
   };
@@ -26,5 +31,6 @@
     mako
     xwayland-satellite
     jq #required for json one-liner command
+    #xdg-desktop-portal-gtk #troubleshoot audacity gtk scaling issue
   ];
 }

@@ -120,6 +120,7 @@
   # remember Wi-Fi passwords
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.gdm.enableGnomeKeyring = true;
+  #services.dbus.packages = [ pkgs.gnome-keyring ];
 
   # noctalia
   services.power-profiles-daemon.enable = false;
@@ -193,49 +194,32 @@
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
 
+  programs.vscode.enable = true;
+
   programs.steam.enable = true;
-  #programs.thunar.enable = true;
 
-  #programs.git = {
-  #  enable = true;
-  #  #config = {
-  #  #  safe = { # needed for home-manager
-  #  #  	directory = "/etc/nixos";
-  #  #  };
-  #  #};
-  #  settings = {
-  #    user = {
-  #      name = "${vars.user.alias}";
-  #      email = "${vars.user.email}";
-  #    };
-  #    credential-helper = "${
-  #        pkgs.git.override { withLibsecret = true; }
-  #      }/bin/git-credential-libsecret";
-  #  };
-  #};
-
-  #programs.chromium = {
-  #  enable = true;
-  #  homepageLocation = "https://homepage.tarzoq.com";
-  #  #https://discourse.nixos.org/t/is-there-a-way-to-force-disable-private-window-with-tor-from-brave-at-installation-time/74920
-  #  #extensions = [
-  #  #  "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
-  #  #];
-  #  extraOpts = {
-  #    "RestoreOnStartup" = 1; # 1 = Load a specific URL
-  #    "RestoreOnStartupURLs" = [ "https://homepage.tarzoq.com" ];
-  #    "NewTabPageLocation" = "https://homepage.tarzoq.com"; # Specific to new tabs
-  #    #https://support.brave.app/hc/en-us/articles/360039248271-Group-Policy
-  #    "TorDisabled" = true;
-  #    "BraveRewardsDisabled" = true;
-  #    "BraveWalletDisabled" = true;
-  #    "BraveVPNDisabled" = true;
-  #    "BraveAIChatEnabled" = false;
-  #    "BraveNewsDisabled" = true;
-  #    "BraveTalkDisabled" = true;
-  #    "BraveWebDiscoveryEnabled" = false;
-  #  };
-  #};
+  programs.chromium = {
+    enable = true;
+    homepageLocation = "https://homepage.tarzoq.com";
+    #https://discourse.nixos.org/t/is-there-a-way-to-force-disable-private-window-with-tor-from-brave-at-installation-time/74920
+    #extensions = [
+    #  "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
+    #];
+    extraOpts = {
+      "RestoreOnStartup" = 1; # 1 = Load a specific URL
+      "RestoreOnStartupURLs" = [ "https://homepage.tarzoq.com" ];
+      "NewTabPageLocation" = "https://homepage.tarzoq.com"; # Specific to new tabs
+      #https://support.brave.app/hc/en-us/articles/360039248271-Group-Policy
+      "TorDisabled" = true;
+      "BraveRewardsDisabled" = true;
+      "BraveWalletDisabled" = true;
+      "BraveVPNDisabled" = true;
+      "BraveAIChatEnabled" = false;
+      "BraveNewsDisabled" = true;
+      "BraveTalkDisabled" = true;
+      "BraveWebDiscoveryEnabled" = false;
+    };
+  };
 
   # https://nixos.wiki/wiki/Fonts
   fonts.packages = builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
@@ -251,7 +235,6 @@
     gnome-text-editor
     brave
     gimp
-    vscode
     ffmpeg
     yt-dlp
     mpv #media player
@@ -259,7 +242,6 @@
     discord
     proton-vpn
     audacity
-    #remmina
     fastfetch
     kitty # needed for hyprland
     psmisc # killall
@@ -285,7 +267,6 @@
     nautilus
     polkit_gnome
     xeyes #troubleshoot xwayland
-    xdg-desktop-portal-gtk
     unzip
   ];
 
