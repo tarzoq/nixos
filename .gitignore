@@ -7,3 +7,5 @@ result-*
 
 # Gets overwritten by template.nix
 configuration.nix
+#contains more personal information
+variables.nix

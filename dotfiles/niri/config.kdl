@@ -32,8 +32,8 @@ input {
         // off
         tap
         dwt //disable when typing
-        dwtp //disable when trackpoint
-        // drag false
+	dwtp //disable when trackpointing
+        drag true
         drag-lock
         natural-scroll
 	scroll-factor 0.7
@@ -104,7 +104,7 @@ output "PNP(AOC) 2460G4 0x000000DC" {
 output "LG Electronics LG ULTRAWIDE 0x00021E47" {
     mode "3440x1440"
     scale 1
-    position x=1920 y=0
+    position x=1920 y=40
 }
 
 // Settings that influence how windows are positioned and sized.
@@ -184,7 +184,7 @@ animations {
     workspace-switch {
         spring damping-ratio=1.0 stiffness=1000 epsilon=0.0001
     }
-    slowdown 0.9
+    slowdown 0.5
 }
 
 //all windows

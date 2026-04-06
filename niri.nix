@@ -4,31 +4,21 @@
    enable = true;
   };
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-    config.common.default = "gtk";
-  };
+  #xdg.portal = {
+  #  enable = true;
+  #  extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  #  config.common.default = "gtk";
+  #};
   xdg.portal.config.niri = {
-    "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ]; # or "kde"
+    "org.freedesktop.impl.portal.FileChooser" = [ "kde" ]; # or "kde"
   };
 
-  #https://www.reddit.com/r/NixOS/comments/1qo9alr/need_help_with_gdmhyprlanduwsm_problem/
-  #https://github.com/NixOS/nixpkgs/issues/484328
-  #https://github.com/NixOS/nixpkgs/commit/9128dd3103ce1305cd8e2d4dde2f249608447b4c
-  #programs.uwsm = {
-  #  enable = true;
-  #  waylandCompositors = {
-  #    hyprland = {
-  #      prettyName = "Hyprland";
-  #      comment = "Hyprland compositor managed by UWSM";
-  #      binPath = "/run/current-system/sw/bin/start-hyprland";
-  #    };
-  #  };
-  #};
+  programs.hyprlock.enable = true;
+  security.pam.services.hyprlock = {};
+
   environment.systemPackages = with pkgs; [
-    swayidle
-    mako
+    alacritty #ICE, standard term by niri
+    mako #needed for niri config notifications
     xwayland-satellite
     jq #required for json one-liner command
     #xdg-desktop-portal-gtk #troubleshoot audacity gtk scaling issue

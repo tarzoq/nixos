@@ -6,6 +6,7 @@
       #./hypr.nix
       ./niri.nix
       ./modules/tailscale.nix
+      ./modules/thunar.nix
       ./hosts/laptop.nix
       #./hosts/pc.nix
     ];
@@ -112,8 +113,6 @@
       obs-vkcapture
     ];
   };
-
-  #security.pam.services.hyprlock = {};
 
   # niri
   security.polkit.enable = true;
@@ -231,6 +230,7 @@
     pinta #painter
     wget
     tree #ls alternative
+    bat #better looking cat
     neovim
     gnome-text-editor
     brave
@@ -252,7 +252,7 @@
     ethtool
     cmatrix #for fun
     pavucontrol #audio device settings
-    swayosd #OSD for volume and brightness
+    #swayosd #OSD for volume and brightness
     #hyprlock
     swaynotificationcenter
     libnotify
@@ -264,10 +264,11 @@
     btop
     spotify
     teams-for-linux
-    nautilus
+    #nautilus
     polkit_gnome
     xeyes #troubleshoot xwayland
     unzip
+    #nemo-with-extensions #https://wiki.nixos.org/wiki/Nemo 
   ];
 
   system.stateVersion = "${vars.system.stateVersion}";

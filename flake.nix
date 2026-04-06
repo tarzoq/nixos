@@ -1,11 +1,8 @@
 {
-  #description = "A very basic flake";
+  description = "A very basic flake";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-
-    #flake-parts.url = "github:hercules-ci/flake-parts";
-    #import-tree.url = "github:vic/import-tree";
 
     #nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
@@ -47,6 +44,7 @@
             useUserPackages = true;
             users."${vars.user.name}" = import ./home.nix;
             backupFileExtension = "backup";
+	    overwriteBackup = true;
 	    extraSpecialArgs = {
 	      inherit vars;
 	    };

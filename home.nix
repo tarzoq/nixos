@@ -1,8 +1,9 @@
 { config, pkgs, vars, ... }:
-
 {
   imports = [
-    ./hm/hypridle.nix
+    ./modules/autostart.nix
+    #./hm/hypridle.nix
+    ./hm/swayidle.nix
     ./hm/cursor.nix
   ];
 
@@ -20,8 +21,8 @@
     recursive = true;
   };
 
-  xdg.configFile."hypr/hyprland.conf" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/dotfiles/hyprland/hyprland.conf";
+  xdg.configFile."hypr" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/dotfiles/hypr";
     recursive = true;
   };
 
@@ -36,15 +37,21 @@
   };
   xdg.configFile."rofi" = {
     source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/dotfiles/rofi";
+    recursive = true;
   };
 
   programs.bash = {
     enable = true;
     shellAliases = {
       btw = "echo i use nixos, btw";
+
       nrs = "sudo nixos-rebuild switch --impure --flake ~/nixos";
-      nru = "sudo nix flake update --flake ~/nixos && nrb";
       nrb = "sudo nixos-rebuild boot --impure --flake ~/nixos";
+      nru = "sudo nix flake update --flake ~/nixos && nrb";
+      nrup = "sudo nix flake update --flake ~/nixos && nrb && sleep 60 && poweroff";
+
+      nlg = "nixos-rebuild list-generations";
+
       vn = "nvim ~/nixos";
       cn = "cd ~/nixos";
     };
@@ -52,7 +59,6 @@
   
   services.remmina = {
     enable = true;
-    systemdService.enable = false;
   };
 
   #https://nixos.wiki/wiki/Git

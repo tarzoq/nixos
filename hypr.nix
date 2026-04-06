@@ -23,7 +23,7 @@
     };
   };
   environment.systemPackages = with pkgs; [
-    hyprlock
+    #hyprlock
     jq #json parser, required for zooming in and out
     libsForQt5.qt5.qtwayland
     kdePackages.qtwayland
