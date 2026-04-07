@@ -28,13 +28,13 @@
     };
     vars = import ./variables.nix;
   in {
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+    nixosConfigurations."${vars.system.hostname}" = nixpkgs.lib.nixosSystem {
       specialArgs = {
         inherit inputs;
 	inherit vars;
       };
       modules = [
-        ./configuration.nix
+        ./hosts/${vars.system.hostname}
 	./noctalia.nix
 
         home-manager.nixosModules.home-manager

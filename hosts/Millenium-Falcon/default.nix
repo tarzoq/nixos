@@ -1,6 +1,9 @@
 { config, pkgs, ... }:
-
 {
+  imports =
+    [
+      ../../configuration.nix
+    ];
   # boot.kernelParams = [ "nvidia-drm.modeset=1" ]; #suggested by ai, not found anywhere else, didn't change anything when I tried it
   #https://wiki.nixos.org/wiki/NVIDIA
   services.xserver.videoDrivers = [ "nvidia" ];

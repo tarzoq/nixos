@@ -3,7 +3,8 @@
 {
   imports =
     [
-      ../modules/hibernate.nix
+      ../../configuration.nix
+      ../../modules/hibernate.nix
     ];
   #https://nixos.wiki/wiki/Laptop
   services.tlp = {

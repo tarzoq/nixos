@@ -7,8 +7,6 @@
       ./niri.nix
       ./modules/tailscale.nix
       ./modules/thunar.nix
-      ./hosts/laptop.nix
-      #./hosts/pc.nix
     ];
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1"; # force applications to use wayland
@@ -269,7 +267,9 @@
     xeyes #troubleshoot xwayland
     unzip
     #nemo-with-extensions #https://wiki.nixos.org/wiki/Nemo 
+    kdePackages.okular #pdf viewer
   ];
+  programs.evince.enable = true;
 
   system.stateVersion = "${vars.system.stateVersion}";
 }

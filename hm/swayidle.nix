@@ -1,12 +1,19 @@
 { config, pkgs, ... }:
 let
-  lock = "${pkgs.procps}/bin/pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock &";
+  hyprlock = "${pkgs.hyprlock}/bin/hyprlock";
+  pidof = "${pkgs.procps}/bin/pidof";
+
+  offScreenIfLocked = "${pidof} hyprlock && ${display "off"}"; #turn screen off if hyprlock is running
+   
+  lock = "${pidof} hyprlock || ${hyprlock} &"; #only run hyprlock if hyprlock isn't already running
   suspend = "${pkgs.systemd}/bin/systemctl suspend";
   display = status: "${pkgs.niri}/bin/niri msg action power-${status}-monitors";
 
   brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
-  lowerScreenAndKeyboard = "${brightnessctl} -s set 10 && ${brightnessctl} --device='*kbd_backlight' --save set 0"; #almost lowest
-  restoreScreenAndKeyboard = "${brightnessctl} -r && ${brightnessctl} --device='*kbd_backlight' --restore"; #restore
+  lowerScreen = "${brightnessctl} -s set 10"; #almost lowest
+  lowerKeyboard = "${brightnessctl} --device='*kbd_backlight' --save set 0";
+  restoreScreen = "${brightnessctl} -r"; #restore
+  restoreKeyboard = "${brightnessctl} --device='*kbd_backlight' --restore"; #restore
 
   #status can be either "ac" or "bat"
   onPower = status: cmd: 
@@ -16,30 +23,29 @@ in {
   services.swayidle = {
     enable = true;
     timeouts = [
-      ############ Lock (used for both) ###############
-      {
-        timeout = 5 * 60 - 5; # 5sec before lock
+      ########### Battery #############
+      { #keyboard backlight
+        timeout = 1 * 60;
+        command = onPower "bat" "${lowerKeyboard}";
+        resumeCommand = restoreKeyboard;
+      }
+      { #screen backlight
+        timeout = builtins.floor (2.5 * 60); #otherwise results in float (NUMBER.0)
+        command = onPower "bat" "${lowerScreen}";
+        resumeCommand = restoreScreen;
+      }
+      { #reminder screen locking in 5 sec
+        timeout = 3 * 60 - 5; # 5sec before lock
         command = "${pkgs.libnotify}/bin/notify-send 'Locking in 5 seconds' -t 5000";
       }
-      {
-        timeout = 5 * 60;
+      { #lock screen
+        timeout = 3 * 60;
         command = lock;
-      }
-      {
-        timeout = 5 * 60 + 1 * 60; #1min after lock
-	command = display "off";
-      }
-
-      ########### Battery #############
-      { #screen backlight and keyboard
-        timeout = builtins.floor (2.5 * 60); #otherwise results in float (NUMBER.0)
-        command = onPower "ac" "${lowerScreenAndKeyboard}";
-        resumeCommand = restoreScreenAndKeyboard;
       }
       { #screen off
         timeout = 5 * 60;
         command = onPower "bat" "${display "off"}";
-	resumeCommand = "${display "on"}; ${restoreScreenAndKeyboard}";
+	resumeCommand = "${display "on"}"; #should not require restoreScreen and Keyboard, since that is already done by the other resumesCommands
       }
       { #suspend
         timeout = 10 * 60;
@@ -47,21 +53,38 @@ in {
       }
 
       ############# AC ###############
-      { #screen backlight and keyboard
-        timeout = 15 * 60;
-        #command = display "off";
-        command = onPower "ac" "${lowerScreenAndKeyboard}";
-        #resumeCommand = display "on";
-        resumeCommand = restoreScreenAndKeyboard;
+      { #keyboard backlight
+        timeout = 5 * 60;
+        command = onPower "ac" "${lowerKeyboard}";
+        resumeCommand = restoreKeyboard;
+      }
+      { #screen backlight
+        timeout = builtins.floor (9.5 * 60);
+        command = onPower "ac" "${lowerScreen}";
+        resumeCommand = restoreScreen;
+      }
+      { #reminder screen locking in 5 sec
+        timeout = 10 * 60 - 5; # 5sec before lock
+        command = "${pkgs.libnotify}/bin/notify-send 'Locking in 5 seconds' -t 5000";
+      }
+      { #lock screen
+        timeout = 10 * 60;
+        command = lock;
       }
       { #screen off
-        timeout = 20 * 60;
+        timeout = 11 * 60;
         command = onPower "ac" "${display "off"}";
-	resumeCommand = "${display "on"}; ${restoreScreenAndKeyboard}";
+	resumeCommand = "${display "on"}";
       }
       { #suspend
-        timeout = 30 * 60;
+        timeout = 20 * 60;
         command = onPower "ac" "${suspend}";
+      }
+
+      ############ Lock (used for both) ###############
+      {
+        timeout = 1 * 60; #1min after lock, only turns off screen lock is manually triggered
+	command = offScreenIfLocked;
       }
     ];
     events = { #standard events that make for example "loginctl lock-session" work, and intercept logind
