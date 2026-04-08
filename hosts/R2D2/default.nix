@@ -1,8 +1,11 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports =
     [
+      # add your model from this list: https://github.com/NixOS/nixos-hardware/blob/master/flake.nix
+      #inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t14s-amd-gen4
+
       ../../configuration.nix
       ../../modules/hibernate.nix
     ];

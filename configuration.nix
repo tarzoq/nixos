@@ -5,6 +5,7 @@
       /etc/nixos/hardware-configuration.nix
       #./hypr.nix
       ./niri.nix
+      ./noctalia.nix
       ./modules/tailscale.nix
       ./modules/thunar.nix
     ];
@@ -56,7 +57,6 @@
   networking.networkmanager.enable = true;
 
   #https://nixos.wiki/wiki/Bluetooth
-  #services.blueman.enable = true;
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
@@ -90,10 +90,6 @@
     LC_TIME = "sv_SE.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  # You can disable this if you're only using the Wayland session.
-  #services.xserver.enable = true;
- 
   programs.obs-studio = {
     enable = true;
     # optional Nvidia hardware acceleration
@@ -251,24 +247,23 @@
     cmatrix #for fun
     pavucontrol #audio device settings
     #swayosd #OSD for volume and brightness
-    #hyprlock
     swaynotificationcenter
     libnotify
     # Else
-    #networkmanagerapplet
     rofi
     brightnessctl
     playerctl
     btop
     spotify
     teams-for-linux
-    #nautilus
     polkit_gnome
     xeyes #troubleshoot xwayland
     unzip
     #nemo-with-extensions #https://wiki.nixos.org/wiki/Nemo 
     kdePackages.okular #pdf viewer
+    #(python3.withPackages (p: [ p.requests ])) #https://discourse.nixos.org/t/most-straightforward-way-to-install-python/67506/3
   ];
+
   programs.evince.enable = true;
 
   system.stateVersion = "${vars.system.stateVersion}";
