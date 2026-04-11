@@ -18,7 +18,17 @@ let
   #status can be either "ac" or "bat"
   onPower = status: cmd: 
     let condition = if status == "ac" then "-eq 1" else "-ne 1";
-    in "${pkgs.bash}/bin/bash -c '[[ \$(${pkgs.coreutils}/bin/cat /sys/class/power_supply/AC/online) ${condition} ]] && ${cmd}'";
+    in "${pkgs.bash}/bin/bash -c '[[ $(${pkgs.coreutils}/bin/cat /sys/class/power_supply/AC/online) ${condition} ]] && ${cmd}'";
+
+  #only runs consecutive command (notHibernating && ...) if system isn't hibernating. This since I have FDE, where I want autologin directly, unlike normal suspend.
+  #notHibernating = pkgs.writeShellScript "not-hibernating" ''
+  #  if ${pkgs.systemd}/bin/systemctl is-active --quiet hibernate.target; then
+  #    exit 1
+  #  else
+  #    exit 0 
+  #  fi
+  #'';
+  #lockIfNotHibernate = "${pkgs.bash}/bin/bash -c '${pkgs.systemd}/bin/systemctl is-active --quiet hibernate.target && exit; ${lock}'";
 in {
   services.swayidle = {
     enable = true;
@@ -90,7 +100,6 @@ in {
     events = { #standard events that make for example "loginctl lock-session" work, and intercept logind
       "before-sleep" = "${display "off"}; ${lock}";
       "after-resume" = "${display "on"}";
-      #"lock" = "${display "off"}; ${lock}";
       "lock" = "${lock}";
       "unlock" = "${display "on"}";
     };

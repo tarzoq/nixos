@@ -9,8 +9,8 @@ debug {
     honor-xdg-activation-with-invalid-serial //allows notification actions and window activation from Noctalia
 }
 
-spawn-sh-at-startup "noctalia-shell"
-spawn-sh-at-startup "tailscale systray"
+spawn-sh-at-startup "pidof noctalia-shell || noctalia-shell"
+spawn-sh-at-startup "pidof tailscale systray || tailscale systray"
 
 environment {
     ELECTRON_OZONE_PLATFORM_HINT "auto" // Tvingar Electron-appar som Brave att använda Wayland
@@ -229,8 +229,10 @@ window-rule {
     // block-out-from "screencast"
 }
 
+//full opacity
 window-rule {
     match app-id="brave" title="YouTube"
+    match app-id="Pinta"
     opacity 1.0
 }
 
@@ -265,12 +267,13 @@ binds {
 
     //noctalia-shell ipc show
     Mod+Shift+G hotkey-overlay-title="Noctalia: Background" { spawn-sh "noctalia-shell ipc call wallpaper toggle"; }
+    Mod+X hotkey-overlay-title="Noctalia: Powermenu" { spawn-sh "noctalia-shell ipc call sessionMenu toggle"; }
 
     //Super+Ctrl+Return allow-when-locked=true hotkey-overlay-title="Screen reader (Orca)" { spawn-sh "pkill orca || exec orca"; }
 
     // "-l 1.0" limits the volume to 100%.
-    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+ -l 1.0"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-"; }
     XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
     XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
 

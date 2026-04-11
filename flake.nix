@@ -26,12 +26,12 @@
     #    allowUnfree = true;
     #  };
     #};
-    vars = import /etc/nixos/variables.nix; #just a symlink, still edited directly from repo (which is gitignored as to not have it be public)
+    vars = import /etc/nixos/variables.nix; #just a symlink, still edited directly from ./ (which is gitignored as to not have it commited to public repo)
   in {
     nixosConfigurations.${vars.system.hostname} = nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs vars; };
       modules = [
-        ./hosts/${vars.system.hostname}
+        ./hosts/${vars.system.hostname}.nix
 
         home-manager.nixosModules.home-manager
         {
@@ -40,8 +40,8 @@
             useUserPackages = true;
             users.${vars.user.name} = import ./home.nix;
             backupFileExtension = "backup";
-	    overwriteBackup = true;
-	    extraSpecialArgs = { inherit vars; };
+            overwriteBackup = true;
+            extraSpecialArgs = { inherit vars;};
           };
         }
       ];

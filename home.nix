@@ -1,10 +1,10 @@
 { config, pkgs, vars, ... }:
 {
   imports = [
-    ./modules/autostart.nix
-    #./hm/hypridle.nix
-    ./hm/swayidle.nix
-    ./hm/cursor.nix
+    ./home/autostart.nix
+    #./home/hyprlock.nix
+    ./home/swayidle.nix
+    ./home/cursor.nix
   ];
 
   home.username = "${vars.user.name}";
@@ -22,21 +22,23 @@
   };
 
   xdg.configFile."hypr" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/dotfiles/hypr";
+    source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/config/hypr";
     recursive = true;
   };
-
   xdg.configFile."niri" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/dotfiles/niri";
+    source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/config/niri";
     recursive = true;
   };
-
   xdg.configFile."kitty" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/dotfiles/kitty";
+    source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/config/kitty";
     recursive = true;
   };
   xdg.configFile."rofi" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/dotfiles/rofi";
+    source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/config/rofi";
+    recursive = true;
+  };
+  xdg.configFile."noctalia" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/config/noctalia";
     recursive = true;
   };
 
@@ -54,6 +56,8 @@
 
       vn = "nvim ~/nixos";
       cn = "cd ~/nixos";
+
+      ding = "ffplay -nodisp -autoexit ${vars.user.home}/nixos/home/stash/winfin.mp3 > /dev/null 2>&1"; #command to put at end to signify when finished
     };
   };
   

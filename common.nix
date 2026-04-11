@@ -3,11 +3,11 @@
   imports =
     [
       /etc/nixos/hardware-configuration.nix
-      #./hypr.nix
-      ./niri.nix
-      ./noctalia.nix
-      ./modules/tailscale.nix
-      ./modules/thunar.nix
+      #./modules/hypr.nix
+      ./modules/niri.nix
+      ./modules/noctalia.nix
+      ./modules/programs/tailscale.nix
+      ./modules/programs/thunar.nix
     ];
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1"; # force applications to use wayland
@@ -71,10 +71,8 @@
     };
   };
 
-  # Set your time zone.
   time.timeZone = "Europe/Stockholm";
 
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
   # run "locale" to view all fields
@@ -106,6 +104,12 @@
       obs-gstreamer
       obs-vkcapture
     ];
+  };
+
+  #https://wiki.nixos.org/wiki/OpenRGB
+  services.hardware.openrgb = { #motherboard (cpu-brand) shall be specified in host-config
+    enable = true;
+    package = pkgs.openrgb-with-all-plugins;
   };
 
   # niri
@@ -178,7 +182,7 @@
   #programs.zsh.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users."${vars.user.name}" = {
+  users.users.${vars.user.name} = {
     isNormalUser = true;
     description = "${vars.user.name}";
     extraGroups = [ "networkmanager" "wheel" "keyd" "video" "render" ];
@@ -193,15 +197,15 @@
 
   programs.chromium = {
     enable = true;
-    homepageLocation = "https://homepage.tarzoq.com";
+    homepageLocation = "${vars.misc.browserHomepage}";
     #https://discourse.nixos.org/t/is-there-a-way-to-force-disable-private-window-with-tor-from-brave-at-installation-time/74920
     #extensions = [
     #  "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
     #];
     extraOpts = {
       "RestoreOnStartup" = 1; # 1 = Load a specific URL
-      "RestoreOnStartupURLs" = [ "https://homepage.tarzoq.com" ];
-      "NewTabPageLocation" = "https://homepage.tarzoq.com"; # Specific to new tabs
+      "RestoreOnStartupURLs" = [ "${vars.misc.browserHomepage}" ];
+      "NewTabPageLocation" = "${vars.misc.browserHomepage}"; # Specific to new tabs
       #https://support.brave.app/hc/en-us/articles/360039248271-Group-Policy
       "TorDisabled" = true;
       "BraveRewardsDisabled" = true;
@@ -259,9 +263,11 @@
     polkit_gnome
     xeyes #troubleshoot xwayland
     unzip
+    #powertop #power draw statistics > https://youtu.be/GG4RzUBoLFs
     #nemo-with-extensions #https://wiki.nixos.org/wiki/Nemo 
     kdePackages.okular #pdf viewer
     #(python3.withPackages (p: [ p.requests ])) #https://discourse.nixos.org/t/most-straightforward-way-to-install-python/67506/3
+    nvtopPackages.full #graphics card task monitor, also works with .amd and .nvidia
   ];
 
   programs.evince.enable = true;

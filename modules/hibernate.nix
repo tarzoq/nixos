@@ -1,37 +1,74 @@
-{ config, ... }:
-
+{ config, lib, ... }:
 {
-  boot.kernelParams = ["resume_offset=65572864"]; # sudo filefrag -v /var/lib/swapfile | head
+  ########## Boilerplate ###########
+  #modules.hibernate.resumeOffset = ;
+  #modules.hibernate.diskUuid = "";
+  #modules.hibernate.ramGb = ;
+  #modules.hibernate.hibernateScript = "";
+  #modules.hibernate.resumeScript = "";
+  ###################################
 
-  boot.resumeDevice = "/dev/disk/by-uuid/253b6ad1-b80b-4441-9081-4e2f54a17782"; # lsblk -f
-  
-  systemd.services.network-before-hibernate = {
-    description = "Stop network before hibernation";
-    before = [ "systemd-hibernate.service" ];
-    wantedBy = [ "systemd-hibernate.service" ];
-    script = ''
-      /run/current-system/sw/bin/modprobe -r ath11k_pci
-      systemctl stop NetworkManager
-    '';
-    serviceConfig.Type = "oneshot";
+  options.modules.hibernate = {
+    resumeOffset = lib.mkOption {
+      type = lib.types.int;
+      default = null;
+    };
+    diskUuid = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+    };
+    ramGb = lib.mkOption {
+      type = lib.types.int;
+      default = 16;
+    };
+    hibernateScript = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      description = "modprobe -r command for your specific Wi-Fi module";
+    };
+    resumeScript = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      description = "modprobe command for your specific Wi-Fi module";
+    };
   };
-  # lspci -k | grep -A3 -i network
-  systemd.services.network-after-hibernate = {
-    description = "Start network after hibernation";
-    after = [ "post-resume.service" ];
-    wantedBy = [ "post-resume.service" ];
-    script = ''
-      sleep 3
-      /run/current-system/sw/bin/modprobe ath11k_pci
-      systemctl start NetworkManager
-    '';
-    serviceConfig.Type = "oneshot";
-  };
+  config = let
+    cfg = config.modules.hibernate;
+    hasSwap = cfg.resumeOffset != null && cfg.diskUuid != null;
+    hasSystemdScripts = cfg.hibernateScript != null && cfg.resumeScript != null;
+  in {
+    boot.kernelParams = lib.mkIf hasSwap [ "resume_offset=${toString cfg.resumeOffset}" ]; # sudo filefrag -v /var/lib/swapfile | head
 
-  swapDevices = [ # https://nixos.wiki/wiki/Hibernation
-    {
-      device = "/var/lib/swapfile";
-      size = 32 * 1024; # 32GB in MB
-    }
-  ];
+    boot.resumeDevice = lib.mkIf hasSwap "/dev/disk/by-uuid/${toString cfg.diskUuid}"; # lsblk -f
+    
+    systemd.services.network-before-hibernate = lib.mkIf hasSystemdScripts {
+      description = "Stop network before hibernation";
+      before = [ "systemd-hibernate.service" ];
+      wantedBy = [ "systemd-hibernate.service" ];
+      script = ''
+	${cfg.hibernateScript}
+        systemctl stop NetworkManager
+      '';
+      serviceConfig.Type = "oneshot";
+    };
+    # lspci -k | grep -A3 -i network
+    systemd.services.network-after-hibernate = lib.mkIf hasSystemdScripts {
+      description = "Start network after hibernation";
+      after = [ "post-resume.service" ];
+      wantedBy = [ "post-resume.service" ];
+      script = ''
+        sleep 3
+	${cfg.resumeScript}
+        systemctl start NetworkManager
+      '';
+      serviceConfig.Type = "oneshot";
+    };
+
+    swapDevices = [ # https://nixos.wiki/wiki/Hibernation
+      {
+        device = "/var/lib/swapfile";
+        size = builtins.floor ((cfg.ramGb * 1024) * 1.1); #current memory * 1.1 (rounded) in GB
+      }
+    ];
+  };
 }
