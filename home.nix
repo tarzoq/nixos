@@ -11,15 +11,15 @@
   home.homeDirectory = "${vars.user.home}";
   home.stateVersion = "${vars.system.stateVersion}";
 
-  #wallpapers: https://github.com/5hubham5ingh/WallRizz/tree/wallpapers
-  home.file."Pictures/Wallpapers/WallRizz" = {
-    source = builtins.fetchGit {
-      url = "https://github.com/5hubham5ingh/WallRizz";
-      ref = "wallpapers";
-        rev = "ff3db3bd13042dfca29b4629fac62e3a2a3289e2";
-    };
-    recursive = true;
-  };
+  ##wallpapers: https://github.com/5hubham5ingh/WallRizz/tree/wallpapers
+  #home.file."Pictures/Wallpapers/WallRizz" = {
+  #  source = builtins.fetchGit {
+  #    url = "https://github.com/5hubham5ingh/WallRizz";
+  #    ref = "wallpapers";
+  #      rev = "ff3db3bd13042dfca29b4629fac62e3a2a3289e2";
+  #  };
+  #  recursive = true;
+  #};
 
   xdg.configFile."hypr" = {
     source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/config/hypr";

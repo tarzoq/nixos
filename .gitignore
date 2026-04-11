@@ -10,3 +10,6 @@ variables.nix
 
 #avoid plugin binaries from being uploaded
 config/noctalia/plugins/
+
+#niri modules
+config/niri/cursor.kdl

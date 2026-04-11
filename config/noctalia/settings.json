@@ -230,8 +230,6 @@
                     "useCustomFont": false
                 },
                 {
-                    "defaultSettings": {
-                    },
                     "id": "plugin:kde-connect"
                 }
             ]
