@@ -166,3 +166,5 @@ configuration {
       sorting-method:    "name";
   }
 }
+
+@theme "/nix/store/x2z809xiyb6ip74zxi0n5sb2vaqf52ry-rofi-2.0.0/share/rofi/themes/Arc-Dark.rasi"

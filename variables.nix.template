@@ -1,13 +1,17 @@
 rec {
   system = {
-    hostname = "";
-    stateVersion = "";
+    hostname = ""; #must be the same as your file in hosts/
+    stateVersion = ""; #for example 25.11
   };
 
   user = {
     name = "";
-    alias = "";
+    alias = ""; #online username for git etc.
     email = "";
-    home = "/home/${user.name}";
+    home = "/home/${user.name}"; #home folder, usually shouldn't be changed
+  };
+
+  misc = {
+    browserHomepage = "";
   };
 }
