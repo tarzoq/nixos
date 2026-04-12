@@ -7,7 +7,9 @@
       ./modules/niri.nix
       ./modules/noctalia.nix
       ./modules/programs/tailscale.nix
-      ./modules/programs/thunar.nix
+      #./modules/programs/thunar.nix
+      ./modules/programs/dolphin.nix
+      ./modules/programs/chromium.nix
     ];
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1"; # force applications to use wayland
@@ -34,6 +36,7 @@
   hardware.graphics.enable32Bit = true;
 
   ##services.systembus-notify.enable = true;
+  #environment.pathsToLink = [ "/share/xdg-desktop-portal" "/share/applications" ]; #if useUserPackages is enabled
 
   # Found somewhere on StackOverFlow
   services.keyd = {
@@ -88,6 +91,7 @@
     LC_TIME = "sv_SE.UTF-8";
   };
 
+  #https://wiki.nixos.org/wiki/OBS_Studio
   programs.obs-studio = {
     enable = true;
     # optional Nvidia hardware acceleration
@@ -105,6 +109,7 @@
       obs-vkcapture
     ];
   };
+  programs.obs-studio.enableVirtualCamera = true;
 
   #https://wiki.nixos.org/wiki/OpenRGB
   services.hardware.openrgb = { #motherboard (cpu-brand) shall be specified in host-config
@@ -192,35 +197,10 @@
   services.libinput.enable = true;
 
   programs.vscode.enable = true;
-
-  programs.steam.enable = true;
-
-  programs.chromium = {
-    enable = true;
-    homepageLocation = "${vars.misc.browserHomepage}";
-    #https://discourse.nixos.org/t/is-there-a-way-to-force-disable-private-window-with-tor-from-brave-at-installation-time/74920
-    #extensions = [
-    #  "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
-    #];
-    extraOpts = {
-      "RestoreOnStartup" = 1; # 1 = Load a specific URL
-      "RestoreOnStartupURLs" = [ "${vars.misc.browserHomepage}" ];
-      "NewTabPageLocation" = "${vars.misc.browserHomepage}"; # Specific to new tabs
-      #https://support.brave.app/hc/en-us/articles/360039248271-Group-Policy
-      "TorDisabled" = true;
-      "BraveRewardsDisabled" = true;
-      "BraveWalletDisabled" = true;
-      "BraveVPNDisabled" = true;
-      "BraveAIChatEnabled" = false;
-      "BraveNewsDisabled" = true;
-      "BraveTalkDisabled" = true;
-      "BraveWebDiscoveryEnabled" = false;
-    };
-  };
+  programs.kdeconnect.enable = true;
 
   # https://nixos.wiki/wiki/Fonts
   fonts.packages = builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
-
 
   nixpkgs.config.allowUnfree = true;
   # List packages installed in system profile. To search, run: $ nix search wget
@@ -230,7 +210,6 @@
     tree #ls alternative
     bat #better looking cat
     neovim
-    gnome-text-editor
     brave
     gimp
     ffmpeg
@@ -254,6 +233,8 @@
     swaynotificationcenter
     libnotify
     # Else
+    cheese #camera
+    kdePackages.kate #notes
     rofi
     brightnessctl
     playerctl

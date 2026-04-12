@@ -5,11 +5,18 @@
     #./home/hyprlock.nix
     ./home/swayidle.nix
     ./home/cursor.nix
+    ./home/niri-imports.nix
+    ./home/helix.nix
   ];
 
   home.username = "${vars.user.name}";
   home.homeDirectory = "${vars.user.home}";
   home.stateVersion = "${vars.system.stateVersion}";
+  #xdg.portal = {
+  #  enable = true;
+  #  extraPortals = [ xdg.desktop-portal-kde ];
+  #};
+  #xdg.enable = true;
 
   ##wallpapers: https://github.com/5hubham5ingh/WallRizz/tree/wallpapers
   #home.file."Pictures/Wallpapers/WallRizz" = {

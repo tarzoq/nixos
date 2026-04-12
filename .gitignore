@@ -12,4 +12,4 @@ variables.nix
 config/noctalia/plugins/
 
 #niri modules
-config/niri/cursor.kdl
+config/niri/*hm.kdl

@@ -9,9 +9,6 @@ debug {
     honor-xdg-activation-with-invalid-serial //allows notification actions and window activation from Noctalia
 }
 
-spawn-sh-at-startup "pidof noctalia-shell || noctalia-shell"
-spawn-sh-at-startup "pidof tailscale systray || tailscale systray"
-
 environment {
     ELECTRON_OZONE_PLATFORM_HINT "auto" // Tvingar Electron-appar som Brave att använda Wayland
     XDG_CURRENT_DESKTOP "niri"
@@ -480,5 +477,4 @@ binds {
     Mod+Shift+P { power-off-monitors; }
 }
 
-include "cursor.kdl"
-//include "nvidia.kdl"
+include "niri-imports.hm.kdl"

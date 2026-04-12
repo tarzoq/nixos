@@ -9,7 +9,7 @@
   };
 
   # Create a small config file for Niri to include
-  home.file."${vars.user.home}/nixos/config/niri/cursor.kdl".text = ''
+  home.file."nixos/config/niri/cursor.hm.kdl".text = ''
     cursor {
         xcursor-theme "${config.home.pointerCursor.name}"
         xcursor-size ${toString config.home.pointerCursor.size}

@@ -4,6 +4,7 @@
     [
       ../common.nix
       ../modules/nvidia.nix
+      ../modules/programs/gaming.nix
     ];
   modules.nvidia.nvidiaBusId = "PCI:1@0:0:0";
   modules.nvidia.amdBusId = "PCI:16@0:0:0";

@@ -4,7 +4,7 @@ let
     && config.modules.nvidia.amdBusId != null;
 in {
   ############ Boilerplate ###########
-  #modules.nvidia.nvidiaBusId = ""; #lspci -D -d ::03xx | hexadecimal to decimal
+  #modules.nvidia.nvidiaBusId = ""; #(lspci -D -d ::03xx) OR (lspci | grep ' VGA ') | hexadecimal to decimal
   #modules.nvidia.amdBusId = ""; #prime is disabled if not specified
   ######################################
 
