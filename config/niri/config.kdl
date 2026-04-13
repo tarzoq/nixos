@@ -62,7 +62,7 @@ input {
     }
 
     // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
-    focus-follows-mouse max-scroll-amount="25%"
+    focus-follows-mouse max-scroll-amount="40%"
     // warp-mouse-to-focus //make mouse warp to the center of newly focused windows.
 }
 
@@ -377,8 +377,8 @@ binds {
     Mod+Shift+Ctrl+D         { move-workspace-up; } //default I
 
     //change workspace by scrolling; default 150ms
-    Mod+WheelScrollDown      cooldown-ms=25 { focus-column-right; }
-    Mod+WheelScrollUp        cooldown-ms=25 { focus-column-left; }
+    Mod+WheelScrollDown      cooldown-ms=50 { focus-column-right; }
+    Mod+WheelScrollUp        cooldown-ms=50 { focus-column-left; }
     //Mod+Shift+WheelScrollDown cooldown-ms=25 { move-column-to-workspace-down; }
     //Mod+Shift+WheelScrollUp   cooldown-ms=25 { move-column-to-workspace-up; }
     //Mod+WheelScrollRight      { focus-column-right; }

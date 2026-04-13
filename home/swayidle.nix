@@ -17,8 +17,8 @@ let
 
   #status can be either "ac" or "bat"
   onPower = status: cmd: 
-    let condition = if status == "ac" then "-eq 1" else "-ne 1";
-    in "${pkgs.bash}/bin/bash -c '[[ $(${pkgs.coreutils}/bin/cat /sys/class/power_supply/AC/online) ${condition} ]] && ${cmd}'";
+    let condition = if status == "bat" then "-eq 1" else "-ne 1";
+    in "${pkgs.bash}/bin/bash -c '[[ $(${pkgs.coreutils}/bin/cat /sys/class/power_supply/AC/online) ${condition} ]] || ${cmd}'";
 
   #only runs consecutive command (notHibernating && ...) if system isn't hibernating. This since I have FDE, where I want autologin directly, unlike normal suspend.
   #notHibernating = pkgs.writeShellScript "not-hibernating" ''

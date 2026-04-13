@@ -21,10 +21,10 @@
   '';
 
   # Ensure GTK/Qt follow along
-  gtk.enable = true;
-  qt = {
-    enable = true;
-    platformTheme.name = "gtk3";
-  };
+  #gtk.enable = true;
+  #qt = {
+  #  enable = true;
+  #  platformTheme.name = "gtk3";
+  #};
   gtk.gtk4.theme = null; #needed to adopt new behavior
 }

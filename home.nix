@@ -6,7 +6,7 @@
     ./home/swayidle.nix
     ./home/cursor.nix
     ./home/niri-imports.nix
-    ./home/helix.nix
+    #./home/helix.nix
   ];
 
   home.username = "${vars.user.name}";
@@ -62,12 +62,13 @@
       nlg = "nixos-rebuild list-generations";
 
       vn = "nvim ~/nixos";
+      hn = "hx ~/nixos";
       cn = "cd ~/nixos";
 
       ding = "ffplay -nodisp -autoexit ${vars.user.home}/nixos/home/stash/winfin.mp3 > /dev/null 2>&1"; #command to put at end to signify when finished
     };
   };
-  
+
   services.remmina = {
     enable = true;
   };

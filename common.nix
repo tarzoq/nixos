@@ -1,16 +1,16 @@
 { config, lib, pkgs, vars, ... }:
 {
-  imports =
-    [
-      /etc/nixos/hardware-configuration.nix
-      #./modules/hypr.nix
-      ./modules/niri.nix
-      ./modules/noctalia.nix
-      ./modules/programs/tailscale.nix
-      #./modules/programs/thunar.nix
-      ./modules/programs/dolphin.nix
-      ./modules/programs/chromium.nix
-    ];
+  imports = [
+    /etc/nixos/hardware-configuration.nix
+    #./modules/hypr.nix
+    ./modules/niri.nix
+    ./modules/noctalia.nix
+    #./modules/stylix.nix
+    ./modules/programs/tailscale.nix
+    #./modules/programs/thunar.nix
+    ./modules/programs/dolphin.nix
+    ./modules/programs/chromium.nix
+  ];
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1"; # force applications to use wayland
 
@@ -66,7 +66,7 @@
     settings = {
       General = {
         Experimental = true; # Needed to show battery charge
-	FastConnectable = false; # Faster connects, however, more power consumption
+        FastConnectable = false; # Faster connects, however, more power consumption
       };
       Policy = {
         AutoEnable = true; # Enable all controllers when found
@@ -207,6 +207,7 @@
   environment.systemPackages = with pkgs; [
     pinta #painter
     wget
+    comma #run programs without installing them
     tree #ls alternative
     bat #better looking cat
     neovim
@@ -220,11 +221,11 @@
     proton-vpn
     audacity
     fastfetch
-    kitty # needed for hyprland
-    psmisc # killall
-    usbutils # lsusb
-    lshw # hardwareinfo
-    pciutils #lspci etc
+    kitty #needed for hyprland
+    psmisc #killall
+    usbutils #lsusb
+    lshw #hardwareinfo
+    pciutils #spci etc
     dmidecode #info about bios
     ethtool
     cmatrix #for fun
@@ -239,13 +240,15 @@
     brightnessctl
     playerctl
     btop
+    lsfg-vk
+    lsfg-vk-ui
     spotify
     teams-for-linux
     polkit_gnome
     xeyes #troubleshoot xwayland
     unzip
     #powertop #power draw statistics > https://youtu.be/GG4RzUBoLFs
-    #nemo-with-extensions #https://wiki.nixos.org/wiki/Nemo 
+    #nemo-with-extensions #https://wiki.nixos.org/wiki/Nemo
     kdePackages.okular #pdf viewer
     #(python3.withPackages (p: [ p.requests ])) #https://discourse.nixos.org/t/most-straightforward-way-to-install-python/67506/3
     nvtopPackages.full #graphics card task monitor, also works with .amd and .nvidia

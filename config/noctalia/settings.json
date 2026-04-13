@@ -187,6 +187,11 @@
                 },
                 {
                     "defaultSettings": {
+                    },
+                    "id": "plugin:kde-connect"
+                },
+                {
+                    "defaultSettings": {
                         "autoMount": false,
                         "fileBrowser": "yazi",
                         "hideWhenEmpty": false,
@@ -271,11 +276,6 @@
                     "id": "Clock",
                     "tooltipFormat": "HH:mm ddd, MMM dd",
                     "useCustomFont": false
-                },
-                {
-                    "defaultSettings": {
-                    },
-                    "id": "plugin:kde-connect"
                 }
             ]
         }

@@ -8,8 +8,8 @@ result-*
 #contains personal information
 variables.nix
 
-#avoid plugin binaries from being uploaded
-config/noctalia/plugins/
+#is completely determined by wallpaper
+config/noctalia/colors.json
 
 #niri modules
 config/niri/*hm.kdl

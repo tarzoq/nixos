@@ -4,7 +4,7 @@
   programs.helix = {
     enable = true;
     settings = {
-      theme = "autumn_night_transparent";
+      #theme = "autumn_night_transparent";
       editor.cursor-shape = {
         normal = "block";
         insert = "bar";
@@ -16,11 +16,11 @@
       auto-format = true;
       formatter.command = lib.getExe pkgs.nixfmt;
     }];
-    themes = {
-      autumn_night_transparent = {
-        "inherits" = "autumn_night";
-        "ui.background" = { };
-      };
-    };
+    # themes = {
+    #   autumn_night_transparent = {
+    #     "inherits" = "autumn_night";
+    #     "ui.background" = { };
+    #   };
+    # };
   };
 }
