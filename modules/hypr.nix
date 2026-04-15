@@ -27,7 +27,7 @@
     jq #json parser, required for zooming in and out
     libsForQt5.qt5.qtwayland
     kdePackages.qtwayland
-    hypridle
+    #hypridle
     hyprpaper
     hyprsunset
     hyprpicker
@@ -39,5 +39,6 @@
     hyprshot
     # kanshi
     #hyprlandPlugins.hyprspace
+    #hyprlandPlugins.hyprexpo
   ];
 }
