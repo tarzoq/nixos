@@ -23,17 +23,19 @@ in {
     #boot.kernelParams = [ "nvidia-drm.modeset=1" ]; #suggested by ai, not found anywhere else, didn't change anything when I tried it
     #https://wiki.nixos.org/wiki/NVIDIA
     services.xserver.videoDrivers = [ "nvidia" ];
-    hardware.nvidia.open = true;
-    hardware.nvidia.modesetting.enable = true; #required for wayland
-    hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
-    hardware.nvidia.prime = {
-      reverseSync.enable = lib.mkIf primeEnabled true; #prioritize dGPU
-      nvidiaBusId = lib.mkIf primeEnabled config.modules.nvidia.nvidiaBusId; 
-      amdgpuBusId = lib.mkIf primeEnabled config.modules.nvidia.amdBusId; 
+    hardware.nvidia = {
+      open = true;
+      modesetting.enable = true; #required for wayland
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
+      powerManagement.enable = true; #attempt to fix problem with suspend
+      nvidiaSettings = true;
+      prime = {
+        reverseSync.enable = lib.mkIf primeEnabled true; #prioritize dGPU
+        nvidiaBusId = lib.mkIf primeEnabled config.modules.nvidia.nvidiaBusId; 
+        amdgpuBusId = lib.mkIf primeEnabled config.modules.nvidia.amdBusId; 
+      };
     };
 
-    hardware.nvidia.powerManagement.enable = true; #attempt to fix problem with suspend
-    
     niri.enableNvidia = true; #enable custom nvidia niri env import
 
     environment.systemPackages = with pkgs; [
