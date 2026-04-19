@@ -11,5 +11,9 @@ variables.nix
 #is completely determined by wallpaper
 config/noctalia/colors.json
 
+config/noctalia/plugins/*
+
 #niri modules
 config/niri/*hm.kdl
+
+config/hypr/hypridle.conf

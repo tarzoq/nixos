@@ -6,13 +6,24 @@
       inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t14s-amd-gen4
 
       ../common.nix
+      ../modules/amdgpu.nix
       ../modules/hibernate.nix
+      ../modules/resumeScript.nix
     ];
-  modules.hibernate.resumeOffset = 65572864;
+  modules.hibernate.resumeOffset = 4278272;
   modules.hibernate.diskUuid = "253b6ad1-b80b-4441-9081-4e2f54a17782";
   modules.hibernate.ramGb = 32;
-  modules.hibernate.hibernateScript = "/run/current-system/sw/bin/modprobe -r ath11k_pci";
-  modules.hibernate.resumeScript = "/run/current-system/sw/bin/modprobe ath11k_pci";
+  modules.hibernate.hibernateScript = ''
+    /run/current-system/sw/bin/modprobe -r ath11k_pci;
+  '';
+  modules.hibernate.resumeScript = ''
+    /run/current-system/sw/bin/modprobe ath11k_pci;
+  '';
+
+  #fix weird Lenovo Trackpoint issue (even present on Windows)
+  modules.resume.resumeScript = ''
+    ${pkgs.kmod}/bin/modprobe -r psmouse && ${pkgs.kmod}/bin/modprobe psmouse;
+  '';
 
   #https://nixos.wiki/wiki/Laptop
   services.tlp = {

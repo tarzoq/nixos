@@ -72,6 +72,13 @@ input {
 //    scale 1
 //}
 
+output "eDP-1" { //laptop
+    mode "3440x1440"
+    focus-at-startup
+    //scale 1
+    position x=0 y=0
+}
+
 output "PNP(AOC) 2460G4 0x000000DC" {
     // off
     focus-at-startup
@@ -117,6 +124,8 @@ layout {
     // - "on-overflow", focusing a column will center it if it doesn't fit
     //   together with the previously focused column.
     center-focused-column "never"
+
+    always-center-single-column
 
     //"switch-preset-column-width"
     preset-column-widths {
@@ -207,13 +216,36 @@ window-rule {
     draw-border-with-background false //https://www.reddit.com/r/niri/comments/1qa1m97/opacity_in_alacritty/
 }
 
-// Open the Bitwarden as floating by default.
-/-window-rule {
+//niri msg windows
+//niri msg pick-window
+//niri msg event-stream
+//////////////// Floating ///////////////////////
+window-rule {
     // This app-id regular expression will work for both:
     // - host Firefox (app-id is "firefox")
     // - Flatpak Firefox (app-id is "org.mozilla.firefox")
-    match app-id="brave" title="^Bitwarden$"
+    match app-id="brave" app-id="nngceckbapebfimnlniiiahkandclblb" //bitwarden
+    match app-id="resolve" app-id="resolve" //bitwarden
+
     open-floating true
+}
+
+///////////////// PiP ///////////////////
+window-rule {
+    match title=r#"^Picture in picture$"#
+
+    open-floating true
+    default-floating-position x=10 y=10 relative-to="bottom-right"
+    open-focused false
+    opacity 1.0
+}
+
+window-rule { //keybind floating
+    match app-id=r#"^dot.floating"#
+
+    open-floating true
+    default-column-width { proportion 0.33; }
+    default-window-height { proportion 0.5; }
 }
 
 /-window-rule {
@@ -226,18 +258,20 @@ window-rule {
     // block-out-from "screencast"
 }
 
-//full opacity
+///////////// full opacity //////////////////
 window-rule {
     match app-id="brave" title="YouTube"
     match app-id="Pinta"
+    match app-id="gimp"
+    match app-id="resolve"
+
     opacity 1.0
 }
 
-//workaround for brave/chromium browsers on wayland reading raw libinput instead of scroll stack
-/-window-rule {
-    match app-id="brave"
-    match app-id="discord"
-    match app-id="vscode"
+///////////// lower scroll factor /////////////// workaround for brave/chromium browsers on wayland reading raw libinput instead of scroll stack
+window-rule {
+    match app-id=r#"(?i)brave|discord|vscode|spotify"# //case-insensitive
+
     scroll-factor 0.15
 }
 
@@ -258,13 +292,23 @@ binds {
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
-    Mod+W hotkey-overlay-title="Run an Application: rofi" { spawn-sh "pkill rofi || rofi -show drun -show-icons"; }
-    Mod+B hotkey-overlay-title="Run an Application: brave" { spawn "brave"; }
-    Super+Alt+L hotkey-overlay-title="Lock the Screen: hyprlock" { spawn-sh "loginctl lock-session"; }
+    Mod+Shift+T hotkey-overlay-title="Open a Terminal: kitty (floating" { spawn "kitty" "--class=dot.floating.kitty"; }
 
+    Ctrl+Mod+Shift+Alt+W hotkey-overlay-title="Run an Application: launcher" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
+    Mod+W hotkey-overlay-title="Run an Application: rofi" { spawn-sh "pkill rofi || rofi -show drun -show-icons"; }
+
+    Mod+B hotkey-overlay-title="Run an Application: brave" { spawn "brave"; }
+    Mod+Shift+B hotkey-overlay-title="Run an Application: brave (floating)" { spawn "brave" "--class=dot.floating.brave"; }
+
+    /////////////////// HYPER-key //////////////////
+    Ctrl+Mod+Shift+Alt+L hotkey-overlay-title="Lock the Screen: hyprlock" { spawn-sh "loginctl lock-session"; }
+    Ctrl+Mod+Shift+Alt+Tab hotkey-overlay-title="Niri: Overview" repeat=false { toggle-overview; } // default Mod+O
+    Ctrl+Mod+Shift+Alt+E hotkey-overlay-title="File Explorer: Dolphin" { spawn-sh "dolphin"; }
     //noctalia-shell ipc show
-    Mod+Shift+G hotkey-overlay-title="Noctalia: Background" { spawn-sh "noctalia-shell ipc call wallpaper toggle"; }
-    Mod+X hotkey-overlay-title="Noctalia: Powermenu" { spawn-sh "noctalia-shell ipc call sessionMenu toggle"; }
+    Ctrl+Mod+Shift+Alt+V hotkey-overlay-title="Noctalia: Clipper" { spawn-sh "noctalia-shell ipc call plugin:clipper toggle"; }
+    Ctrl+Mod+Shift+Alt+B hotkey-overlay-title="Noctalia: Background" { spawn-sh "noctalia-shell ipc call wallpaper toggle"; }
+    Ctrl+Mod+Shift+Alt+X hotkey-overlay-title="Noctalia: Powermenu" { spawn-sh "noctalia-shell ipc call sessionMenu toggle"; }
+    Ctrl+Mod+Shift+Alt+C hotkey-overlay-title="Noctalia: KeepAwake" { spawn-sh "noctalia-shell ipc call idleInhibitor toggle"; }
 
     //Super+Ctrl+Return allow-when-locked=true hotkey-overlay-title="Screen reader (Orca)" { spawn-sh "pkill orca || exec orca"; }
 
@@ -282,7 +326,6 @@ binds {
     XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
     XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
 
-    Mod+Tab repeat=false { toggle-overview; } // default Mod+O
 
     Mod+Q repeat=false { close-window; }
 

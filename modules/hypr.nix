@@ -7,7 +7,7 @@
   };
 
   services.displayManager.defaultSession = "hyprland-uwsm";
-  security.pam.services.hyprland.enableGnomeKeyring = true;
+  #security.pam.services.hyprland.enableGnomeKeyring = true;
 
   #https://www.reddit.com/r/NixOS/comments/1qo9alr/need_help_with_gdmhyprlanduwsm_problem/
   #https://github.com/NixOS/nixpkgs/issues/484328

@@ -28,8 +28,12 @@
   #  recursive = true;
   #};
 
-  xdg.configFile."hypr" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/config/hypr";
+  xdg.configFile."hypr/hyprland.conf" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/config/hypr/hyprland.conf";
+    recursive = true;
+  };
+  xdg.configFile."hypr/hyprlock.conf" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/config/hypr/hyprlock.conf";
     recursive = true;
   };
   xdg.configFile."niri" = {
@@ -53,6 +57,7 @@
     enable = true;
     shellAliases = {
       btw = "echo i use nixos, btw";
+      cat = "bat"; #like cat, but prettier
 
       nrs = "sudo nixos-rebuild switch --impure --flake ~/nixos";
       nrb = "sudo nixos-rebuild boot --impure --flake ~/nixos";
@@ -71,6 +76,15 @@
 
   services.remmina = {
     enable = true;
+  };
+
+  programs.vscode = {
+    enable = true;
+    package = pkgs.vscode.fhs; #FHS-compliance
+    mutableExtensionsDir = true; #allows for imperative extensions
+  };
+  home.file.".vscode/argv.json".text = builtins.toJSON {
+    "password-store" = "gnome-libsecret";
   };
 
   #https://nixos.wiki/wiki/Git

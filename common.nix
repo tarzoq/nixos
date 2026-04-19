@@ -7,7 +7,7 @@
     ./modules/noctalia.nix
     #./modules/stylix.nix
     ./modules/programs/tailscale.nix
-    #./modules/programs/thunar.nix
+    ./modules/programs/thunar.nix
     ./modules/programs/dolphin.nix
     ./modules/programs/chromium.nix
   ];
@@ -19,6 +19,7 @@
   # good to haves to hardware support
   hardware.enableAllFirmware = true;
   hardware.enableRedistributableFirmware = true;
+  services.fwupd.enable = true; #fwupdmgr refresh; fwupdmgr get-updates; fwupdmgr update
 
   # Bootloader
   boot.loader.systemd-boot.enable = true;
@@ -47,7 +48,9 @@
         settings = {
           main = {
             capslock = "overload(meta, esc)"; # Capslock becomes Super, or Esc on tap
+	    leftmeta = "layer(hyper)";
           };
+	  "hyper:C-M-S-A" = {}; #fake HYPER-key (used for special keybinds in Niri)
         };
       };
     };
@@ -117,7 +120,6 @@
     package = pkgs.openrgb-with-all-plugins;
   };
 
-  # niri
   security.polkit.enable = true;
   # remember Wi-Fi passwords
   services.gnome.gnome-keyring.enable = true;
@@ -128,20 +130,20 @@
   services.power-profiles-daemon.enable = false;
   services.upower.enable = true;
 
-  #https://wiki.nixos.org/wiki/Polkit
-  systemd.user.services.polkit-gnome-authentication-agent-1 = {
-    description = "polkit-gnome-authentication-agent-1";
-    wantedBy = [ "graphical-session.target" ];
-    wants = [ "graphical-session.target" ];
-    after = [ "graphical-session.target" ];
-    serviceConfig = {
-      Type = "simple";
-      ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-      Restart = "on-failure";
-      RestartSec = 1;
-      TimeoutStopSec = 10;
-    };
-  };
+  ##https://wiki.nixos.org/wiki/Polkit
+  #systemd.user.services.polkit-gnome-authentication-agent-1 = {
+  #  description = "polkit-gnome-authentication-agent-1";
+  #  wantedBy = [ "graphical-session.target" ];
+  #  wants = [ "graphical-session.target" ];
+  #  after = [ "graphical-session.target" ];
+  #  serviceConfig = {
+  #    Type = "simple";
+  #    ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+  #    Restart = "on-failure";
+  #    RestartSec = 1;
+  #    TimeoutStopSec = 10;
+  #  };
+  #};
 
   #networking.nftables.enable #tailscale.nix
   #networking.firewall.enable #tailscale.nix
@@ -196,7 +198,6 @@
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
 
-  programs.vscode.enable = true;
   programs.kdeconnect.enable = true;
 
   # https://nixos.wiki/wiki/Fonts
@@ -217,6 +218,7 @@
     yt-dlp
     mpv #media player
     audacious #music player
+    puddletag #mp3tag but better?
     discord
     proton-vpn
     audacity
@@ -231,7 +233,7 @@
     cmatrix #for fun
     pavucontrol #audio device settings
     #swayosd #OSD for volume and brightness
-    swaynotificationcenter
+    #swaynotificationcenter
     libnotify
     # Else
     cheese #camera
@@ -247,11 +249,14 @@
     polkit_gnome
     xeyes #troubleshoot xwayland
     unzip
-    #powertop #power draw statistics > https://youtu.be/GG4RzUBoLFs
+    powertop #power draw statistics > https://youtu.be/GG4RzUBoLFs
     #nemo-with-extensions #https://wiki.nixos.org/wiki/Nemo
     kdePackages.okular #pdf viewer
     #(python3.withPackages (p: [ p.requests ])) #https://discourse.nixos.org/t/most-straightforward-way-to-install-python/67506/3
     nvtopPackages.full #graphics card task monitor, also works with .amd and .nvidia
+    #gnome-firmware #frontend for fwupd
+    #firmware-manager
+    davinci-resolve #https://nixos.wiki/wiki/DaVinci_Resolve
   ];
 
   programs.evince.enable = true;

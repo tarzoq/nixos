@@ -30,15 +30,34 @@ let
   #'';
   #lockIfNotHibernate = "${pkgs.bash}/bin/bash -c '${pkgs.systemd}/bin/systemctl is-active --quiet hibernate.target && exit; ${lock}'";
 in {
-  services.swayidle = {
+  ############################## keyboard only (ignores inhibitors) ################################
+  services.hypridle = { 
+    enable = true;
+    settings = {
+      general = { #options needed to ignore inhibition
+        ignore_dbus_inhibit = true;
+	ignore_systemd_inhibit = true;
+	ignore_wayland_inhibit = true;
+      };
+      listener = [
+        { ######### KBD Racklight - Battery ############
+          timeout = "${toString (1 * 60)}";
+          on-timeout = "${onPower "bat" "${lowerKeyboard}"}";
+          on-resume = "${restoreKeyboard}";
+        }
+        { ######### KBD Backlight - AC #############
+          timeout = "${toString (2 * 60)}";
+          on-timeout = "${onPower "ac" "${lowerKeyboard}"}";
+          on-resume = "${restoreKeyboard}";
+        }
+      ];
+    };
+  };
+  ########################## everything else (screen, lock, suspend) ################################
+  services.swayidle = { 
     enable = true;
     timeouts = [
       ########### Battery #############
-      { #keyboard backlight
-        timeout = 1 * 60;
-        command = onPower "bat" "${lowerKeyboard}";
-        resumeCommand = restoreKeyboard;
-      }
       { #screen backlight
         timeout = builtins.floor (2.5 * 60); #otherwise results in float (NUMBER.0)
         command = onPower "bat" "${lowerScreen}";
@@ -63,11 +82,6 @@ in {
       }
 
       ############# AC ###############
-      { #keyboard backlight
-        timeout = 5 * 60;
-        command = onPower "ac" "${lowerKeyboard}";
-        resumeCommand = restoreKeyboard;
-      }
       { #screen backlight
         timeout = builtins.floor (9.5 * 60);
         command = onPower "ac" "${lowerScreen}";

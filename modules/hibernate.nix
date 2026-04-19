@@ -24,12 +24,12 @@
     hibernateScript = lib.mkOption {
       type = lib.types.nullOr lib.types.str;
       default = null;
-      description = "modprobe -r command for your specific Wi-Fi module";
+      description = "Custom commands to execute before hibernate";
     };
     resumeScript = lib.mkOption {
       type = lib.types.nullOr lib.types.str;
       default = null;
-      description = "modprobe command for your specific Wi-Fi module";
+      description = "Custom commands to execute on startup after hibernate";
     };
   };
   config = let
@@ -41,8 +41,8 @@
 
     boot.resumeDevice = lib.mkIf hasSwap "/dev/disk/by-uuid/${toString cfg.diskUuid}"; # lsblk -f
     
-    systemd.services.network-before-hibernate = lib.mkIf hasSystemdScripts {
-      description = "Stop network before hibernation";
+    systemd.services.script-before-hibernate = lib.mkIf hasSystemdScripts {
+      description = "Custom commands to execute before hibernate";
       before = [ "systemd-hibernate.service" ];
       wantedBy = [ "systemd-hibernate.service" ];
       script = ''
@@ -52,14 +52,14 @@
       serviceConfig.Type = "oneshot";
     };
     # lspci -k | grep -A3 -i network
-    systemd.services.network-after-hibernate = lib.mkIf hasSystemdScripts {
-      description = "Start network after hibernation";
+    systemd.services.script-after-hibernate = lib.mkIf hasSystemdScripts {
+      description = "Custom commands to execute on startup after hibernate";
       after = [ "post-resume.service" ];
       wantedBy = [ "post-resume.service" ];
       script = ''
         sleep 3
 	${cfg.resumeScript}
-        systemctl start NetworkManager
+        systemctl restart NetworkManager
       '';
       serviceConfig.Type = "oneshot";
     };

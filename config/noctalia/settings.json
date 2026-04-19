@@ -79,11 +79,15 @@
         "widgets": {
             "center": [
                 {
+                    "id": "Spacer",
+                    "width": 50
+                },
+                {
                     "compactMode": false,
                     "hideMode": "hidden",
                     "hideWhenIdle": false,
                     "id": "MediaMini",
-                    "maxWidth": 200,
+                    "maxWidth": 165,
                     "panelShowAlbumArt": true,
                     "scrollingMode": "hover",
                     "showAlbumArt": true,
@@ -98,7 +102,7 @@
                     "colorizeIcons": false,
                     "hideMode": "hidden",
                     "id": "ActiveWindow",
-                    "maxWidth": 350,
+                    "maxWidth": 290,
                     "scrollingMode": "hover",
                     "showIcon": false,
                     "showText": true,
@@ -106,14 +110,8 @@
                     "useFixedWidth": false
                 },
                 {
-                    "colorizeSystemIcon": "none",
-                    "colorizeSystemText": "none",
-                    "customIconPath": "",
-                    "enableColorization": false,
-                    "icon": "rocket",
-                    "iconColor": "none",
-                    "id": "Launcher",
-                    "useDistroLogo": false
+                    "id": "Spacer",
+                    "width": 50
                 }
             ],
             "left": [
@@ -161,8 +159,19 @@
                     "usePadding": false
                 },
                 {
-                    "iconColor": "none",
-                    "id": "WallpaperSelector"
+                    "defaultSettings": {
+                        "customColor": "none",
+                        "showConditionIcon": true,
+                        "showTempUnit": true,
+                        "showTempValue": true,
+                        "tooltipOption": "everything"
+                    },
+                    "id": "plugin:weather-indicator"
+                },
+                {
+                    "defaultSettings": {
+                    },
+                    "id": "plugin:kde-connect"
                 }
             ],
             "right": [
@@ -177,18 +186,17 @@
                     "showScrollLock": true
                 },
                 {
-                    "defaultSettings": {
-                        "enableTodoIntegration": false,
-                        "notecardsEnabled": true,
-                        "pincardsEnabled": true,
-                        "showCloseButton": true
-                    },
-                    "id": "plugin:clipper"
+                    "hideWhenZero": true,
+                    "hideWhenZeroUnread": true,
+                    "iconColor": "none",
+                    "id": "NotificationHistory",
+                    "showUnreadBadge": true,
+                    "unreadBadgeColor": "primary"
                 },
                 {
-                    "defaultSettings": {
-                    },
-                    "id": "plugin:kde-connect"
+                    "iconColor": "none",
+                    "id": "KeepAwake",
+                    "textColor": "none"
                 },
                 {
                     "defaultSettings": {
@@ -201,14 +209,6 @@
                         "terminalCommand": "kitty"
                     },
                     "id": "plugin:usb-drive-manager"
-                },
-                {
-                    "hideWhenZero": true,
-                    "hideWhenZeroUnread": true,
-                    "iconColor": "none",
-                    "id": "NotificationHistory",
-                    "showUnreadBadge": true,
-                    "unreadBadgeColor": "primary"
                 },
                 {
                     "blacklist": [
@@ -419,7 +419,7 @@
         "allowPanelsOnScreenWithoutBar": true,
         "allowPasswordWithFprintd": false,
         "animationDisabled": false,
-        "animationSpeed": 1,
+        "animationSpeed": 1.5,
         "autoStartAuth": false,
         "avatarImage": "/home/user/.face",
         "boxRadiusRatio": 1,
@@ -584,9 +584,10 @@
         "enabledTypes": [
             0,
             1,
-            2
+            2,
+            3
         ],
-        "location": "top_right",
+        "location": "bottom",
         "monitors": [
         ],
         "overlayLayer": true
@@ -742,7 +743,7 @@
         "wallhavenCategories": "111",
         "wallhavenOrder": "desc",
         "wallhavenPurity": "100",
-        "wallhavenQuery": "central park",
+        "wallhavenQuery": "california",
         "wallhavenRatios": "",
         "wallhavenResolutionHeight": "",
         "wallhavenResolutionMode": "atleast",
