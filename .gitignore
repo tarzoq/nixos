@@ -11,7 +11,17 @@ variables.nix
 #is completely determined by wallpaper
 config/noctalia/colors.json
 
-config/noctalia/plugins/*
+########### Noctalia Plugins ############
+config/noctalia/plugins/*/*
+!config/noctalia/plugins/*/settings.json
+
+# !config/noctalia/plugins/clipper
+# config/noctalia/plugins/clipper/*
+# !config/noctalia/plugins/clipper/settings.json
+
+# !config/noctalia/plugins/kde-connect
+# config/noctalia/plugins/kde-connect/*
+# !config/noctalia/plugins/kde-connect/settings.json
 
 #niri modules
 config/niri/*hm.kdl
