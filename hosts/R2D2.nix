@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, inputs, vars, ... }:
 {
   imports =
     [
@@ -24,6 +24,10 @@
   modules.resume.resumeScript = ''
     ${pkgs.kmod}/bin/modprobe -r psmouse && ${pkgs.kmod}/bin/modprobe psmouse;
   '';
+
+  services.cron.systemCronJobs = [
+    "*/15 * * * * root ${pkgs.kmod}/bin/modprobe -r psmouse && ${pkgs.kmod}/bin/modprobe psmouse"
+  ];
 
   #https://nixos.wiki/wiki/Laptop
   services.tlp = {

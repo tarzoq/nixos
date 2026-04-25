@@ -12,9 +12,11 @@
     ./modules/programs/chromium.nix
   ];
 
-  environment.sessionVariables.NIXOS_OZONE_WL = "1"; # force applications to use wayland
-
-  #programs.dms-shell.enable = true; #dankmaterialshell
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1"; # force applications to use wayland
+    GTK_USE_PORTAL = "1";
+    QT_QPA_PLATFORMTHEME = "gtk3";
+  };
 
   # good to haves to hardware support
   hardware.enableAllFirmware = true;
@@ -40,7 +42,7 @@
   #environment.pathsToLink = [ "/share/xdg-desktop-portal" "/share/applications" ]; #if useUserPackages is enabled
 
   # Found somewhere on StackOverFlow
-  services.keyd = {
+  services.keyd = { #keyd list-keys
     enable = true;
     keyboards = {
       default = {
@@ -49,8 +51,10 @@
           main = {
             capslock = "overload(meta, esc)"; # Capslock becomes Super, or Esc on tap
 	    leftmeta = "layer(hyper)";
+	    #super + altgr (mod5)?
           };
-	  "hyper:C-M-S-A" = {}; #fake HYPER-key (used for special keybinds in Niri)
+	  "hyper:M-G" = {}; #meta+rightalt/altgr (mod5) used for special keybinds in Niri since meta is already occupied by capslock
+	  #"hyper:C-M-S-A" = {}; #fake HYPER-key (used for special keybinds in Niri)
         };
       };
     };
@@ -126,7 +130,6 @@
   security.pam.services.gdm.enableGnomeKeyring = true;
   #services.dbus.packages = [ pkgs.gnome-keyring ];
 
-  # noctalia
   services.power-profiles-daemon.enable = false;
   services.upower.enable = true;
 
@@ -160,6 +163,22 @@
     };
   };
 
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+    config = {
+      common = {
+        default = lib.mkForce [ "hyprland" "gtk" ];
+      };
+      niri = {
+        default = lib.mkForce [ "hyprland" "gtk" ];
+	"org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
+	"org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
+      };
+    };
+  };
+
   # Configure keymap in X11 - only for X11?
   services.xserver.xkb = {
     layout = "se";
@@ -170,6 +189,8 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  programs.dconf.enable = true; #needed for gtk-app settings
+
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -178,12 +199,6 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
   };
 
   #programs.zsh.enable = true;
@@ -192,7 +207,7 @@
   users.users.${vars.user.name} = {
     isNormalUser = true;
     description = "${vars.user.name}";
-    extraGroups = [ "networkmanager" "wheel" "keyd" "video" "render" ];
+    extraGroups = [ "networkmanager" "wheel" "keyd" "video" "render" "input" ];
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -204,11 +219,23 @@
   fonts.packages = builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 
   nixpkgs.config.allowUnfree = true;
-  # List packages installed in system profile. To search, run: $ nix search wget
+
+  programs.evince.enable = true;
   environment.systemPackages = with pkgs; [
+    zathura #might use in the future for sheet music (requires some additional touchscreen gesture tweaking)
+    kdePackages.okular #pdf viewer
+    ##############
+    onlyoffice-desktopeditors #office suite
+    gnome-text-editor #text editor
+    nomacs #image viewer
     pinta #painter
     wget
+    libinput
+    bc #math in bash
+    maliit-keyboard #on-screen keyboard for table mode
     comma #run programs without installing them
+    git-crypt #encrypt specified personal folders and files automatically at commit
+    git-filter-repo #rewrite git history
     tree #ls alternative
     bat #better looking cat
     neovim
@@ -220,10 +247,12 @@
     audacious #music player
     puddletag #mp3tag but better?
     discord
+    signal-desktop #messaging
     proton-vpn
     audacity
     fastfetch
     kitty #needed for hyprland
+    ghostty #testing, unsure
     psmisc #killall
     usbutils #lsusb
     lshw #hardwareinfo
@@ -236,8 +265,10 @@
     #swaynotificationcenter
     libnotify
     # Else
-    cheese #camera
-    kdePackages.kate #notes
+    #cheese #camera
+    snapshot #camera
+    gnome-calculator #calculator
+    hyprpicker #color picker and zoom
     rofi
     brightnessctl
     playerctl
@@ -250,8 +281,6 @@
     xeyes #troubleshoot xwayland
     unzip
     powertop #power draw statistics > https://youtu.be/GG4RzUBoLFs
-    #nemo-with-extensions #https://wiki.nixos.org/wiki/Nemo
-    kdePackages.okular #pdf viewer
     #(python3.withPackages (p: [ p.requests ])) #https://discourse.nixos.org/t/most-straightforward-way-to-install-python/67506/3
     nvtopPackages.full #graphics card task monitor, also works with .amd and .nvidia
     #gnome-firmware #frontend for fwupd
@@ -259,7 +288,9 @@
     davinci-resolve #https://nixos.wiki/wiki/DaVinci_Resolve
   ];
 
-  programs.evince.enable = true;
+  services.cron = {
+    enable = true;
+  };
 
   system.stateVersion = "${vars.system.stateVersion}";
 }

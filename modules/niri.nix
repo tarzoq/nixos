@@ -3,17 +3,10 @@
   options.niri.enableNvidia = lib.mkEnableOption "Enable import of nvidia.kdl for Niri";
 
   config = {
+    environment.sessionVariables.XDG_CURRENT_DESKTOP = "niri";
+
     programs.niri = {
      enable = true;
-    };
-
-    #xdg.portal = {
-    #  enable = true;
-    #  extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-    #  config.common.default = "gtk";
-    #};
-    xdg.portal.config.niri = {
-      "org.freedesktop.impl.portal.FileChooser" = [ "kde" ]; # or "kde"
     };
 
     programs.hyprlock.enable = true;

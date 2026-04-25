@@ -24,6 +24,9 @@ config/noctalia/plugins/*/*
 # !config/noctalia/plugins/kde-connect/settings.json
 
 #niri modules
-config/niri/*hm.kdl
+config/niri/*hm.*
+
+#hypr modules
+config/hypr/*hm.conf
 
 config/hypr/hypridle.conf

@@ -1,0 +1,4 @@
+.gitattributes !filter !diff
+
+#noctalia
+#config/noctalia/** filter=git-crypt diff=git-crypt 

@@ -17,5 +17,7 @@
     mangohud #in-game performance monitor
     lutris
     #heroic
+    lsfg-vk #lossless scaling
+    lsfg-vk-ui #lossless scaling
   ];
 }

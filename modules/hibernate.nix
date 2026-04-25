@@ -1,10 +1,10 @@
 { config, lib, ... }:
 {
   ########## Boilerplate ###########
-  #modules.hibernate.resumeOffset = ;
-  #modules.hibernate.diskUuid = "";
+  #modules.hibernate.resumeOffset = ; #sudo filefrag -v /var/lib/swapfile | head
+  #modules.hibernate.diskUuid = ""; #lsblk -f
   #modules.hibernate.ramGb = ;
-  #modules.hibernate.hibernateScript = "";
+  #modules.hibernate.hibernateScript = ""; # lspci -k | grep -A3 -i network
   #modules.hibernate.resumeScript = "";
   ###################################
 
@@ -37,9 +37,8 @@
     hasSwap = cfg.resumeOffset != null && cfg.diskUuid != null;
     hasSystemdScripts = cfg.hibernateScript != null && cfg.resumeScript != null;
   in {
-    boot.kernelParams = lib.mkIf hasSwap [ "resume_offset=${toString cfg.resumeOffset}" ]; # sudo filefrag -v /var/lib/swapfile | head
-
-    boot.resumeDevice = lib.mkIf hasSwap "/dev/disk/by-uuid/${toString cfg.diskUuid}"; # lsblk -f
+    boot.kernelParams = lib.mkIf hasSwap [ "resume_offset=${toString cfg.resumeOffset}" ]; 
+    boot.resumeDevice = lib.mkIf hasSwap "/dev/disk/by-uuid/${toString cfg.diskUuid}";
     
     systemd.services.script-before-hibernate = lib.mkIf hasSystemdScripts {
       description = "Custom commands to execute before hibernate";
@@ -47,19 +46,19 @@
       wantedBy = [ "systemd-hibernate.service" ];
       script = ''
 	${cfg.hibernateScript}
-        systemctl stop NetworkManager
+        /run/current-system/sw/bin/systemctl stop NetworkManager
       '';
       serviceConfig.Type = "oneshot";
     };
-    # lspci -k | grep -A3 -i network
+
     systemd.services.script-after-hibernate = lib.mkIf hasSystemdScripts {
       description = "Custom commands to execute on startup after hibernate";
-      after = [ "post-resume.service" ];
-      wantedBy = [ "post-resume.service" ];
+      after = [ "systemd-hibernate.service" ];
+      wantedBy = [ "systemd-hibernate.service" ];
       script = ''
-        sleep 3
+        /run/current-system/sw/bin/sleep 3
 	${cfg.resumeScript}
-        systemctl restart NetworkManager
+        /run/current-system/sw/bin/systemctl restart NetworkManager
       '';
       serviceConfig.Type = "oneshot";
     };

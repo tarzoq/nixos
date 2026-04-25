@@ -6,17 +6,13 @@
     ./home/swayidle.nix
     ./home/cursor.nix
     ./home/niri-imports.nix
+    ./home/outputscale.nix
     #./home/helix.nix
   ];
 
   home.username = "${vars.user.name}";
   home.homeDirectory = "${vars.user.home}";
   home.stateVersion = "${vars.system.stateVersion}";
-  #xdg.portal = {
-  #  enable = true;
-  #  extraPortals = [ xdg.desktop-portal-kde ];
-  #};
-  #xdg.enable = true;
 
   ##wallpapers: https://github.com/5hubham5ingh/WallRizz/tree/wallpapers
   #home.file."Pictures/Wallpapers/WallRizz" = {
@@ -28,6 +24,18 @@
   #  recursive = true;
   #};
 
+  xdg.userDirs = {
+    enable = true;
+    setSessionVariables = false;
+    createDirectories = true;
+  };
+  xdg.enable = true;
+
+  xdg.configFile."niri" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/config/niri";
+    recursive = true;
+  };
+
   xdg.configFile."hypr/hyprland.conf" = {
     source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/config/hypr/hyprland.conf";
     recursive = true;
@@ -36,10 +44,7 @@
     source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/config/hypr/hyprlock.conf";
     recursive = true;
   };
-  xdg.configFile."niri" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/config/niri";
-    recursive = true;
-  };
+
   xdg.configFile."kitty" = {
     source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/config/kitty";
     recursive = true;
@@ -50,6 +55,11 @@
   };
   xdg.configFile."noctalia" = {
     source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/config/noctalia";
+    recursive = true;
+  };
+
+  xdg.configFile."remmina/remmina.pref" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/config/misc/remmina.pref";
     recursive = true;
   };
 

@@ -80,7 +80,7 @@
             "center": [
                 {
                     "id": "Spacer",
-                    "width": 50
+                    "width": 175
                 },
                 {
                     "compactMode": false,
@@ -108,10 +108,6 @@
                     "showText": true,
                     "textColor": "none",
                     "useFixedWidth": false
-                },
-                {
-                    "id": "Spacer",
-                    "width": 50
                 }
             ],
             "left": [
@@ -284,7 +280,7 @@
         "backlightDeviceMappings": [
         ],
         "brightnessStep": 5,
-        "enableDdcSupport": false,
+        "enableDdcSupport": true,
         "enforceMinimum": true
     },
     "calendar": {
@@ -528,18 +524,18 @@
         "bluetoothHideUnnamedDevices": false,
         "bluetoothRssiPollIntervalMs": 60000,
         "bluetoothRssiPollingEnabled": false,
-        "disableDiscoverability": false,
+        "disableDiscoverability": true,
         "networkPanelView": "wifi",
         "wifiDetailsViewMode": "grid"
     },
     "nightLight": {
         "autoSchedule": true,
         "dayTemp": "6500",
-        "enabled": false,
+        "enabled": true,
         "forced": false,
         "manualSunrise": "06:30",
         "manualSunset": "18:30",
-        "nightTemp": "4000"
+        "nightTemp": "5235"
     },
     "noctaliaPerformance": {
         "disableDesktopWidgets": true,
@@ -556,7 +552,7 @@
         "enableMediaToast": false,
         "enabled": true,
         "location": "top_right",
-        "lowUrgencyDuration": 3,
+        "lowUrgencyDuration": 8,
         "monitors": [
         ],
         "normalUrgencyDuration": 8,
@@ -743,7 +739,7 @@
         "wallhavenCategories": "111",
         "wallhavenOrder": "desc",
         "wallhavenPurity": "100",
-        "wallhavenQuery": "california",
+        "wallhavenQuery": "palm beach california",
         "wallhavenRatios": "",
         "wallhavenResolutionHeight": "",
         "wallhavenResolutionMode": "atleast",
