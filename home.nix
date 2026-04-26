@@ -30,6 +30,9 @@
     createDirectories = true;
   };
   xdg.enable = true;
+  xdg.mimeApps = {
+    enable = true;
+  };
 
   xdg.configFile."niri" = {
     source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/config/niri";
