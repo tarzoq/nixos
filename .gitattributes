@@ -2,4 +2,4 @@
 
 #noctalia
 config/noctalia/** filter=git-crypt diff=git-crypt 
-#config/misc/** filter=git-crypt diff=git-crypt 
+config/misc/** filter=git-crypt diff=git-crypt 
