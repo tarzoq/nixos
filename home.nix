@@ -73,6 +73,7 @@
       nrb = "sudo nixos-rebuild boot --impure --flake ~/nixos";
       nru = "sudo nix flake update --flake ~/nixos && nrb";
       nrup = "sudo nix flake update --flake ~/nixos && nrb && sleep 60 && poweroff";
+      ngd = "sudo nix-collect-garbage -d";
 
       nlg = "nixos-rebuild list-generations";
 

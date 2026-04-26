@@ -18,6 +18,11 @@
     QT_QPA_PLATFORMTHEME = "gtk3";
   };
 
+  nix.settings = {
+    cores = 2;
+    max-jobs = 2;
+  };
+
   # good to haves to hardware support
   hardware.enableAllFirmware = true;
   hardware.enableRedistributableFirmware = true;
