@@ -226,7 +226,7 @@ window-rule {
     geometry-corner-radius 15 //default 12
     clip-to-geometry true
     open-maximized-to-edges false //prevent windows from opening maximized
-    opacity 0.9
+    opacity 0.925
     draw-border-with-background false //https://www.reddit.com/r/niri/comments/1qa1m97/opacity_in_alacritty/
 }
 

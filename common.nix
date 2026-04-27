@@ -103,6 +103,14 @@
     LC_TIME = "sv_SE.UTF-8";
   };
 
+  virtualisation.docker = {
+    enable = true;
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
+  };
+
   #https://wiki.nixos.org/wiki/OBS_Studio
   programs.obs-studio = {
     enable = true;
