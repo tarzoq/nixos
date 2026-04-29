@@ -255,8 +255,8 @@
     brave
     gimp
     ffmpeg
-    yt-dlp
-    mpv #media player
+    #yt-dlp
+    #mpv #media player
     audacious #music player
     puddletag #mp3tag but better?
     discord
