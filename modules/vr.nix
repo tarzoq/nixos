@@ -3,3 +3,7 @@
 #ALVR in wired mode over ADB. Requires developer mode on headset
 
 #Use Immersed over wired, and have niri create virtual monitor when headset is plugged in: niri msg action create-virtual-output
+{ config, pkgs, ... }:
+{
+  programs.immersed.enable = true;
+}
