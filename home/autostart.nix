@@ -24,6 +24,7 @@ in {
 
   home.file."nixos/config/niri/autostart.hm.kdl".text = ''
     ${spawn} "pidof noctalia-shell || noctalia-shell &"
+    ${spawn} "pidof kanshi || kanshi &"
     ${spawn} "pidof tailscale systray || tailscale systray &"
     ${spawn} "pidof protonvpn-app || protonvpn-app --start-minimized &"
     ${spawn} "pgrep kdeconnect || kdeconnectd &"

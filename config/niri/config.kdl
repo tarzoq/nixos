@@ -72,58 +72,58 @@ input {
 //    scale 1
 //}
 
-output "eDP-1" { //laptop
-    //off
-    focus-at-startup
-    //scale 1
-    position x=0 y=0
-}
+//output "eDP-1" { //laptop
+//    //off
+//    focus-at-startup
+//    //scale 1
+//    position x=0 y=0
+//}
 
-output "PNP(AOC) 2460G4 0x000000DC" {
-    // off
-    focus-at-startup
-    // The format is "<width>x<height>" or "<width>x<height>@<refresh rate>".
-    // If the refresh rate is omitted, niri will pick the highest refresh rate
-    // for the resolution.
-    // If the mode is omitted altogether or is invalid, niri will pick one automatically.
-    mode "1920x1080"
+//output "PNP(AOC) 2460G4 0x000000DC" {
+//    // off
+//    focus-at-startup
+//    // The format is "<width>x<height>" or "<width>x<height>@<refresh rate>".
+//    // If the refresh rate is omitted, niri will pick the highest refresh rate
+//    // for the resolution.
+//    // If the mode is omitted altogether or is invalid, niri will pick one automatically.
+//    mode "1920x1080"
+//
+//    // You can use integer or fractional scale, for example use 1.5 for 150% scale.
+//    scale 1
+//
+//    // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
+//    transform "normal"
+//
+//    // Position of the output in the global coordinate space.
+//    // This affects directional monitor actions like "focus-monitor-left", and cursor movement.
+//    // The cursor can only move between directly adjacent outputs.
+//    // Output scale and rotation has to be taken into account for positioning:
+//    // outputs are sized in logical, or scaled, pixels.
+//    // For example, a 3840×2160 output with scale 2.0 will have a logical size of 1920×1080,
+//    // so to put another output directly adjacent to it on the right, set its x to 1920.
+//    // If the position is unset or results in an overlap, the output is instead placed
+//    // automatically.
+//    position x=0 y=0
+//}
 
-    // You can use integer or fractional scale, for example use 1.5 for 150% scale.
-    scale 1
+//output "LG Electronics LG ULTRAWIDE 0x00021E47" {
+//    mode "3440x1440"
+//    scale 1
+//    position x=1920 y=-150
+//}
 
-    // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
-    transform "normal"
+//output "Philips Consumer Electronics Company PHL 275S9J UK02402010099" {
+//    focus-at-startup
+//    mode "2560x1440@74.968"
+//    scale 1
+//    position x=0 y=0
+//}
 
-    // Position of the output in the global coordinate space.
-    // This affects directional monitor actions like "focus-monitor-left", and cursor movement.
-    // The cursor can only move between directly adjacent outputs.
-    // Output scale and rotation has to be taken into account for positioning:
-    // outputs are sized in logical, or scaled, pixels.
-    // For example, a 3840×2160 output with scale 2.0 will have a logical size of 1920×1080,
-    // so to put another output directly adjacent to it on the right, set its x to 1920.
-    // If the position is unset or results in an overlap, the output is instead placed
-    // automatically.
-    position x=0 y=0
-}
-
-output "LG Electronics LG ULTRAWIDE 0x00021E47" {
-    mode "3440x1440"
-    scale 1
-    position x=1920 y=-150
-}
-
-output "Philips Consumer Electronics Company PHL 275S9J UK02402010099" {
-    focus-at-startup
-    mode "2560x1440@74.968"
-    scale 1
-    position x=0 y=0
-}
-
-output "Philips Consumer Electronics Company PHL 275S9J UK02402009980" {
-    mode "2560x1440@74.968"
-    scale 1
-    position x=2560 y=-20
-}
+//output "Philips Consumer Electronics Company PHL 275S9J UK02402009980" {
+//    mode "2560x1440@74.968"
+//    scale 1
+//    position x=2560 y=-20
+//}
 
 // Settings that influence how windows are positioned and sized.
 layout {
@@ -221,13 +221,16 @@ animations {
     slowdown 0.5
 }
 
-//all windows
+//////////////////// all windows ///////////////////////////
 window-rule {
     geometry-corner-radius 15 //default 12
     clip-to-geometry true
     open-maximized-to-edges false //prevent windows from opening maximized
-    opacity 0.925
+    opacity 0.9 //or 0.925
     draw-border-with-background false //https://www.reddit.com/r/niri/comments/1qa1m97/opacity_in_alacritty/
+    background-effect {
+        blur true
+    }
 }
 
 //niri msg windows
@@ -289,11 +292,11 @@ window-rule {
 }
 
 ///////////// lower scroll factor /////////////// workaround for brave/chromium browsers on wayland reading raw libinput instead of scroll stack
-window-rule {
-    match app-id=r#"(?i)electron|brave|discord|vscode|spotify"# //case-insensitive
-
-    scroll-factor 0.15
-}
+//window-rule {
+//    match app-id=r#"(?i)electron|brave|discord|vscode|spotify"# //case-insensitive
+//
+//    scroll-factor 0.15
+//}
 
 //https://docs.noctalia.dev/getting-started/compositor-settings/niri/#option-1-blurred-overview-wallpaper
 layer-rule {

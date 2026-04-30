@@ -8,6 +8,8 @@
     ./home/niri-imports.nix
     ./home/outputscale.nix
     #./home/helix.nix
+    ./home/kanshi.nix
+    ./home/watcher.nix
   ];
 
   home.username = "${vars.user.name}";
@@ -36,6 +38,10 @@
 
   xdg.configFile."niri" = {
     source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/config/niri";
+    recursive = true;
+  };
+  xdg.configFile."kanshi/config" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/config/kanshi";
     recursive = true;
   };
 
