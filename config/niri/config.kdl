@@ -67,18 +67,6 @@ input {
 }
 
 //"niri msg outputs"
-//output "eDP-1" { //most common name for laptop-screens
-//    mode "1920x1200"
-//    scale 1
-//}
-
-//output "eDP-1" { //laptop
-//    //off
-//    focus-at-startup
-//    //scale 1
-//    position x=0 y=0
-//}
-
 //output "PNP(AOC) 2460G4 0x000000DC" {
 //    // off
 //    focus-at-startup
@@ -106,24 +94,11 @@ input {
 //    position x=0 y=0
 //}
 
-//output "LG Electronics LG ULTRAWIDE 0x00021E47" {
-//    mode "3440x1440"
-//    scale 1
-//    position x=1920 y=-150
-//}
-
-//output "Philips Consumer Electronics Company PHL 275S9J UK02402010099" {
-//    focus-at-startup
-//    mode "2560x1440@74.968"
-//    scale 1
-//    position x=0 y=0
-//}
-
-//output "Philips Consumer Electronics Company PHL 275S9J UK02402009980" {
-//    mode "2560x1440@74.968"
-//    scale 1
-//    position x=2560 y=-20
-//}
+output "LG Electronics LG ULTRAWIDE 0x00021E47" {
+    layout {
+	default-column-width { proportion 0.33334; }
+    }
+}
 
 // Settings that influence how windows are positioned and sized.
 layout {
