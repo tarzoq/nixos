@@ -10,6 +10,7 @@
     #./home/helix.nix
     ./home/kanshi.nix
     ./home/watcher.nix
+    ./home/rclone.nix
   ];
 
   home.username = "${vars.user.name}";
