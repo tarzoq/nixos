@@ -219,7 +219,8 @@ window-rule {
     match app-id="brave" app-id="nngceckbapebfimnlniiiahkandclblb" //bitwarden
     match app-id="resolve" app-id="resolve" //bitwarden
     match app-id="org.gnome.Calculator"
-    match app-id="org.kde.dolphin" title="Configure" title="Properties" title="Edit Places"
+    //match app-id="org.kde.dolphin" title="Configure" title="Properties" title="Edit Places"
+    match app-id="vlc" title="Current Media Information"
 
     open-floating true
 }
@@ -301,7 +302,7 @@ binds {
     /////////////////// HYPER-key //////////////////
     Super+Mod5+L hotkey-overlay-title="Lock the Screen: hyprlock" { spawn-sh "loginctl lock-session"; }
     Super+Mod5+F hotkey-overlay-title="Niri: Pick Window" { spawn-sh "kitty --class=float.bottomright -e sh -c 'niri msg pick-window && read'"; }
-    Super+Mod5+E hotkey-overlay-title="File Explorer: Dolphin" { spawn-sh "dolphin"; }
+    Super+Mod5+E hotkey-overlay-title="File Explorer: Nemo" { spawn-sh "nemo"; }
     Super+Mod5+Shift+C hotkey-overlay-title="Color Picker: hyprpicker" { spawn-sh "kitty --class=float.bottomright -e sh -c 'hyprpicker -u 500 -a -n -r && sleep 3'"; }
     //noctalia-shell ipc show
     Super+Mod5+V hotkey-overlay-title="Noctalia: Clipper" { spawn-sh "noctalia-shell ipc call plugin:clipper toggle"; }

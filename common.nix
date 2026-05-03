@@ -7,9 +7,11 @@
     ./modules/noctalia.nix
     #./modules/stylix.nix
     ./modules/programs/tailscale.nix
-    ./modules/programs/thunar.nix
-    ./modules/programs/dolphin.nix
+    #./modules/programs/thunar.nix
+    #./modules/programs/dolphin.nix
     ./modules/programs/chromium.nix
+    ./modules/programs/virtualbox.nix
+    ./modules/programs/nemo.nix
   ];
 
   environment.sessionVariables = {
@@ -178,16 +180,20 @@
 
   xdg.portal = {
     enable = true;
-    wlr.enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+    extraPortals = [ 
+      #pkgs.kdePackages.xdg-desktop-portal-kde
+      pkgs.xdg-desktop-portal-gtk
+      pkgs.xdg-desktop-portal-hyprland
+    ];
     config = {
       common = {
-        default = lib.mkForce [ "hyprland" "gtk" ];
+        default = lib.mkForce [ "gtk" ];
       };
       niri = {
-        default = lib.mkForce [ "hyprland" "gtk" ];
-	"org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
-	"org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
+        default = lib.mkForce [ "gtk" ];
+	#"org.freedesktop.impl.portal.FileChooser" = [ "kde" ];
+	"org.freedesktop.impl.portal.ScreenCast" = [ "hyprland" ];
+	"org.freedesktop.impl.portal.Screenshot" = [ "hyprland" ];
       };
     };
   };
@@ -227,6 +233,7 @@
   services.libinput.enable = true;
 
   programs.kdeconnect.enable = true;
+  programs.thunderbird.enable = true;
 
   # https://nixos.wiki/wiki/Fonts
   fonts.packages = builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
@@ -255,8 +262,9 @@
     brave
     gimp
     ffmpeg
-    #yt-dlp
-    #mpv #media player
+    yt-dlp
+    mpv #media player
+    vlc
     audacious #music player
     puddletag #mp3tag but better?
     discord
