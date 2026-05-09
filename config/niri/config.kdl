@@ -35,7 +35,7 @@ input {
         drag-lock
         natural-scroll
 	scroll-factor 0.7
-        accel-speed 0.2
+        accel-speed 0.1
         accel-profile "flat"
         scroll-method "two-finger"
         // disabled-on-external-mouse
@@ -44,7 +44,7 @@ input {
     mouse {
         // off
         // natural-scroll
-        accel-speed 0.0
+        accel-speed -0.2
 	//scroll-factor 0.5
         accel-profile "flat"
         // scroll-method "no-scroll"
@@ -112,6 +112,7 @@ layout {
     // - "on-overflow", focusing a column will center it if it doesn't fit
     //   together with the previously focused column.
     center-focused-column "never"
+    //center-focused-column "on-overflow"
 
     always-center-single-column
 
@@ -219,6 +220,7 @@ window-rule {
     match app-id="brave" app-id="nngceckbapebfimnlniiiahkandclblb" //bitwarden
     match app-id="resolve" app-id="resolve" //bitwarden
     match app-id="org.gnome.Calculator"
+    match app-id="org.gnome.TextEditor"
     //match app-id="org.kde.dolphin" title="Configure" title="Properties" title="Edit Places"
     match app-id="vlc" title="Current Media Information"
 
@@ -379,14 +381,14 @@ binds {
     Mod+Shift+Alt+L     { move-column-to-monitor-right; }
 
     //move entire workspace to monitor
-    Mod+Ctrl+Alt+Left  { move-window-to-monitor-left; }
-    Mod+Ctrl+Alt+Down  { move-window-to-monitor-down; }
-    Mod+Ctrl+Alt+Up    { move-window-to-monitor-up; }
-    Mod+Ctrl+Alt+Right { move-window-to-monitor-right; }
-    Mod+Ctrl+Alt+H     { move-window-to-monitor-left; }
-    Mod+Ctrl+Alt+J     { move-window-to-monitor-down; }
-    Mod+Ctrl+Alt+K     { move-window-to-monitor-up; }
-    Mod+Ctrl+Alt+L     { move-window-to-monitor-right; }
+    Mod+Ctrl+Alt+Left  { move-workspace-to-monitor-left; }
+    Mod+Ctrl+Alt+Down  { move-workspace-to-monitor-down; }
+    Mod+Ctrl+Alt+Up    { move-workspace-to-monitor-up; }
+    Mod+Ctrl+Alt+Right { move-workspace-to-monitor-right; }
+    Mod+Ctrl+Alt+H     { move-workspace-to-monitor-left; }
+    Mod+Ctrl+Alt+J     { move-workspace-to-monitor-down; }
+    Mod+Ctrl+Alt+K     { move-workspace-to-monitor-up; }
+    Mod+Ctrl+Alt+L     { move-workspace-to-monitor-right; }
 
     //focusing and moving up or down between workspaces
     Mod+Page_Down      { focus-workspace-down; }

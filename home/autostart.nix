@@ -28,5 +28,8 @@ in {
     ${spawn} "pidof tailscale systray || tailscale systray &"
     ${spawn} "pidof protonvpn-app || protonvpn-app --start-minimized &"
     ${spawn} "pgrep kdeconnect || kdeconnectd &"
+    ${spawn} "pgrep thunderbird || thunderbird &"
+    ${spawn} "pgrep discord || discord &"
   '';
+    #${spawn} "pgrep steam || steam &"
 }
