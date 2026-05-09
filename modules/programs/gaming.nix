@@ -15,7 +15,7 @@
 
   environment.systemPackages = with pkgs; [
     mangohud #in-game performance monitor
-    #lutris
+    stable.lutris
     #heroic
     lsfg-vk #lossless scaling
     lsfg-vk-ui #lossless scaling

@@ -2,7 +2,8 @@
   description = "A very basic flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable"; #set to nixos-${vars.system.stateVersion} if not unstable
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable"; #main
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master"; #same thing for this one
 
@@ -43,6 +44,15 @@
             overwriteBackup = true;
             extraSpecialArgs = { inherit vars;};
           };
+	  nixpkgs.overlays = [
+	    (final: prev: {
+	      stable = import inputs.nixpkgs-stable {
+	        #inherit (final) stdenv.hostPlatform.system;
+	        system = final.stdenv.hostPlatform.system;
+	        config.allowUnfree = true;
+	      };
+	    })
+	  ];
         }
       ];
     };
