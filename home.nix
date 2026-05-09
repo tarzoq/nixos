@@ -11,6 +11,7 @@
     ./home/kanshi.nix
     ./home/watcher.nix
     ./home/rclone.nix
+    ./home/colors.nix
   ];
 
   home.username = "${vars.user.name}";
