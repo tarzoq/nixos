@@ -17,7 +17,7 @@
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1"; # force applications to use wayland
     GTK_USE_PORTAL = "1";
-    QT_QPA_PLATFORMTHEME = "gtk3";
+    QT_QPA_PLATFORMTHEME = "gtk3"; #not sure what this does, I'll have to look into it
   };
 
   nix.settings = {
@@ -116,6 +116,7 @@
   #https://wiki.nixos.org/wiki/OBS_Studio
   programs.obs-studio = {
     enable = true;
+    enableVirtualCamera = true;
     # optional Nvidia hardware acceleration
     package = (
       pkgs.obs-studio.override {
@@ -131,7 +132,6 @@
       obs-vkcapture
     ];
   };
-  programs.obs-studio.enableVirtualCamera = true;
 
   #https://wiki.nixos.org/wiki/OpenRGB
   services.hardware.openrgb = { #motherboard (cpu-brand) shall be specified in host-config
@@ -180,20 +180,19 @@
 
   xdg.portal = {
     enable = true;
+    wlr.enable = true;
     extraPortals = [ 
-      #pkgs.kdePackages.xdg-desktop-portal-kde
       pkgs.xdg-desktop-portal-gtk
-      pkgs.xdg-desktop-portal-hyprland
     ];
     config = {
       common = {
-        default = lib.mkForce [ "gtk" ];
+        default = lib.mkForce [ "gtk" "wlr" ];
       };
       niri = {
-        default = lib.mkForce [ "gtk" ];
+        default = lib.mkForce [ "gtk" "wlr" ];
 	#"org.freedesktop.impl.portal.FileChooser" = [ "kde" ];
-	"org.freedesktop.impl.portal.ScreenCast" = [ "hyprland" ];
-	"org.freedesktop.impl.portal.Screenshot" = [ "hyprland" ];
+	#"org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
+	#"org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
       };
     };
   };
@@ -307,6 +306,9 @@
     #gnome-firmware #frontend for fwupd
     #firmware-manager
     davinci-resolve #https://nixos.wiki/wiki/DaVinci_Resolve
+    ############### SOFTWARE (tools) #########################
+    #dupeguru #GUI duplicate file finder
+    gparted-full
   ];
 
   services.cron = {
