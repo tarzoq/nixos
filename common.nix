@@ -17,7 +17,7 @@
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1"; # force applications to use wayland
     GTK_USE_PORTAL = "1";
-    QT_QPA_PLATFORMTHEME = "gtk3"; #not sure what this does, I'll have to look into it
+    QT_QPA_PLATFORMTHEME = "xdgdesktopportal"; #not sure what this does, I'll have to look into it
   };
 
   nix.settings = {
@@ -180,20 +180,13 @@
 
   xdg.portal = {
     enable = true;
-    wlr.enable = true;
     extraPortals = [ 
-      pkgs.xdg-desktop-portal-gtk
+      pkgs.xdg-desktop-portal-gtk 
+      pkgs.xdg-desktop-portal-gnome 
     ];
     config = {
-      common = {
-        default = lib.mkForce [ "gtk" "wlr" ];
-      };
-      niri = {
-        default = lib.mkForce [ "gtk" "wlr" ];
-	#"org.freedesktop.impl.portal.FileChooser" = [ "kde" ];
-	#"org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
-	#"org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
-      };
+      common.default = lib.mkForce [ "gtk" ];
+      niri.default = lib.mkForce [ "gnome" "gtk" ];
     };
   };
 
