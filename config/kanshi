@@ -1,6 +1,6 @@
 output "PNP(AOC) 2460G4 0x000000DC" {
   alias $gamingMain
-  mode "1920x1080" 
+  mode "1920x1080@144.001" 
   scale 1
 }
 output "LG Electronics LG ULTRAWIDE 0x00021E47" {
@@ -31,7 +31,7 @@ profile desk_temp {
 }
 profile desk_home {
   output $gamingMain position 0,0 enable
-  output $wideScreen position 1920,-150 enable
+  #output $wideScreen position 1920,-150 enable
 }
 profile docked_work {
   output $workMain position 0,0 enable
