@@ -307,7 +307,7 @@
     #firmware-manager
     davinci-resolve #https://nixos.wiki/wiki/DaVinci_Resolve
     ############### SOFTWARE (tools) #########################
-    #dupeguru #GUI duplicate file finder
+    stable.dupeguru #GUI duplicate file finder
     gparted-full
   ];
 
