@@ -155,7 +155,7 @@ layout {
     // You can also add a border. It's similar to the focus ring, but always visible.
     border {
 	off
-        width 2
+        width 3
         active-color "#ffc87f"
 	inactive-color "#505050"
 
@@ -223,6 +223,7 @@ window-rule {
     match app-id="org.gnome.TextEditor"
     //match app-id="org.kde.dolphin" title="Configure" title="Properties" title="Edit Places"
     match app-id="vlc" title="Current Media Information"
+    match app-id="org.pulseaudio.pavucontrol"
 
     open-floating true
 }
@@ -269,6 +270,28 @@ window-rule {
     opacity 1.0
 }
 
+///////// window cast active /////////////
+window-rule {
+    match is-window-cast-target=true
+
+    border {
+	on
+        active-gradient from="#cc1d5d" to="#cc241dee" angle=45
+        inactive-gradient from="#cc1d5d" to="#cc241dee" angle=215
+    }
+    focus-ring {
+	off
+    }
+    shadow {
+        color "#7d0d2d70"
+    }
+
+    tab-indicator {
+        active-color "#f38ba8"
+        inactive-color "#7d0d2d"
+    }
+}
+
 ///////////// lower scroll factor /////////////// workaround for brave/chromium browsers on wayland reading raw libinput instead of scroll stack
 //window-rule {
 //    match app-id=r#"(?i)electron|brave|discord|vscode|spotify"# //case-insensitive
@@ -298,6 +321,7 @@ binds {
     Super+Mod5+Space hotkey-overlay-title="Run an Application: launcher" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
     Mod+Space hotkey-overlay-title="Run an Application: rofi" { spawn-sh "pkill rofi || rofi -show drun -show-icons"; }
 
+    Mod+N hotkey-overlay-title="Run an Application: gnome-text-editor" { spawn "gnome-text-editor"; }
     Mod+B hotkey-overlay-title="Run an Application: brave" { spawn "brave"; }
     Mod+Shift+B hotkey-overlay-title="Run an Application: brave (floating)" { spawn "brave" "--class=dot.floating.brave"; }
 
@@ -317,6 +341,18 @@ binds {
     Super+Mod5+Plus hotkey-overlay-title="Niri: Scale Up" { spawn-sh "sh ~/.config/niri/outputscale.hm.sh 'up'"; }
 
     Super+Mod5+Ctrl+Shift+Alt+B hotkey-overlay-title="Modprobe: psmouse" { spawn-sh "pkexec sh -c 'modprobe -r psmouse && modprobe psmouse' 2>&1"; }
+    Super+Mod5+Shift+W hotkey-overlay-title="Cast focused window" { spawn-sh "niri msg action set-dynamic-cast-window --id $(niri msg -j focused-window | jq .id)"; }
+    //    spawn-sh "
+    //        focused_id=$(niri msg -j focused-window | jq '.id')
+    //        is_casting=$(niri msg -j focused-window | jq '.is_window_cast_target')
+
+    //        if [ \"$is_casting\" = \"true\" ]; then
+    //            niri msg action clear-dynamic-cast-target
+    //        else
+    //            niri msg action set-dynamic-cast-window --id \"$focused_id\"
+    //        fi
+    //    "
+    //}
 
     // "-l 1.0" limits the volume to 100%.
     XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+ -l 1.0"; }
