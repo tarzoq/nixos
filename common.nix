@@ -2,13 +2,9 @@
 {
   imports = [
     /etc/nixos/hardware-configuration.nix
-    #./modules/hypr.nix
     ./modules/niri.nix
     ./modules/noctalia.nix
-    #./modules/stylix.nix
     ./modules/programs/tailscale.nix
-    #./modules/programs/thunar.nix
-    #./modules/programs/dolphin.nix
     ./modules/programs/chromium.nix
     ./modules/programs/virtualbox.nix
     ./modules/programs/nemo.nix
@@ -279,7 +275,7 @@
     libnotify
     # Else
     #cheese #camera
-    snapshot #camera
+    stable.snapshot #camera
     gnome-calculator #calculator
     hyprpicker #color picker and zoom
     rofi
