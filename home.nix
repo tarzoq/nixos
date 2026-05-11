@@ -2,14 +2,12 @@
 {
   imports = [
     ./home/autostart.nix
-    #./home/hyprlock.nix
     ./home/swayidle.nix
     ./home/cursor.nix
     ./home/niri-imports.nix
     ./home/outputscale.nix
     #./home/helix.nix
     ./home/kanshi.nix
-    ./home/watcher.nix
     ./home/rclone.nix
     ./home/colors.nix
   ];
@@ -93,7 +91,7 @@
       hn = "hx ~/nixos";
       cn = "cd ~/nixos";
 
-      ding = "ffplay -nodisp -autoexit ${vars.user.home}/nixos/home/stash/winfin.mp3 > /dev/null 2>&1"; #command to put at end to signify when finished
+      ding = "ffplay -nodisp -autoexit ${vars.user.home}/nixos/home/winfin.mp3 > /dev/null 2>&1"; #command to put at end to signify when finished
     };
   };
 
