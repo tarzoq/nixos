@@ -224,6 +224,7 @@ window-rule {
     //match app-id="org.kde.dolphin" title="Configure" title="Properties" title="Edit Places"
     match app-id="vlc" title="Current Media Information"
     match app-id="org.pulseaudio.pavucontrol"
+    match app-id="thunar" title="Bulk Rename"
 
     open-floating true
 }
