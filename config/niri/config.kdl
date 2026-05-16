@@ -334,7 +334,7 @@ binds {
     //noctalia-shell ipc show
     Super+Mod5+V hotkey-overlay-title="Noctalia: Clipper" { spawn-sh "noctalia-shell ipc call plugin:clipper toggle"; }
     Super+Mod5+B hotkey-overlay-title="Noctalia: Background" { spawn-sh "noctalia-shell ipc call wallpaper toggle"; }
-    Super+Mod5+X hotkey-overlay-title="Noctalia: Powermenu" { spawn-sh "noctalia-shell ipc call sessionMenu toggle"; }
+    //Super+Mod5+X hotkey-overlay-title="Noctalia: Powermenu" { spawn-sh "noctalia-shell ipc call sessionMenu toggle"; }
     Super+Mod5+C hotkey-overlay-title="Noctalia: KeepAwake" { spawn-sh "noctalia-shell ipc call idleInhibitor toggle"; }
     Super+Mod5+Period hotkey-overlay-title="Noctalia: Emoji" { spawn-sh "noctalia-shell ipc call launcher emoji"; }
 
