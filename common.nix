@@ -8,13 +8,19 @@
     ./modules/programs/chromium.nix
     ./modules/programs/virtualbox.nix
     ./modules/programs/nemo.nix
+    ./modules/programs/obsidian.nix
   ];
 
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1"; # force applications to use wayland
     GTK_USE_PORTAL = "1";
-    QT_QPA_PLATFORMTHEME = "xdgdesktopportal"; #not sure what this does, I'll have to look into it
+    QT_QPA_PLATFORMTHEME = "gtk3"; #not sure what this does, I'll have to look into it
+    QT_STYLE_OVERRIDE = "gtk2";
   };
+  #qt = {
+  #  enable = true;
+  #  platformTheme = "gtk2"; #or "gnome"
+  #};
 
   nix.settings = {
     cores = 2;
@@ -259,6 +265,9 @@
     signal-desktop #messaging
     proton-vpn
     audacity
+    ############ DEV #############
+    lazydocker
+    ############ DEV #############
     fastfetch
     kitty #needed for hyprland
     ghostty #testing, unsure
