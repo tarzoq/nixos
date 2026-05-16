@@ -4,6 +4,7 @@
   environment.systemPackages = with pkgs; [
     nemo-with-extensions
     thunar #for bulk rename
+    file-roller
   ];
   services.gvfs.enable = true;
 
@@ -24,4 +25,8 @@
       };
     };
   };
+
+  #files to declare:
+  #~/.config/gtk-3.0/bookmarks
+  #rest is dconf
 }

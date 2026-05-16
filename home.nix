@@ -10,6 +10,7 @@
     ./home/kanshi.nix
     ./home/rclone.nix
     ./home/colors.nix
+    ./home/wlrwhichkey.nix
   ];
 
   home.username = "${vars.user.name}";
@@ -25,16 +26,6 @@
   #  };
   #  recursive = true;
   #};
-
-  xdg.userDirs = {
-    enable = true;
-    setSessionVariables = false;
-    createDirectories = true;
-  };
-  xdg.enable = true;
-  xdg.mimeApps = {
-    enable = true;
-  };
 
   xdg.configFile."niri" = {
     source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/config/niri";
@@ -124,6 +115,64 @@
       credential.helper = "${
           pkgs.git.override { withLibsecret = true; }
         }/bin/git-credential-libsecret";
+    };
+  };
+
+  xdg.userDirs = {
+    enable = true;
+    setSessionVariables = false;
+    createDirectories = true;
+  };
+  xdg.enable = true;
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = { #ls /run/current-system/sw/share/applications/
+      "text/html" = "brave-browser.desktop";
+      "x-scheme-handler/http" = "brave-browser.desktop";
+      "x-scheme-handler/https" = "brave-browser.desktop";
+      "x-scheme-handler/about" = "brave-browser.desktop";
+      "x-scheme-handler/unknown" = "brave-browser.desktop";
+
+      # Documents
+      "application/pdf" = "org.gnome.Evince.desktop";
+      #"application/epub+zip" = "org.gnome.Books.desktop";
+      "text/plain" = "org.gnome.TextEditor.desktop";
+      "text/markdown" = "obsidian.desktop";
+      
+      # Office Suite
+      "application/msword" = "onlyoffice-desktopeditors.desktop";
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = "onlyoffice-desktopeditors.desktop";
+      "application/vnd.ms-excel" = "onlyoffice-desktopeditors.desktop";
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" = "onlyoffice-desktopeditors.desktop";
+      
+      # Directories / File Transfers
+      #"inode/directory" = "org.gnome.Nautilus.desktop";
+      "x-scheme-handler/ftp" = "brave-browser.desktop";
+      
+      # Images
+      "image/jpeg" = "org.nomacs.ImageLounge.desktop";
+      "image/png" = "org.nomacs.ImageLounge.desktop";
+      "image/gif" = "org.nomacs.ImageLounge.desktop";
+      "image/webp" = "org.nomacs.ImageLounge.desktop";
+      "image/svg+xml" = "org.nomacs.ImageLounge.desktop";
+     
+      # Audio
+      "audio/mpeg" = "audacious.desktop";
+      "audio/ogg" = "audacious.desktop";
+      "audio/mp4" = "audacious.desktop";
+      "audio/flac" = "audacious.desktop";
+     
+      # Video
+      "video/mp4" = "vlc.desktop";
+      "video/mpeg" = "vlc.desktop";
+      "video/quicktime" = "vlc.desktop";
+      "video/x-matroska" = "vlc.desktop";
+      
+      # Archives
+      "application/zip" = "org.gnome.FileRoller.desktop";
+      "application/x-tar" = "org.gnome.FileRoller.desktop";
+      "application/x-bzip2" = "org.gnome.FileRoller.desktop";
+      "application/x-gzip" = "org.gnome.FileRoller.desktop";
     };
   };
 }
