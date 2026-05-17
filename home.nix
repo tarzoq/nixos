@@ -3,7 +3,6 @@
   imports = [
     ./home/autostart.nix
     ./home/swayidle.nix
-    ./home/cursor.nix
     ./home/niri-imports.nix
     ./home/outputscale.nix
     #./home/helix.nix
