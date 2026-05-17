@@ -5,8 +5,10 @@
     nemo-with-extensions
     thunar #for bulk rename
     file-roller
+    gnome-disk-utility
   ];
   services.gvfs.enable = true;
+  services.udisks2.enable = true;
 
   #make it the default file browser
   xdg = {
@@ -24,6 +26,14 @@
           };
       };
     };
+    #services.udiskie = {
+    #  enable = true;
+    #  settings = {
+    #    program_options = {
+    #      file_manager = "${pkgs.nemo-with-extensions}/bin/nemo";
+    #    };
+    #  };
+    #};
   };
 
   #files to declare:
