@@ -8,6 +8,11 @@ output "LG Electronics LG ULTRAWIDE 0x00021E47" {
   mode "3440x1440@59.973" 
   scale 1
 }
+output "Samsung Electric Company SyncMaster 0x4B493236" {
+  alias $syncMaster
+  mode "1920x1200@59.950" 
+  scale 1
+}
 
 output "eDP-1" {
   alias $laptop
@@ -32,6 +37,7 @@ profile desk_temp {
 profile desk_home {
   output $gamingMain position 0,0 enable
   #output $wideScreen position 1920,-150 enable
+  output $syncMaster position 1920,-50 enable
 }
 profile docked_work {
   output $workMain position 0,0 enable
