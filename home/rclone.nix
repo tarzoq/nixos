@@ -26,6 +26,7 @@
       '';
       ExecStop = "${pkgs.fuse}/bin/fusermount -uz '%h/mnt/Google Drive'";
       Restart = "on-failure";
+      RestartSec = "10s";
     };
     Install.WantedBy = [ "default.target" ];
   };

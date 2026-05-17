@@ -37,16 +37,16 @@ in {
 	};
       })}"; }
       ${LMETA}+X { spawn-sh "${lib.getExe (bLeftMenu {
+	  "d" = {
+	    desc = "Disk Management (gparted)";
+	    cmd = "gparted";
+	  };
 	  "n" = {
 	    desc = "Shutdown Options";
 	    submenu = {
-              "a" = {
-	        desc = "Shutdown";
-	        cmd = "poweroff";
-	      };
-              "s" = {
-	        desc = "Restart";
-	        cmd = "reboot";
+              "l" = {
+	        desc = "Log out";
+	        cmd = "niri msg action quit";
 	      };
               "ö" = {
 	        desc = "Suspend";
@@ -56,9 +56,13 @@ in {
 	        desc = "Hibernate";
 	        cmd = "systemctl hibernate";
 	      };
-              "l" = {
-	        desc = "Lock";
-	        cmd = "loginctl lock-session";
+              "a" = {
+	        desc = "Shutdown";
+	        cmd = "poweroff";
+	      };
+              "s" = {
+	        desc = "Restart";
+	        cmd = "reboot";
 	      };
 	    };
 	  };
