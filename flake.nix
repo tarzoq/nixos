@@ -17,15 +17,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    stylix = {
-      url = "github:nix-community/stylix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nix-flatpak.url = "github:gmodena/nix-flatpak/22a3adbe7c5c8c8a10a635d32c9ef7fc01a6e4b8";
 
-    dolphin-overlay.url = "github:rumboon/dolphin-overlay/c32758737a0cb02d0bf380753d11df1b8537a944";
+    #stylix = {
+    #  url = "github:nix-community/stylix";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
+
+    #dolphin-overlay.url = "github:rumboon/dolphin-overlay/c32758737a0cb02d0bf380753d11df1b8537a944";
   };
 
-  outputs = { self, nixpkgs, home-manager, stylix, ... }@inputs: 
+  outputs = { self, nixpkgs, home-manager, nix-flatpak, ... }@inputs: 
   let
     vars = import /etc/nixos/variables.nix; #just a symlink, still edited directly from ./ (which is gitignored as to not have it commited to public repo)
   in {
@@ -34,7 +36,8 @@
       modules = [
         ./hosts/${vars.system.hostname}.nix
         home-manager.nixosModules.home-manager
-	stylix.nixosModules.stylix
+	#stylix.nixosModules.stylix
+	nix-flatpak.nixosModules.nix-flatpak
         {
           home-manager = {
             useGlobalPkgs = true;
