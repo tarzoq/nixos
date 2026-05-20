@@ -327,6 +327,8 @@ binds {
     Mod+Shift+B hotkey-overlay-title="Run an Application: brave incognito" { spawn "brave" "--incognito"; }
     //Mod+Shift+B hotkey-overlay-title="Run an Application: brave (floating)" { spawn "brave" "--class=dot.floating.brave"; }
 
+    Mod+X hotkey-overlay-title="Niri: go to last workspace" { spawn "sh" "-c" "niri msg action focus-workspace $(niri msg workspaces | tail -n1 | tr -d ' *')"; }
+
     /////////////////// HYPER-key //////////////////
     Super+Mod5+L hotkey-overlay-title="Lock the Screen: hyprlock" { spawn-sh "loginctl lock-session"; }
     Super+Mod5+F hotkey-overlay-title="Niri: Pick Window" { spawn-sh "kitty --class=float.bottomright -e sh -c 'niri msg pick-window && read'"; }
@@ -335,7 +337,7 @@ binds {
     //noctalia-shell ipc show
     Super+Mod5+V hotkey-overlay-title="Noctalia: Clipper" { spawn-sh "noctalia-shell ipc call plugin:clipper toggle"; }
     Super+Mod5+B hotkey-overlay-title="Noctalia: Background" { spawn-sh "noctalia-shell ipc call wallpaper toggle"; }
-    //Super+Mod5+X hotkey-overlay-title="Noctalia: Powermenu" { spawn-sh "noctalia-shell ipc call sessionMenu toggle"; }
+    Ctrl+Alt+Delete hotkey-overlay-title="Noctalia: Powermenu" { spawn-sh "noctalia-shell ipc call sessionMenu toggle"; }
     Super+Mod5+C hotkey-overlay-title="Noctalia: KeepAwake" { spawn-sh "noctalia-shell ipc call idleInhibitor toggle"; }
     Super+Mod5+Period hotkey-overlay-title="Noctalia: Emoji" { spawn-sh "noctalia-shell ipc call launcher emoji"; }
 
@@ -343,7 +345,7 @@ binds {
     Super+Mod5+Plus hotkey-overlay-title="Niri: Scale Up" { spawn-sh "sh ~/.config/niri/outputscale.hm.sh 'up'"; }
 
     Super+Mod5+Ctrl+Shift+Alt+B hotkey-overlay-title="Modprobe: psmouse" { spawn-sh "pkexec sh -c 'modprobe -r psmouse && modprobe psmouse' 2>&1"; }
-    Super+Mod5+Shift+W hotkey-overlay-title="Cast focused window" { spawn-sh "niri msg action set-dynamic-cast-window --id $(niri msg -j focused-window | jq .id)"; }
+    //Super+Mod5+Shift+W hotkey-overlay-title="Cast focused window" { spawn-sh "niri msg action set-dynamic-cast-window --id $(niri msg -j focused-window | jq .id)"; }
     //    spawn-sh "
     //        focused_id=$(niri msg -j focused-window | jq '.id')
     //        is_casting=$(niri msg -j focused-window | jq '.is_window_cast_target')
@@ -511,17 +513,17 @@ binds {
     Mod+V       { toggle-window-floating; }
     Mod+Shift+V { switch-focus-between-floating-and-tiling; }
     // Toggle vertically tabbed column display mode.
-    Mod+Alt+V { toggle-column-tabbed-display; }
+    Mod+Alt+V { toggle-column-tabbed-display; } ///////////////////////////////////////////////////////////// <--------------
 
     Super+Mod5+Shift+S { screenshot; }
-    Super+Mod5+Ctrl+Print { screenshot-window; }
+    Super+Mod5+Shift+W { screenshot-window; }
+    Super+Mod5+Shift+D { screenshot-screen; }
 
     // escape hatch for keyboard inhibitors
     Mod+Mod5+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
     // The quit action will show a confirmation dialog to avoid accidental exits.
     Mod+Shift+Q { quit; }
-    //Ctrl+Alt+Delete hotkey-overlay-title="Suspend" { spawn-sh "systemctl suspend"; }
 
     Mod+Shift+P { power-off-monitors; }
 }
