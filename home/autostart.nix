@@ -26,10 +26,11 @@ in {
     ${spawn} "pidof noctalia-shell || noctalia-shell &"
     ${spawn} "pidof kanshi || kanshi &"
     ${spawn} "pidof tailscale systray || tailscale systray &"
-    ${spawn} "pidof protonvpn-app || protonvpn-app --start-minimized &"
     ${spawn} "pgrep kdeconnect || kdeconnectd &"
     ${spawn} "pgrep thunderbird || thunderbird &"
     ${spawn} "pgrep discord || discord &"
+    ${spawn} "pgrep teams-for-linux || teams-for-linux &"
   '';
     #${spawn} "pgrep steam || steam &"
+    #${spawn} "pidof protonvpn-app || protonvpn-app --start-minimized &"
 }
