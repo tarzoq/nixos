@@ -133,7 +133,7 @@
       "x-scheme-handler/unknown" = "brave-browser.desktop";
 
       # Documents
-      "application/pdf" = "org.gnome.Evince.desktop";
+      "application/pdf" = "org.kde.okular.desktop";
       #"application/epub+zip" = "org.gnome.Books.desktop";
       "text/plain" = "org.gnome.TextEditor.desktop";
       "text/markdown" = "obsidian.desktop";
@@ -158,6 +158,7 @@
       # Audio
       "audio/mpeg" = "audacious.desktop";
       "audio/ogg" = "audacious.desktop";
+      "audio/vorbis" = "audacious.desktop";
       "audio/mp4" = "audacious.desktop";
       "audio/flac" = "audacious.desktop";
      

@@ -45,7 +45,7 @@ in
     xdg.desktopEntries.sheet-music-viewer = {
       name = "Sheet Music Viewer";
       exec = "sheet-music-viewer";
-      icon = "org.gnome.Evince";
+      icon = "org.kde.okular";
       comment = "PDF sheet music viewer";
       categories = [ "AudioVideo" "Music" ];
       terminal = false;

@@ -232,7 +232,6 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  programs.evince.enable = true;
   environment.systemPackages = with pkgs; [
     zathura #might use in the future for sheet music (requires some additional touchscreen gesture tweaking)
     kdePackages.okular #pdf viewer

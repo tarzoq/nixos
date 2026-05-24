@@ -15,7 +15,7 @@ My personal NixOS config
 #https://github.com/Frost-Phoenix/nixos-config/blob/main/README.md
 | Component | Software |
 | --- | :---: |
-Niri:
+|Niri:
 | **Window Manager**          | Niri |
 | **Bar**                     | Noctalia |
 | **Application Launcher**    | Rofi or Noctalia |
@@ -23,7 +23,7 @@ Niri:
 | **Terminal Emulator**       | Kitty |
 | **Shell**                   | bash |
 | **network management tool** | NetworkManager + Noctalia |
-
+|
 | **System resource monitor** | Btop + Noctalia |
 | **File Manager**            | Nemo (with Thunar Bulk Rename) |
 | **Fonts**                   |  |
@@ -49,9 +49,9 @@ Niri:
 | **Messaging**            | Discord, Teams, Signal |
 | **Gaming**            | Steam, Lutris, Heroic |
 | **Online Storage**            | Rclone |
-#| **Sheet Music Viewer**            | Evince |
-
-Bare Essentials:
+| **Sheet Music Viewer**            | SheetMusicViewer |
+|
+|Bare Essentials:
 | **Clock & Timer**            | Gnome Clocks |
 | **Notes**            | Obsidian |
 | **Office Suite**            | OnlyOffice |
@@ -60,13 +60,12 @@ Bare Essentials:
 | **Text Editor**             | Gnome Text Editor |
 | **Paint**            | Pinta |
 | **Camera**                  | Snapshot or Cheese |
-
-
-Dev:
+|
+| Dev:
 | **Code Editor**             | Neovim + VSCode (Helix?) |
 | **Docker Manager**            | lazydocker (alternative to Docker Desktop) |
-
-Good to haves:
+|
+| Good to haves:
 | **Duplicate Finder**             | DupeGuru |
 | **Sheet Music Editor**             | MuseScore? |
 | **Media Writer**             | Ventoy, Impression, WoeUSB-ng |
