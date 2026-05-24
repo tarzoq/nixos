@@ -15,17 +15,17 @@ My personal NixOS config
 #https://github.com/Frost-Phoenix/nixos-config/blob/main/README.md
 | Component | Software |
 | --- | :---: |
+Niri:
 | **Window Manager**          | Niri |
 | **Bar**                     | Noctalia |
 | **Application Launcher**    | Rofi or Noctalia |
 | **Notification Daemon**     | Noctalia |
-| **Terminal Emulator**       | Kitty or Alacritty |
+| **Terminal Emulator**       | Kitty |
 | **Shell**                   | bash |
-| **Text Editor**             | Neovim or Helix + VSCode |
-| **Camera**                  | Cheese + Snapshot |
 | **network management tool** | NetworkManager + Noctalia |
+
 | **System resource monitor** | Btop + Noctalia |
-| **File Manager**            | Dolphin |
+| **File Manager**            | Nemo (with Thunar Bulk Rename) |
 | **Fonts**                   |  |
 | **Color Scheme**            | Wallpaper |
 | **GTK theme**               |  |
@@ -33,63 +33,45 @@ My personal NixOS config
 | **Icons**                   |  |
 | **Lockscreen**              | Hyprlock |
 | **Idle Agent**              | Swayidle + Hypridle |
-| **Image Viewer**            | |
-| **Media Player**            | mpv |
-| **Music Player**            | audacious |
-| **Screenshot Software**     | Niri's built-in |
+| **Image Viewer**            | Nomacs|
+| **Media Player**            | VLC / mpv |
+| **Music Player**            | Audacious |
+| **Image Editor**     | GIMP |
+| **Audio Editor**     | Audacity |
+| **Video Editor**     | Davinci Resolve |
+| **Screenshot Software**     | Niri's built-in (or like Nick YT)|
 | **Screen Recording**        | OBS Studio |
 | **Clipboard**               | Noctalia plugin:clipper |
 | **Color Picker**            | Hyprpicker |
+| **Email Client**            | Thunderbird |
+| **Browser**            | Brave |
+| **VPN**            | ProtonVPN + Tailscale |
+| **Messaging**            | Discord, Teams, Signal |
+| **Gaming**            | Steam, Lutris, Heroic |
+| **Online Storage**            | Rclone |
+#| **Sheet Music Viewer**            | Evince |
+
+Bare Essentials:
+| **Clock & Timer**            | Gnome Clocks |
+| **Notes**            | Obsidian |
+| **Office Suite**            | OnlyOffice |
+| **PDF Viewer**            | Okular, Zathura |
+| **Calculator**            | Gnome Calculator |
+| **Text Editor**             | Gnome Text Editor |
+| **Paint**            | Pinta |
+| **Camera**                  | Snapshot or Cheese |
 
 
-Core:
-Camera = snapshot
-Image Viewer = nomacs
-File Explorer = dolphin
-Terminal = kitty or ghostty
-Text Editor = gnome-text-editor
-Paint = pinta
-Calculator = gnome-calculator
-Media Player = mpv / vlc
-Email = thunderbird
-Browser = brave
-Office Suite = onlyoffice-desktopeditors
-Task Manager = btop
-Image Editing = gimp
-Audio Editing = audacity
-Video Editing = davinci resolve
-Code Editor = vscode and nvim
-VPN = protonvpn, tailscale
-Messaging = discord, teams, signal
+Dev:
+| **Code Editor**             | Neovim + VSCode (Helix?) |
+| **Docker Manager**            | lazydocker (alternative to Docker Desktop) |
 
-
-
-Calendar
-Screenshot = Niri (or like Nick YT)
-
-Clock & Timer
-
-PDF Editor and Viewer = gnome document viewer? / okular
-
-
-
-
-Music = Spotify
-
-
+Good to haves:
+| **Duplicate Finder**             | DupeGuru |
+| **Sheet Music Editor**             | MuseScore? |
+| **Media Writer**             | Ventoy, Impression, WoeUSB-ng |
 
 On-screen Keyboard (tablet mode) = maliit-keyboard?
-
-Gaming:
-steam
-epicgames
-
-Sheet Music:
-librescore
-Musescore
-
-googledrive
-
 
 Goals:
 Tablet mode

@@ -170,9 +170,7 @@
 
   services.displayManager = {
     gdm = {
-      # default session for hyprland: hyprland-uwsm
       enable = true;
-      wayland = true;
     };
     autoLogin = {
       enable = true;
@@ -278,6 +276,7 @@
     pciutils #spci etc
     dmidecode #info about bios
     ethtool
+    bind #nslookup etc.
     cmatrix #for fun
     pavucontrol #audio device settings
     #swayosd #OSD for volume and brightness
@@ -287,6 +286,7 @@
     #cheese #camera
     stable.snapshot #camera
     gnome-calculator #calculator
+    gnome-clocks #clock and timer
     hyprpicker #color picker and zoom
     rofi
     brightnessctl
@@ -308,6 +308,11 @@
     ############### SOFTWARE (tools) #########################
     stable.dupeguru #GUI duplicate file finder
     gparted-full
+    ####### ISO ########
+    #ventoy-full-gtk
+    woeusb-ng #windows isos only
+    impression #generic bootable media writer
+    ####### ISO ########
   ];
 
   services.cron = {
