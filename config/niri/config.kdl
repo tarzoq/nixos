@@ -225,6 +225,7 @@ window-rule {
     match app-id="vlc" title="Current Media Information"
     match app-id="org.pulseaudio.pavucontrol"
     match app-id="thunar" title="Bulk Rename"
+    match app-id="org.gnome.clocks"
 
     open-floating true
 }
@@ -267,6 +268,7 @@ window-rule {
     match app-id="gimp"
     match app-id="resolve"
     match app-id="org.gnome.Snapshot"
+    match app-id="synthesia"
 
     opacity 1.0
 }
@@ -291,6 +293,25 @@ window-rule {
         active-color "#f38ba8"
         inactive-color "#7d0d2d"
     }
+}
+
+window-rule {
+    match app-id="SheetMusicViewer"
+
+    open-maximized true
+    opacity 1.0
+}
+
+///////////////// TOASTS ///////////////////
+window-rule {
+    match app-id="steam" title="Test"
+
+    open-floating true
+    default-floating-position x=10 y=10 relative-to="bottom-right"
+    open-focused false
+    //default-column-width { proportion 0.3; }
+    //default-window-height { proportion 0.3; }
+    opacity 1.0
 }
 
 ///////////// lower scroll factor /////////////// workaround for brave/chromium browsers on wayland reading raw libinput instead of scroll stack
@@ -327,7 +348,10 @@ binds {
     Mod+Shift+B hotkey-overlay-title="Run an Application: brave incognito" { spawn "brave" "--incognito"; }
     //Mod+Shift+B hotkey-overlay-title="Run an Application: brave (floating)" { spawn "brave" "--class=dot.floating.brave"; }
 
-    Mod+X hotkey-overlay-title="Niri: go to last workspace" { spawn "sh" "-c" "niri msg action focus-workspace $(niri msg workspaces | tail -n1 | tr -d ' *')"; }
+    //niri msg --json workspaces | jq --arg out "$(niri msg --json focused-output | jq -r .name)" '[.[] | select(.output == $out)] | length'
+
+    Mod+X hotkey-overlay-title="Niri: go to last workspace" { spawn "sh" "-c" "niri msg action focus-workspace $(niri msg --json workspaces | jq --arg out \"$(niri msg --json focused-output | jq -r .name)\" '[.[] | select(.output == $out)] | length')"; }
+    Mod+Shift+X hotkey-overlay-title="Niri: move column to last workspace" { spawn "sh" "-c" "niri msg action move-column-to-workspace $(niri msg --json workspaces | jq --arg out \"$(niri msg --json focused-output | jq -r .name)\" '[.[] | select(.output == $out)] | length')"; } //----------------------------------------> Keybind doesn't seem to work
 
     /////////////////// HYPER-key //////////////////
     Super+Mod5+L hotkey-overlay-title="Lock the Screen: hyprlock" { spawn-sh "loginctl lock-session"; }
