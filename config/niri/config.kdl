@@ -338,7 +338,7 @@ binds {
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
-    Mod+Shift+T hotkey-overlay-title="Open a Terminal: kitty (floating" { spawn "kitty" "--class=dot.floating.kitty"; }
+    Mod+Shift+T hotkey-overlay-title="Open a Terminal: kitty (floating)" { spawn "kitty" "--class=dot.floating.kitty"; }
 
     Super+Mod5+Space hotkey-overlay-title="Run an Application: launcher" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
     Mod+Space hotkey-overlay-title="Run an Application: rofi" { spawn-sh "pkill rofi || rofi -show drun -show-icons"; }
@@ -352,6 +352,7 @@ binds {
 
     Mod+X hotkey-overlay-title="Niri: go to last workspace" { spawn "sh" "-c" "niri msg action focus-workspace $(niri msg --json workspaces | jq --arg out \"$(niri msg --json focused-output | jq -r .name)\" '[.[] | select(.output == $out)] | length')"; }
     Mod+Shift+X hotkey-overlay-title="Niri: move column to last workspace" { spawn "sh" "-c" "niri msg action move-column-to-workspace $(niri msg --json workspaces | jq --arg out \"$(niri msg --json focused-output | jq -r .name)\" '[.[] | select(.output == $out)] | length')"; } //----------------------------------------> Keybind doesn't seem to work
+    Mod+Ctrl+X hotkey-overlay-title="Niri: move workspace to last workspace" { spawn "sh" "-c" "niri msg action move-workspace-to-index $(niri msg --json workspaces | jq --arg out \"$(niri msg --json focused-output | jq -r .name)\" '[.[] | select(.output == $out)] | length')"; }
 
     /////////////////// HYPER-key //////////////////
     Super+Mod5+L hotkey-overlay-title="Lock the Screen: hyprlock" { spawn-sh "loginctl lock-session"; }
@@ -367,6 +368,7 @@ binds {
 
     Super+Mod5+Minus hotkey-overlay-title="Niri: Scale Down" { spawn-sh "sh ~/.config/niri/outputscale.hm.sh 'down'"; }
     Super+Mod5+Plus hotkey-overlay-title="Niri: Scale Up" { spawn-sh "sh ~/.config/niri/outputscale.hm.sh 'up'"; }
+    Ctrl+Shift+Escape hotkey-overlay-title="Task Manager: btop" { spawn-sh "kitty -e btop"; }
 
     Super+Mod5+Ctrl+Shift+Alt+B hotkey-overlay-title="Modprobe: psmouse" { spawn-sh "pkexec sh -c 'modprobe -r psmouse && modprobe psmouse' 2>&1"; }
     //Super+Mod5+Shift+W hotkey-overlay-title="Cast focused window" { spawn-sh "niri msg action set-dynamic-cast-window --id $(niri msg -j focused-window | jq .id)"; }
@@ -503,6 +505,17 @@ binds {
     Mod+Shift+7 { move-column-to-workspace 7; }
     Mod+Shift+8 { move-column-to-workspace 8; }
     Mod+Shift+9 { move-column-to-workspace 9; }
+
+    //move workspace to index
+    Mod+Ctrl+1 { move-workspace-to-index 1; }
+    Mod+Ctrl+2 { move-workspace-to-index 2; }
+    Mod+Ctrl+3 { move-workspace-to-index 3; }
+    Mod+Ctrl+4 { move-workspace-to-index 4; }
+    Mod+Ctrl+5 { move-workspace-to-index 5; }
+    Mod+Ctrl+6 { move-workspace-to-index 6; }
+    Mod+Ctrl+7 { move-workspace-to-index 7; }
+    Mod+Ctrl+8 { move-workspace-to-index 8; }
+    Mod+Ctrl+9 { move-workspace-to-index 9; }
 
     // Switches focus between the current and the previous workspace.
     Super+Mod5+Tab { focus-workspace-previous; }
