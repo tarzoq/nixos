@@ -297,6 +297,7 @@
     brightnessctl
     playerctl
     btop
+    mission-center
     lsfg-vk
     lsfg-vk-ui
     spotify

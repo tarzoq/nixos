@@ -24,7 +24,7 @@ My personal NixOS config
 | **Shell**                   | bash |
 | **network management tool** | NetworkManager + Noctalia |
 ||
-| **System resource monitor** | Btop + Noctalia |
+| **System resource monitor** | Mission Center + Btop |
 | **File Manager**            | Nemo (with Thunar Bulk Rename) |
 | **Fonts**                   |  |
 | **Color Scheme**            | Wallpaper |

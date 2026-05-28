@@ -368,7 +368,8 @@ binds {
 
     Super+Mod5+Minus hotkey-overlay-title="Niri: Scale Down" { spawn-sh "sh ~/.config/niri/outputscale.hm.sh 'down'"; }
     Super+Mod5+Plus hotkey-overlay-title="Niri: Scale Up" { spawn-sh "sh ~/.config/niri/outputscale.hm.sh 'up'"; }
-    Ctrl+Shift+Escape hotkey-overlay-title="Task Manager: btop" { spawn-sh "kitty -e btop"; }
+    Ctrl+Shift+Escape hotkey-overlay-title="Task Manager: missioncenter" { spawn-sh "missioncenter"; }
+    //Ctrl+Shift+Alt+Escape hotkey-overlay-title="Task Manager Alt: btop" { spawn-sh "kitty -e btop"; }
 
     Super+Mod5+Ctrl+Shift+Alt+B hotkey-overlay-title="Modprobe: psmouse" { spawn-sh "pkexec sh -c 'modprobe -r psmouse && modprobe psmouse' 2>&1"; }
     //Super+Mod5+Shift+W hotkey-overlay-title="Cast focused window" { spawn-sh "niri msg action set-dynamic-cast-window --id $(niri msg -j focused-window | jq .id)"; }
