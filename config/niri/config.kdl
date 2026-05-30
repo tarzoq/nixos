@@ -348,6 +348,8 @@ binds {
     Mod+Shift+B hotkey-overlay-title="Run an Application: brave incognito" { spawn "brave" "--incognito"; }
     //Mod+Shift+B hotkey-overlay-title="Run an Application: brave (floating)" { spawn "brave" "--class=dot.floating.brave"; }
 
+    Mod+W hotkey-overlay-title="Run an Application: obsidian" { spawn "obsidian"; }
+
     //niri msg --json workspaces | jq --arg out "$(niri msg --json focused-output | jq -r .name)" '[.[] | select(.output == $out)] | length'
 
     Mod+X hotkey-overlay-title="Niri: go to last workspace" { spawn "sh" "-c" "niri msg action focus-workspace $(niri msg --json workspaces | jq --arg out \"$(niri msg --json focused-output | jq -r .name)\" '[.[] | select(.output == $out)] | length')"; }
