@@ -38,5 +38,8 @@
     #heroic
     lsfg-vk #lossless scaling
     lsfg-vk-ui #lossless scaling
+
+    #https://wiki.nixos.org/wiki/Prism_Launcher
+    prismlauncher #minecraft
   ];
 }
