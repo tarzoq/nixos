@@ -349,6 +349,7 @@ binds {
     //Mod+Shift+B hotkey-overlay-title="Run an Application: brave (floating)" { spawn "brave" "--class=dot.floating.brave"; }
 
     Mod+W hotkey-overlay-title="Run an Application: obsidian" { spawn "obsidian"; }
+    Mod+Z hotkey-overlay-title="Run an Application: vscode" { spawn "code"; }
 
     //niri msg --json workspaces | jq --arg out "$(niri msg --json focused-output | jq -r .name)" '[.[] | select(.output == $out)] | length'
 
