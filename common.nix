@@ -25,20 +25,18 @@
     max-jobs = 2;
   };
 
-  # good to haves to hardware support
+  #good to haves to hardware support
   hardware.enableAllFirmware = true;
   hardware.enableRedistributableFirmware = true;
   services.fwupd.enable = true; #fwupdmgr refresh; fwupdmgr get-updates; fwupdmgr update
 
-  # Bootloader
+  #bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.initrd.systemd.enable = true;
-  #disable modern standby in favor of legacy S3
-  boot.kernelParams = [ "mem_sleep_default=deep" ];
 
-  # networking.networkmanager.wifi.powersave = false;
+  #networking.networkmanager.wifi.powersave = false;
   powerManagement.enable = true;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -47,10 +45,10 @@
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
 
-  ##services.systembus-notify.enable = true;
+  #services.systembus-notify.enable = true;
   #environment.pathsToLink = [ "/share/xdg-desktop-portal" "/share/applications" ]; #if useUserPackages is enabled
 
-  # Found somewhere on StackOverFlow
+  #found somewhere on StackOverflow
   services.keyd = { #keyd list-keys
     enable = true;
     keyboards = {
@@ -72,7 +70,6 @@
   networking.hostName = "${vars.system.hostname}"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  # Enable networking
   networking.networkmanager.enable = true;
 
   #https://nixos.wiki/wiki/Bluetooth
