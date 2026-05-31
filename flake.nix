@@ -5,7 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable"; #main
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
 
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master"; #same thing for this one
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
@@ -23,8 +23,6 @@
     #  url = "github:nix-community/stylix";
     #  inputs.nixpkgs.follows = "nixpkgs";
     #};
-
-    #dolphin-overlay.url = "github:rumboon/dolphin-overlay/c32758737a0cb02d0bf380753d11df1b8537a944";
   };
 
   outputs = { self, nixpkgs, home-manager, nix-flatpak, ... }@inputs: 
@@ -50,7 +48,6 @@
 	  nixpkgs.overlays = [
 	    (final: prev: {
 	      stable = import inputs.nixpkgs-stable {
-	        #inherit (final) stdenv.hostPlatform.system;
 	        system = final.stdenv.hostPlatform.system;
 	        config.allowUnfree = true;
 	      };

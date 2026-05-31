@@ -15,6 +15,7 @@
   home.username = "${vars.user.name}";
   home.homeDirectory = "${vars.user.home}";
   home.stateVersion = "${vars.system.stateVersion}";
+  home.enableNixpkgsReleaseCheck = false; #disable mismatched version warning, I'm using nixpkgs.follows anyway.
 
   ##wallpapers: https://github.com/5hubham5ingh/WallRizz/tree/wallpapers
   #home.file."Pictures/Wallpapers/WallRizz" = {
