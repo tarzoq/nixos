@@ -1,6 +1,4 @@
 { config, lib, pkgs, vars, ... }:
-#lutris
-#gcdemu
 {
   imports = [
     /etc/nixos/hardware-configuration.nix
@@ -37,6 +35,8 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.initrd.systemd.enable = true;
+  #disable modern standby in favor of legacy S3
+  boot.kernelParams = [ "mem_sleep_default=deep" ];
 
   # networking.networkmanager.wifi.powersave = false;
   powerManagement.enable = true;
