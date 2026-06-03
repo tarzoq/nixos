@@ -137,7 +137,7 @@
       "application/pdf" = "org.kde.okular.desktop";
       #"application/epub+zip" = "org.gnome.Books.desktop";
       "text/plain" = "org.gnome.TextEditor.desktop";
-      "text/markdown" = "obsidian.desktop";
+      "text/markdown" = "org.gnome.TextEditor.desktop";
       
       # Office Suite
       "application/msword" = "onlyoffice-desktopeditors.desktop";
