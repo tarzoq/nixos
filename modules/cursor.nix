@@ -2,7 +2,7 @@
 let
   CURSOR_PACKAGE = pkgs.apple-cursor;
   CURSOR_NAME= "macOS";
-  CURSOR_SIZE = 24;
+  CURSOR_SIZE = 22;
 in
 {
   home-manager.users."${vars.user.name}" = {
