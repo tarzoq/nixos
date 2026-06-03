@@ -101,7 +101,8 @@ in {
 	resumeCommand = "${display "on"}";
       }
       { #suspend
-        timeout = 20 * 60;
+        #timeout = 20 * 60;
+        timeout = 50 * 60;
         command = onPower "ac" "${suspend}";
       }
 
