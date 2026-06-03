@@ -5,7 +5,8 @@ let
     "remmina-applet"
   ];
 
-  spawn = "spawn-sh-at-startup";
+  spawn = "spawn-at-startup";
+  spawn-sh = "spawn-sh-at-startup";
 in {
   #xdg.configFile = lib.genAttrs
   #  (map(name: "autostart/${name}.desktop") appsToDisable)
@@ -23,13 +24,13 @@ in {
   #  });
 
   home.file."nixos/config/niri/autostart.hm.kdl".text = ''
-    ${spawn} "pidof noctalia-shell || noctalia-shell &"
-    ${spawn} "pidof kanshi || kanshi &"
-    ${spawn} "pidof tailscale systray || tailscale systray &"
-    ${spawn} "pgrep kdeconnect || kdeconnectd &"
-    ${spawn} "pgrep thunderbird || thunderbird &"
-    ${spawn} "pgrep discord || discord &"
-    ${spawn} "pgrep teams-for-linux || teams-for-linux &"
+    ${spawn} "noctalia-shell"
+    ${spawn-sh} "pgrep kanshi || kanshi &"
+    ${spawn-sh} "pgrep tailscale systray || tailscale systray &"
+    ${spawn-sh} "pgrep kdeconnect || kdeconnectd &"
+    ${spawn-sh} "pgrep thunderbird || thunderbird &"
+    ${spawn-sh} "pgrep discord || discord &"
+    ${spawn-sh} "pgrep teams-for-linux || teams-for-linux &"
   '';
     #${spawn} "pgrep steam || steam &"
     #${spawn} "pidof protonvpn-app || protonvpn-app --start-minimized &"

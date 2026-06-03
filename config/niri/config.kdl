@@ -374,7 +374,8 @@ binds {
     Ctrl+Shift+Escape hotkey-overlay-title="Task Manager: missioncenter" { spawn-sh "missioncenter"; }
     //Ctrl+Shift+Alt+Escape hotkey-overlay-title="Task Manager Alt: btop" { spawn-sh "kitty -e btop"; }
 
-    Super+Mod5+Ctrl+Shift+Alt+B hotkey-overlay-title="Modprobe: psmouse" { spawn-sh "pkexec sh -c 'modprobe -r psmouse && modprobe psmouse' 2>&1"; }
+    //Super+Mod5+Ctrl+Shift+Alt+B hotkey-overlay-title="Modprobe: psmouse" { spawn-sh "pkexec sh -c 'modprobe -r psmouse && modprobe psmouse' 2>&1"; }
+    Super+Mod5+Ctrl+Shift+Alt+B hotkey-overlay-title="Noctalia: restart Noctalia" { spawn-sh "sh ~/.config/niri/noctalia-restart.hm.sh"; }
     //Super+Mod5+Shift+W hotkey-overlay-title="Cast focused window" { spawn-sh "niri msg action set-dynamic-cast-window --id $(niri msg -j focused-window | jq .id)"; }
     //    spawn-sh "
     //        focused_id=$(niri msg -j focused-window | jq '.id')

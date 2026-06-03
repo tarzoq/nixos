@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, vars, ... }:
 {
   environment.systemPackages = with pkgs; [
     inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
@@ -12,4 +12,14 @@
 
   #add support for calendar events
   services.gnome.evolution-data-server.enable = true;
+
+  #modules.resume.resumeScript = ''
+  #  ${pkgs.bash}/bin/sh ${vars.user.home}/.config/niri/noctalia-restart.hm.sh
+  #'';
+
+  home-manager.users."${vars.user.name}" = {
+    home.file."nixos/config/niri/noctalia-restart.hm.sh".text = ''
+      ${pkgs.procps}/bin/pkill ".quickshell" && sleep 1; ${pkgs.niri}/bin/niri msg action spawn-sh -- "noctalia-shell"
+    '';
+  };
 }
