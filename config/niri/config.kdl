@@ -534,9 +534,10 @@ binds {
     Mod+R { switch-preset-column-width; }
     Mod+Shift+R { switch-preset-window-height; }
     Mod+Alt+R { reset-window-height; }
-    Mod+E { maximize-column; } //or { maximize-window-to-edges; } //no focus bars or struts
+    Mod+E { maximize-column; }    
     Mod+Shift+E { expand-column-to-available-width; }
-    Mod+Ctrl+E { toggle-windowed-fullscreen; }
+    Mod+Alt+E { toggle-windowed-fullscreen; }
+    Mod+Ctrl+E { maximize-window-to-edges; } //no focus bars or struts
     Alt+Return { fullscreen-window; }
 
     Mod+C { center-column; }
