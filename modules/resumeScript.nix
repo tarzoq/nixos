@@ -7,12 +7,12 @@
 
   options.modules.resume = {
     downScript = lib.mkOption {
-      type = lib.types.nullOr lib.types.str;
+      type = lib.types.nullOr lib.types.lines;
       default = null;
       description = "Custom commands to execute before going down";
     };
     resumeScript = lib.mkOption {
-      type = lib.types.nullOr lib.types.str;
+      type = lib.types.nullOr lib.types.lines;
       default = null;
       description = "Custom commands to execute on resume";
     };
