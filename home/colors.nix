@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 let
-  ICON_PACKAGE = pkgs.kora-icon-theme;
-  ICON_NAME = "kora";
+  ICON_PACKAGE = pkgs.whitesur-icon-theme;
+  ICON_NAME = "WhiteSur-dark";
 in
 {
   gtk = {

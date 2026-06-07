@@ -42,7 +42,7 @@ in
     '';
 
     ########## flatpak fix ##########
-    #home.file.".icons/${CURSOR_NAME}".source = "${CURSOR_PACKAGE}/share/icons/${CURSOR_NAME}";
+    home.file.".icons/${CURSOR_NAME}".source = "${CURSOR_PACKAGE}/share/icons/${CURSOR_NAME}";
   };
   services.flatpak.overrides.settings = {
     global = {
