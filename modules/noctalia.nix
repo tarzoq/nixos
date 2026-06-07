@@ -4,7 +4,7 @@
     inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
     ddcutil #desktop monitor brightness control
     qt6.qtwebsockets #hass plugin
-    wtype #clipper
+    #wtype #clipper
 
     #override package
     (pkgs.noctalia-shell.override { calendarSupport = true; })

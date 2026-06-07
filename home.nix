@@ -54,6 +54,10 @@
     source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/config/noctalia";
     recursive = true;
   };
+  xdg.configFile."vicinae" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/config/vicinae";
+    recursive = true;
+  };
 
   xdg.configFile."remmina/remmina.pref" = {
     source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/config/misc/remmina.pref";

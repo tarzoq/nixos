@@ -341,7 +341,8 @@ binds {
     Mod+Shift+T hotkey-overlay-title="Open a Terminal: kitty (floating)" { spawn "kitty" "--class=dot.floating.kitty"; }
 
     Super+Mod5+Space hotkey-overlay-title="Run an Application: launcher" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
-    Mod+Space hotkey-overlay-title="Run an Application: rofi" { spawn-sh "pkill rofi || rofi -show drun -show-icons"; }
+    Mod+Space repeat=false hotkey-overlay-title="Run an Application: vicinae" { spawn-sh "vicinae toggle"; }
+    Mod+Shift+Space repeat=false hotkey-overlay-title="Run an Application: rofi" { spawn-sh "pkill rofi || rofi -show drun -show-icons"; }
 
     Mod+N hotkey-overlay-title="Run an Application: gnome-text-editor" { spawn "gnome-text-editor"; }
     Mod+B hotkey-overlay-title="Run an Application: brave" { spawn "brave"; }
@@ -363,11 +364,13 @@ binds {
     Super+Mod5+E hotkey-overlay-title="File Explorer: Nemo" { spawn-sh "nemo"; }
     Super+Mod5+Shift+C hotkey-overlay-title="Color Picker: hyprpicker" { spawn-sh "kitty --class=float.bottomright -e sh -c 'hyprpicker -u 500 -a -n -r && sleep 3'"; }
     //noctalia-shell ipc show
-    Super+Mod5+V hotkey-overlay-title="Noctalia: Clipper" { spawn-sh "noctalia-shell ipc call plugin:clipper toggle"; }
+    Super+Mod5+V repeat=false hotkey-overlay-title="Vicinae: Clipper" { spawn-sh "vicinae vicinae://launch/clipboard/history?toggle=true"; }
+    //Super+Mod5+V hotkey-overlay-title="Noctalia: Clipper" { spawn-sh "noctalia-shell ipc call plugin:clipper toggle"; }
     Super+Mod5+B hotkey-overlay-title="Noctalia: Background" { spawn-sh "noctalia-shell ipc call wallpaper toggle"; }
     Ctrl+Alt+Delete hotkey-overlay-title="Noctalia: Powermenu" { spawn-sh "noctalia-shell ipc call sessionMenu toggle"; }
     Super+Mod5+C hotkey-overlay-title="Noctalia: KeepAwake" { spawn-sh "noctalia-shell ipc call idleInhibitor toggle"; }
-    Super+Mod5+Period hotkey-overlay-title="Noctalia: Emoji" { spawn-sh "noctalia-shell ipc call launcher emoji"; }
+    Super+Mod5+Period hotkey-overlay-title="Vicinae: Emoji" { spawn-sh "vicinae vicinae://launch/core/search-emojis?toggle=true"; }
+    //Super+Mod5+Period hotkey-overlay-title="Noctalia: Emoji" { spawn-sh "noctalia-shell ipc call launcher emoji"; }
 
     Super+Mod5+Minus hotkey-overlay-title="Niri: Scale Down" { spawn-sh "sh ~/.config/niri/outputscale.hm.sh 'down'"; }
     Super+Mod5+Plus hotkey-overlay-title="Niri: Scale Up" { spawn-sh "sh ~/.config/niri/outputscale.hm.sh 'up'"; }

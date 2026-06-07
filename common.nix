@@ -14,6 +14,7 @@
     ./modules/programs/flatpak.nix
     ./modules/cursor.nix
     ./modules/wlrwhichkey.nix
+    ./modules/vicinae.nix
   ];
 
   environment.sessionVariables = {
@@ -286,8 +287,6 @@
     bind #nslookup etc.
     cmatrix #for fun
     pavucontrol #audio device settings
-    #swayosd #OSD for volume and brightness
-    #swaynotificationcenter
     libnotify
     # Else
     #cheese #camera
@@ -316,6 +315,7 @@
     ############### SOFTWARE (tools) #########################
     stable.dupeguru #GUI duplicate file finder
     gparted-full
+    constrict #video compressor
     ####### ISO ########
     #ventoy-full-gtk
     woeusb-ng #windows isos only
