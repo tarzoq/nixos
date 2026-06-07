@@ -2,7 +2,9 @@
 {
   imports = [
     /etc/nixos/hardware-configuration.nix
+    ./modules/autostart.nix
     ./modules/niri.nix
+    ./modules/niri-imports.nix
     ./modules/noctalia.nix
     ./modules/programs/tailscale.nix
     ./modules/programs/chromium.nix
@@ -11,6 +13,7 @@
     ./modules/programs/obsidian.nix
     ./modules/programs/flatpak.nix
     ./modules/cursor.nix
+    ./modules/wlrwhichkey.nix
   ];
 
   environment.sessionVariables = {

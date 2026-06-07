@@ -1,15 +1,12 @@
 { config, pkgs, vars, ... }:
 {
   imports = [
-    ./home/autostart.nix
     ./home/swayidle.nix
-    ./home/niri-imports.nix
     ./home/outputscale.nix
     #./home/helix.nix
     ./home/kanshi.nix
     ./home/rclone.nix
     ./home/colors.nix
-    ./home/wlrwhichkey.nix
   ];
 
   home.username = "${vars.user.name}";

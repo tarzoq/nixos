@@ -1,17 +1,26 @@
 { config, pkgs, vars, ... }:
 let
   CURSOR_PACKAGE = pkgs.apple-cursor;
-  CURSOR_NAME= "macOS";
+  CURSOR_NAME = "macOS";
   CURSOR_SIZE = 22;
 in
 {
+  modules.niri.imports = "include \"cursor.hm.kdl\"";
+
   home-manager.users."${vars.user.name}" = {
-    home.pointerCursor = {
+    #home.pointerCursor = {
+    #  package = CURSOR_PACKAGE;
+    #  name = "${CURSOR_NAME}"; #find theme names=ls $(nix-build '<nixpkgs>' -A apple-cursor --no-out-link)/share/icons
+    #  size = CURSOR_SIZE;
+    #  gtk.enable = true;
+    #  x11.enable = true;
+    #};
+    #gtk.gtk4.theme = null; #needed to adopt new behavior
+
+    stylix.cursor = {
+      name = "${CURSOR_NAME}";
       package = CURSOR_PACKAGE;
-      name = "${CURSOR_NAME}"; #find theme names=ls $(nix-build '<nixpkgs>' -A apple-cursor --no-out-link)/share/icons
       size = CURSOR_SIZE;
-      gtk.enable = true;
-      x11.enable = true;
     };
 
     # Create a small config file for Niri to include
@@ -32,16 +41,8 @@ in
       XCURSOR_SIZE=${toString CURSOR_SIZE}
     '';
 
-    # Ensure GTK/Qt follow along
-    #gtk.enable = true;
-    #qt = {
-    #  enable = true;
-    #  platformTheme.name = "gtk3";
-    #};
-    gtk.gtk4.theme = null; #needed to adopt new behavior
-
     ########## flatpak fix ##########
-    home.file.".icons/${CURSOR_NAME}".source = "${CURSOR_PACKAGE}/share/icons/${CURSOR_NAME}";
+    #home.file.".icons/${CURSOR_NAME}".source = "${CURSOR_PACKAGE}/share/icons/${CURSOR_NAME}";
   };
   services.flatpak.overrides.settings = {
     global = {
@@ -52,6 +53,6 @@ in
         XCURSOR_SIZE = "${toString CURSOR_NAME}";
       };
     };
-    ########## flatpak fix ##########
+    ########## END flatpak fix ##########
   };
 }

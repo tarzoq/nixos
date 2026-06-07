@@ -1,7 +1,5 @@
 { config, lib, pkgs, ... }:
 {
-  options.niri.enableNvidia = lib.mkEnableOption "Enable import of nvidia.kdl for Niri";
-
   config = {
     environment.sessionVariables.XDG_CURRENT_DESKTOP = "niri";
 

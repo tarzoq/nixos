@@ -1,4 +1,8 @@
-{ config, ... }:
+{ config, pkgs, ... }:
+let
+  ICON_PACKAGE = pkgs.kora-icon-theme;
+  ICON_NAME = "kora";
+in
 {
   gtk = {
     enable = true;
@@ -8,6 +12,39 @@
 
   qt = {
     enable = true;
-    style.name = "adwaita-dark";
+    style.name = "${ICON_NAME}";
+  };
+
+  stylix = {
+    enable = true;
+    autoEnable = false;
+    base16Scheme = {
+      base00 = "1e1e2e"; # Background
+      base01 = "181825"; # Lighter background
+      base02 = "313244"; # Selection background
+      base03 = "45475a"; # Comments
+      base04 = "585b70"; # Dark foreground
+      base05 = "cdd6f4"; # Default Text
+      base06 = "f5e0dc"; # Lighter foreground
+      base07 = "b4befe"; # Lightest foreground
+      base08 = "f38ba8"; # Variables
+      base09 = "fab387"; # Integers
+      base0A = "f9e2af"; # Classes
+      base0B = "a6e3a1"; # Strings
+      base0C = "94e2d4"; # Support
+      base0D = "89b4fa"; # Functions
+      base0E = "cba6f7"; # Keywords
+      base0F = "f2cdcd"; # Deprecated
+    };
+  };
+  ######## ICONS #########
+  home.packages = [ ICON_PACKAGE ];
+  stylix.icons = {
+    enable = true;
+    dark = "${ICON_NAME}";
+    package = ICON_PACKAGE;
+  };
+  qt = {
+    platformTheme.name = "gtk";
   };
 }

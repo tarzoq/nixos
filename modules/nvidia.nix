@@ -20,6 +20,8 @@ in {
   };
 
   config = { #required when options {} is used
+    modules.niri.imports = "include \"nvidia.kdl\"";
+
     #boot.kernelParams = [ "nvidia-drm.modeset=1" ]; #suggested by ai, not found anywhere else, didn't change anything when I tried it
     #https://wiki.nixos.org/wiki/NVIDIA
     services.xserver.videoDrivers = [ "nvidia" ];
@@ -35,8 +37,6 @@ in {
         amdgpuBusId = lib.mkIf primeEnabled config.modules.nvidia.amdBusId; 
       };
     };
-
-    niri.enableNvidia = true; #enable custom nvidia niri env import
 
     environment.systemPackages = with pkgs; [
       egl-wayland #needed for nvidia
