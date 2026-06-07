@@ -30,7 +30,7 @@ My personal NixOS config
 | **Color Scheme**            | Wallpaper |
 | **GTK theme**               |  |
 | **Cursor**                  | Apple-Cursor macOS |
-| **Icons**                   |  |
+| **Icons**                   | WhiteSur Dark |
 | **Lockscreen**              | Hyprlock |
 | **Idle Agent**              | Swayidle + Hypridle |
 | **Image Viewer**            | Nomacs|
