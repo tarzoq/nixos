@@ -33,6 +33,8 @@
   hardware.enableRedistributableFirmware = true;
   services.fwupd.enable = true; #fwupdmgr refresh; fwupdmgr get-updates; fwupdmgr update
 
+  boot.kernelPackages = pkgs.linuxPackages_latest; #https://discourse.nixos.org/t/thinkpad-t14s-wont-power-down/46809/10
+
   #bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

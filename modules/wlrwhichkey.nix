@@ -61,11 +61,11 @@ in {
                 };
                 "ö" = {
                   desc = "Suspend";
-                  cmd = "setsid systemctl suspend";
+                  cmd = "systemctl suspend";
                 };
                 "v" = {
                   desc = "Hibernate";
-                  cmd = "setsid systemctl hibernate";
+                  cmd = "systemctl hibernate";
                 };
                 "a" = {
                   desc = "Shutdown";
