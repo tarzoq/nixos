@@ -304,7 +304,7 @@ window-rule {
 
 ///////////////// TOASTS ///////////////////
 window-rule {
-    match app-id="steam" title="Test"
+    match app-id="steam" title="toasts"
 
     open-floating true
     default-floating-position x=10 y=10 relative-to="bottom-right"
