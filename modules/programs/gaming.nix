@@ -9,6 +9,7 @@
   programs.steam = {
     enable = true;
     gamescopeSession.enable = true; #starts game in optimized compositor
+    extest.enable = true; #make mouse input from controller work for wayland
   };
 
   programs.gamemode.enable = true; #daemon that improves game performance
