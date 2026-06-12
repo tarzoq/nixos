@@ -6,7 +6,8 @@
     #./home/helix.nix
     ./home/kanshi.nix
     ./home/rclone.nix
-    ./home/colors.nix
+    ./home/theme.nix
+    ./home/dconf.nix
   ];
 
   home.username = "${vars.user.name}";
