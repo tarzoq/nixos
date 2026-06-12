@@ -8,20 +8,24 @@ in
   modules.niri.imports = "include \"cursor.hm.kdl\"";
 
   home-manager.users."${vars.user.name}" = {
-    #home.pointerCursor = {
-    #  package = CURSOR_PACKAGE;
-    #  name = "${CURSOR_NAME}"; #find theme names=ls $(nix-build '<nixpkgs>' -A apple-cursor --no-out-link)/share/icons
-    #  size = CURSOR_SIZE;
-    #  gtk.enable = true;
-    #  x11.enable = true;
-    #};
-    #gtk.gtk4.theme = null; #needed to adopt new behavior
-
-    stylix.cursor = {
-      name = "${CURSOR_NAME}";
+    home.pointerCursor = {
+      name = "${CURSOR_NAME}"; #find theme names=ls $(nix-build '<nixpkgs>' -A apple-cursor --no-out-link)/share/icons
       package = CURSOR_PACKAGE;
       size = CURSOR_SIZE;
+      gtk.enable = true;
+      x11.enable = true;
     };
+    #gtk.gtk4.theme = null; #needed to adopt new behavior
+
+    #stylix = {
+    #  enable = true;
+    #  autoEnable = false;
+    #};
+    #stylix.cursor = {
+    #  name = "${CURSOR_NAME}";
+    #  package = CURSOR_PACKAGE;
+    #  size = CURSOR_SIZE;
+    #};
 
     # Create a small config file for Niri to include
     home.file."nixos/config/niri/cursor.hm.kdl".text = ''
