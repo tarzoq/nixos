@@ -70,6 +70,7 @@
     shellAliases = {
       btw = "echo i use nixos, btw";
       cat = "bat"; #like cat, but prettier
+      v = "nvim"; #editor of choice
       ssh = "kitty +kitten ssh"; #fix "xterm-kitty: unknown terminal type"
 
       nrs = "sudo nixos-rebuild switch --impure --flake ~/nixos";

@@ -13,5 +13,6 @@ rec {
 
   misc = {
     browserHomepage = "";
+    networkShare = ""; #bookmark for networkshare in Nemo - example format: "smb://sub.example.tld/ BookmarkName"
   };
 }
