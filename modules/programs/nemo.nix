@@ -22,7 +22,7 @@
     dconf = {
       settings = {
         "org/nemo/preferences" = {
-	  "bulk-rename-tool" = "b'thunar --bulk-rename'";
+	  "bulk-rename-tool" = "thunar --bulk-rename";
           "click-double-parent-folder" = true;
           "default-folder-viewer" = "list-view";
           "show-computer-icon-toolbar" = true;
@@ -37,6 +37,9 @@
           "tooltips-in-icon-view" = false;
           "tooltips-in-list-view" = false;
           "tooltips-show-birth-date" = false;
+	};
+	"org/nemo/plugins" = {
+	  "disabled-actions" = [ "add-desklets.nemo_action" ];
 	};
         "org/cinnamon/desktop/applications/terminal" = {
             exec = "kitty";

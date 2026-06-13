@@ -52,6 +52,10 @@ in {
               desc = "Disk Management (gparted)";
               cmd = "gparted";
             };
+            "s" = {
+              desc = "Sound Management (pavucontrol)";
+              cmd = "pavucontrol";
+            };
             "n" = {
               desc = "Shutdown Options";
               submenu = {
