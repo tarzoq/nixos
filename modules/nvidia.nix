@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, vars, ... }:
 let
   primeEnabled = config.modules.nvidia.nvidiaBusId != null
     && config.modules.nvidia.amdBusId != null;
@@ -20,7 +20,17 @@ in {
   };
 
   config = { #required when options {} is used
-    modules.niri.imports = "include \"nvidia.kdl\"";
+    modules.niri.imports = "include \"nvidia.hm.kdl\"";
+
+    home-manager.users."${vars.user.name}" = {
+      home.file."nixos/config/niri/nvidia.hm.kdl".text = ''
+        environment {
+            LIBVA_DRIVER_NAME "nvidia"
+            __GLX_VENDOR_LIBRARY_NAME "nvidia"
+            NVD_BACKEND "direct"
+        } 
+      '';
+    };
 
     #boot.kernelParams = [ "nvidia-drm.modeset=1" ]; #suggested by ai, not found anywhere else, didn't change anything when I tried it
     #https://wiki.nixos.org/wiki/NVIDIA
