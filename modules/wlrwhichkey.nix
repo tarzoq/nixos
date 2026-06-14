@@ -29,12 +29,6 @@ in {
   home-manager.users."${vars.user.name}" = {
     home.file."nixos/config/niri/wlr-which-key.hm.kdl".text = ''
       binds {
-        ${LMETA}+W { spawn-sh "${lib.getExe (centerMenu {
-          "s" = {
-            desc = "Steam";
-            cmd = "steam";
-          };
-        })}"; }
         ${LMETA}+X { spawn-sh "${lib.getExe (bLeftMenu {
             "r" = {
               desc = "OBS Studio";
@@ -84,14 +78,11 @@ in {
         })}"; }
       }
     '';
-    #programs.niri.settings.binds = {
-    #  "Mod+W".spawn-sh = lib.getExe (mkMenu [
-    #    {
-    #      key = "r";
-    #      desc = "OBS Studio";
-    #      cmd = "obs-studio";
-    #    }
-    #  ]);
-    #};
+    #${LMETA}+W { spawn-sh "${lib.getExe (centerMenu {
+    #  "s" = {
+    #    desc = "Steam";
+    #    cmd = "steam";
+    #  };
+    #})}"; }
   };
 }
