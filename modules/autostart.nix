@@ -28,7 +28,6 @@ in {
 
     home.file."nixos/config/niri/autostart.hm.kdl".text = ''
       ${spawn} "noctalia-shell"
-      ${spawn} "\"vicinae\" \"server\""
       ${spawn-sh} "pgrep kanshi || kanshi &"
       ${spawn-sh} "pgrep tailscale systray || tailscale systray &"
       ${spawn-sh} "pgrep kdeconnect || kdeconnectd &"

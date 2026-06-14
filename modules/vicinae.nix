@@ -6,6 +6,7 @@
   home-manager.users."${vars.user.name}" = {
     programs.vicinae = {
       enable = true;
+      systemd.enable = true;
     };
   };
 }
