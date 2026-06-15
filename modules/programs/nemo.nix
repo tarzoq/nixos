@@ -18,11 +18,14 @@
     };
   };
 
-  home-manager.users."${vars.user.name}" = {
+  home-manager.users."${vars.user.name}" = { lib, ... }: {
+    home.activation.nemoConfig = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      ${pkgs.dconf}/bin/dconf write /org/nemo/preferences/bulk-rename-tool "b'thunar --bulk-rename'"
+    ''; #run on activation, since the value sadly couldn't be directly defined directly in dconf
     dconf = {
       settings = {
         "org/nemo/preferences" = {
-	  "bulk-rename-tool" = "thunar --bulk-rename";
+	  #"bulk-rename-tool" #is defined further up on this page in activation-script. Doing this approach, since defining it here directly or trying to convert the command into ASCII values in a byte array just didn't work
           "click-double-parent-folder" = true;
           "default-folder-viewer" = "list-view";
           "show-computer-icon-toolbar" = true;
