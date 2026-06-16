@@ -353,7 +353,7 @@ binds {
 
     Super+Mod5+Space hotkey-overlay-title="Run an Application: launcher" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
     Mod+Space repeat=false hotkey-overlay-title="Run an Application: vicinae" { spawn-sh "vicinae toggle"; }
-    Mod+Shift+Space repeat=false hotkey-overlay-title="Run an Application: rofi" { spawn-sh "pkill rofi || rofi -show drun -show-icons"; }
+    //Mod+Shift+Space repeat=false // fuzzy finder?
 
     Mod+N hotkey-overlay-title="Run an Application: gnome-text-editor" { spawn "gnome-text-editor"; }
     Mod+B hotkey-overlay-title="Run an Application: brave" { spawn "brave"; }

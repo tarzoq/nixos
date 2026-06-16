@@ -294,7 +294,6 @@
     gnome-calculator #calculator
     gnome-clocks #clock and timer
     hyprpicker #color picker and zoom
-    rofi
     brightnessctl
     playerctl
     btop

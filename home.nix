@@ -47,10 +47,6 @@
     source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/config/kitty";
     recursive = true;
   };
-  xdg.configFile."rofi" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/config/rofi";
-    recursive = true;
-  };
   xdg.configFile."noctalia" = {
     source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/config/noctalia";
     recursive = true;
