@@ -214,14 +214,10 @@ window-rule {
 //niri msg event-stream
 //////////////// Floating ///////////////////////
 window-rule {
-    // This app-id regular expression will work for both:
-    // - host Firefox (app-id is "firefox")
-    // - Flatpak Firefox (app-id is "org.mozilla.firefox")
     match app-id="brave" app-id="nngceckbapebfimnlniiiahkandclblb" //bitwarden
     match app-id="resolve" app-id="resolve" //bitwarden
     match app-id="org.gnome.Calculator"
     match app-id="org.gnome.TextEditor"
-    //match app-id="org.kde.dolphin" title="Configure" title="Properties" title="Edit Places"
     match app-id="vlc" title="Current Media Information"
     match app-id="thunar" title="Bulk Rename"
     match app-id="org.gnome.clocks"
