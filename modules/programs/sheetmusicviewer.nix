@@ -3,11 +3,11 @@
 let
   sheetMusicViewerBin = pkgs.stdenv.mkDerivation {
     pname = "sheet-music-viewer-bin";
-    version = "1.017";
+    version = "1.018";
 
     src = pkgs.fetchurl {
-      url = "https://github.com/calvinhsia/SheetMusicViewer/releases/download/v1.017/SheetMusicViewer-linux-x64.tar.gz";
-      hash = "sha256:e31c82b70636970f9a28b7f6d975661eb197da8d45783e823868771e79d24271";
+      url = "https://github.com/calvinhsia/SheetMusicViewer/releases/download/v1.018/SheetMusicViewer-linux-x64.tar.gz";
+      hash = "sha256:4d2d3e4b921e69162323ef3283b4c2a52e6f91df63b20baa1cfd4c19ebc37656";
     };
 
     sourceRoot = ".";
