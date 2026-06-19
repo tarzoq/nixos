@@ -33,7 +33,9 @@
               noctalia-shell ipc call idleInhibitor disable
 
 	      //kill sheetmusicviewer
-	      pkill -f sheet-music-viewer
+	      programID=$(niri msg --json windows | jq -r '.[] | select(.[\"app_id\"] == \"SheetMusicViewer\") | .id')
+	      niri msg action close-window --id $programID
+	      //pkill -f sheet-music-viewer
             fi
           "; 
         }
