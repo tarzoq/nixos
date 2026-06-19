@@ -22,7 +22,7 @@
 
       if [ ! -f "$cfg" ]; then
         mkdir -p "$(dirname "$cfg")"
-	echo "$setting" > "$cfg"
+        echo "$setting" > "$cfg"
       elif ! grep -qF "$setting" "$cfg"; then
         echo "$setting" >> "$cfg"
       fi
@@ -35,24 +35,6 @@
 
   environment.systemPackages = with pkgs; [
     mangohud #in-game performance monitor
-
-    #https://github.com/NixOS/nixpkgs/issues/513245#issuecomment-4319854191
-    #lutris
-    #(pkgs.lutris.override {
-    #  # Intercept buildFHSEnv to modify target packages
-    #  buildFHSEnv = args: pkgs.buildFHSEnv (args // {
-    #    multiPkgs = envPkgs:
-    #      let
-    #        # Fetch original package list
-    #        originalPkgs = args.multiPkgs envPkgs;
-
-    #        # Disable tests for openldap
-    #        customLdap = envPkgs.openldap.overrideAttrs (_: { doCheck = false; });
-    #      in
-    #      # Replace broken openldap with the custom one
-    #      builtins.filter (p: (p.pname or "") != "openldap") originalPkgs ++ [ customLdap ];
-    #  });
-    #})
 
     #heroic
     lsfg-vk #lossless scaling

@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 {
-  dconf.enable = true;
-
+  #dconf already enabled in system config
   dconf.settings = {
     "org/gnome/desktop/wm/preferences" = {
       button-layout = ":";
