@@ -19,26 +19,34 @@ let
       chmod +x $out/bin/SheetMusicViewer
     '';
   };
-  sheetMusicViewer = pkgs.buildFHSEnv {
-    name = "sheet-music-viewer";
-    targetPkgs = pkgs: with pkgs; [
-      sheetMusicViewerBin
-      stdenv.cc.cc.lib
-      libGL
-      fontconfig
-      libx11
-      libxext
-      libice
-      libsm
-      icu
-    ];
-    runScript = "${sheetMusicViewerBin}/bin/SheetMusicViewer";
-    extraBwrapArgs = [
-      "--unshare-net"
-      #"--ro-bind \${HOME}/sheetmusic \${HOME}/sheetmusic"
-      #"--tmpfs \${HOME}"
-    ];
-  };
+  cursorName = config.home-manager.users."${vars.user.name}".home.pointerCursor.name;
+  cursorSize = toString config.home-manager.users."${vars.user.name}".home.pointerCursor.size;
+  cursorPackage = config.home-manager.users."${vars.user.name}".home.pointerCursor.package;
+in
+  let
+    sheetMusicViewer = pkgs.buildFHSEnv {
+      name = "sheet-music-viewer";
+      targetPkgs = pkgs: with pkgs; [
+        sheetMusicViewerBin
+        stdenv.cc.cc.lib
+        libGL
+        fontconfig
+        libx11
+        libxext
+        libice
+        libsm
+        icu
+      ];
+      runScript = "${sheetMusicViewerBin}/bin/SheetMusicViewer";
+      extraBwrapArgs = [
+        #"--ro-bind \${HOME}/sheetmusic \${HOME}/sheetmusic"
+        #"--tmpfs \${HOME}"
+        "--unshare-net"
+        "--setenv XCURSOR_PATH ${vars.user.home}/.icons"
+        "--setenv XCURSOR_THEME ${cursorName}"
+        "--setenv XCURSOR_SIZE ${cursorSize}"
+      ];
+    };
 in
 {
   home-manager.users."${vars.user.name}" = {

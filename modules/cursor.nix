@@ -27,7 +27,6 @@ in
     #  size = CURSOR_SIZE;
     #};
 
-    # Create a small config file for Niri to include
     home.file."nixos/config/niri/cursor.hm.kdl".text = ''
       cursor {
           xcursor-theme "${CURSOR_NAME}"
@@ -41,7 +40,7 @@ in
 
     home.file.".local/share/flatpak/overrides/global".text = ''
       [Environment]
-      XCURSOR_THEME="${CURSOR_NAME}"
+      XCURSOR_THEME=${CURSOR_NAME}
       XCURSOR_SIZE=${toString CURSOR_SIZE}
     '';
 
@@ -51,10 +50,9 @@ in
   services.flatpak.overrides.settings = {
     global = {
       Environment = {
-        #XCURSOR_PATH = "${vars.user.home}/.icons";
-	XCURSOR_PATH = "/run/host/user-share/icons:/run/host/share/icons";
+        XCURSOR_PATH = "${vars.user.home}/.icons";
         XCURSOR_THEME = "${CURSOR_NAME}";
-        XCURSOR_SIZE = "${toString CURSOR_NAME}";
+        XCURSOR_SIZE = "${toString CURSOR_SIZE}";
       };
     };
     ########## END flatpak fix ##########
