@@ -19,9 +19,22 @@
   };
 
   home-manager.users."${vars.user.name}" = { lib, ... }: {
-    home.activation.nemoConfig = lib.hm.dag.entryAfter ["writeBoundary"] ''
-      ${pkgs.dconf}/bin/dconf write /org/nemo/preferences/bulk-rename-tool "b'thunar --bulk-rename'"
-    ''; #run on activation, since the value sadly couldn't be directly defined directly in dconf
+    systemd.user.services.nemo-dconf-config = {
+      Unit = {
+        Description = "Nemo dconf's that couldn't be defined in dconf.settings";
+	After = [ "graphical-session.target" ];
+	PartOf = [ "graphical-session.target" ];
+      };
+      Service = {
+        Type = "oneshot";
+	ExecStart = ''
+	  ${pkgs.dconf}/bin/dconf write /org/nemo/preferences/bulk-rename-tool "b'thunar --bulk-rename'"
+	'';
+	RemainAfterExit = true;
+      };
+      Install.WantedBy = [ "graphical-session.target" ];
+    };
+
     dconf = {
       settings = {
         "org/nemo/preferences" = {
