@@ -23,6 +23,7 @@ let
 
   #######################################################
   LMETA = "Super+Mod5";
+  MOD = "Mod";
 in {
   modules.niri.imports = "include \"wlr-which-key.hm.kdl\"";
 
@@ -75,14 +76,30 @@ in {
                 };
               };
             };
-        })}"; }
+    })}"; }
+    ${MOD}+N { spawn-sh "${lib.getExe (centerMenu {
+      "p" = {
+        desc = "NixOS Packages";
+        cmd = "xdg-open https://search.nixos.org/packages";
+      };
+      "o" = {
+        desc = "NixOS Options";
+        cmd = "xdg-open https://search.nixos.org/options";
+      };
+      "f" = {
+        desc = "NixOS 3rd-party Flakes";
+        cmd = "xdg-open https://search.nixos.org/flakes";
+      };
+      "n" = {
+        desc = "NixOS Noggle (functions)";
+        cmd = "xdg-open https://noogle.dev";
+      };
+      "w" = {
+        desc = "NixOS Wiki";
+        cmd = "xdg-open https://search.nixos.org/packages";
+      };
+    })}"; }
       }
     '';
-    #${LMETA}+W { spawn-sh "${lib.getExe (centerMenu {
-    #  "s" = {
-    #    desc = "Steam";
-    #    cmd = "steam";
-    #  };
-    #})}"; }
   };
 }
