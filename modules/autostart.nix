@@ -8,34 +8,58 @@ let
   spawn = "spawn-at-startup";
   spawn-sh = "spawn-sh-at-startup";
 in {
-  modules.niri.imports = "include \"autostart.hm.kdl\"";
 
-  home-manager.users."${vars.user.name}" = {
-    #xdg.configFile = lib.genAttrs
-    #  (map(name: "autostart/${name}.desktop") appsToDisable)
-    #  (path: {
-    #    #disable autostart for app in xdg
-    #    text = ''
-    #      [Desktop Entry]
-    #      Type=Application
-    #      Hidden=true
-    #      X-systemd-skip=true
-    #    '';
-    #    force = true;
-    #    #make sure to remove the backupFileExtension
-    #    onChange = "rm -f $HOME/.config/${path}.backup";
-    #  });
+  ######### Boilerplate ############
+  #modules.autostart.entries = "PROGRAM";
+  ##################################
 
-    home.file."nixos/config/niri/autostart.hm.kdl".text = ''
-      ${spawn} "noctalia-shell"
-      ${spawn-sh} "pgrep kanshi || kanshi &"
-      ${spawn-sh} "pgrep tailscale systray || tailscale systray &"
-      ${spawn-sh} "pgrep kdeconnect || kdeconnectd &"
-      ${spawn-sh} "pgrep thunderbird || thunderbird &"
-      ${spawn-sh} "pgrep discord || discord &"
-      ${spawn-sh} "pgrep teams-for-linux || teams-for-linux &"
-    '';
-      #${spawn} "pgrep steam || steam &"
-      #${spawn} "pidof protonvpn-app || protonvpn-app --start-minimized &"
+  options.modules.autostart = {
+    entries = lib.mkOption {
+      type = lib.types.lines;
+      default = null;
+      description = "Programs to autostart";
+    };
+    baseEntries = lib.mkOption {
+      type = lib.types.lines;
+        default = ''
+          kanshi
+          tailscale systray
+          kdeconnectd
+          thunderbird
+          discord
+          teams-for-linux
+      '';
+      #protonvpn-app --start-minimized
+    };
+  };
+  config = let
+    cfg = config.modules.autostart;
+    allEntries = cfg.baseEntries + "\n" + cfg.entries;
+    lines = lib.filter (l: l != "") (lib.splitString "\n" allEntries);
+    catContent = lib.concatMapStrings (prog: ''
+      ${spawn-sh} "pgrep -f '${prog}' || ${prog} &"
+    '') lines;
+  in lib.mkIf (lines != []) {
+    modules.niri.imports = "include \"autostart.hm.kdl\"";
+    home-manager.users."${vars.user.name}" = {
+      #xdg.configFile = lib.genAttrs
+      #  (map(name: "autostart/${name}.desktop") appsToDisable)
+      #  (path: {
+      #    #disable autostart for app in xdg
+      #    text = ''
+      #      [Desktop Entry]
+      #      Type=Application
+      #      Hidden=true
+      #      X-systemd-skip=true
+      #    '';
+      #    force = true;
+      #    #make sure to remove the backupFileExtension
+      #    onChange = "rm -f $HOME/.config/${path}.backup";
+      #  });
+
+      home.file."nixos/config/niri/autostart.hm.kdl".text = ''
+        ${catContent}
+      '';
+    };
   };
 }

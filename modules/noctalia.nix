@@ -1,5 +1,7 @@
 { pkgs, inputs, vars, ... }:
 {
+  modules.autostart.entries = "noctalia-shell";
+
   environment.systemPackages = with pkgs; [
     inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
     ddcutil #desktop monitor brightness control
