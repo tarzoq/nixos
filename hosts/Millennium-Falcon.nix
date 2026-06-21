@@ -7,6 +7,8 @@
       ../modules/wol.nix
       ../modules/programs/gaming.nix
     ];
+  modules.autostart.entries = "steam";
+
   modules.nvidia.nvidiaBusId = "PCI:1@0:0:0";
   modules.nvidia.amdBusId = "PCI:16@0:0:0";
 

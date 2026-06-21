@@ -36,7 +36,7 @@ in {
     #https://wiki.nixos.org/wiki/NVIDIA
     services.xserver.videoDrivers = [ "nvidia" ];
     hardware.nvidia = {
-      open = false;
+      open = true;
       modesetting.enable = true; #required for wayland
       package = config.boot.kernelPackages.nvidiaPackages.beta;
       powerManagement.enable = true; #attempt to fix problem with suspend
