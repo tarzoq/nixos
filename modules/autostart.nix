@@ -22,22 +22,24 @@ in {
     baseEntries = lib.mkOption {
       type = lib.types.lines;
         default = ''
-          kanshi
+	  kanshi
           tailscale systray
           kdeconnectd
           thunderbird
           discord
           teams-for-linux
+	  protonvpn-app --start-minimized
       '';
       #protonvpn-app --start-minimized
     };
   };
   config = let
     cfg = config.modules.autostart;
-    allEntries = cfg.baseEntries + "\n" + cfg.entries;
-    lines = lib.filter (l: l != "") (lib.splitString "\n" allEntries);
+    allEntries = cfg.entries + "\n" + cfg.baseEntries;
+    lines = lib.filter (l: l != "") 
+      (map lib.trim (lib.splitString "\n" allEntries));
     catContent = lib.concatMapStrings (prog: ''
-      ${spawn-sh} "pgrep -f '${prog}' || ${prog} &"
+      ${spawn-sh} "pgrep '-f ${prog}' || ${prog} &"
     '') lines;
   in lib.mkIf (lines != []) {
     modules.niri.imports = "include \"autostart.hm.kdl\"";
