@@ -351,7 +351,7 @@ binds {
     Mod+Space repeat=false hotkey-overlay-title="Run an Application: vicinae" { spawn-sh "vicinae toggle"; }
     //Mod+Shift+Space repeat=false // fuzzy finder?
 
-    Mod+N hotkey-overlay-title="Run an Application: gnome-text-editor" { spawn "gnome-text-editor"; }
+    Mod+N hotkey-overlay-title="Run an Application: gnome-text-editor" { spawn "gnome-text-editor" "--new-window"; }
     Mod+B hotkey-overlay-title="Run an Application: brave" { spawn "brave"; }
     Mod+Shift+B hotkey-overlay-title="Run an Application: brave incognito" { spawn "brave" "--incognito"; }
     //Mod+Shift+B hotkey-overlay-title="Run an Application: brave (floating)" { spawn "brave" "--class=dot.floating.brave"; }

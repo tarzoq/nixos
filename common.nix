@@ -285,6 +285,7 @@
     dmidecode #info about bios
     ethtool
     bind #nslookup etc.
+    openssl
     cmatrix #for fun
     pavucontrol #audio device settings
     libnotify
