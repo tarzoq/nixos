@@ -77,7 +77,7 @@ in {
               };
             };
     })}"; }
-    ${MOD}+N { spawn-sh "${lib.getExe (centerMenu {
+    ${MOD}+Y { spawn-sh "${lib.getExe (centerMenu {
       "p" = {
         desc = "NixOS Packages";
         cmd = "xdg-open https://search.nixos.org/packages";
