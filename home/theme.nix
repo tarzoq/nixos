@@ -53,6 +53,6 @@ in
     };
   };
   qt = {
-    platformTheme.name = "gtk";
+    platformTheme.name = "gtk3";
   };
 }
