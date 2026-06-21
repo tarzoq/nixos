@@ -60,6 +60,10 @@
     source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/config/misc/remmina.pref";
     recursive = true;
   };
+  xdg.configFile."Proton/VPN" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/config/misc/protonvpn";
+    recursive = true;
+  };
 
   programs.bash = {
     enable = true;
