@@ -384,7 +384,7 @@ binds {
     Ctrl+Shift+Escape hotkey-overlay-title="Task Manager: missioncenter" { spawn-sh "missioncenter"; }
     Ctrl+Shift+Alt+Escape hotkey-overlay-title="Task Manager Alt: btop" { spawn-sh "kitty -e btop"; }
 
-    Super+Mod5+Ctrl+Shift+Alt+B hotkey-overlay-title="Noctalia: restart Noctalia" { spawn-sh "sh ~/.config/niri/noctalia-restart.hm.sh"; }
+    Super+Mod5+Ctrl+Shift+B hotkey-overlay-title="Noctalia: restart Noctalia" { spawn-sh "sh ~/.config/niri/noctalia-restart.hm.sh"; }
 
     //////// script to allow toggle for dynamic-cast-target ///////////////
     Super+Mod5+W hotkey-overlay-title="Cast focused window" { //only works if one window is casted, which is generally the case anyway with dynamic-cast-target
