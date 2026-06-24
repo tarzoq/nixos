@@ -1,7 +1,7 @@
 { config, pkgs, vars, ... }:
 {
   imports = [
-    ./home/swayidle.nix
+    ./home/idle.nix
     ./home/outputscale.nix
     #./home/helix.nix
     ./home/kanshi.nix
@@ -73,12 +73,17 @@
       v = "nvim"; #editor of choice
       ssh = "kitty +kitten ssh"; #fix "xterm-kitty: unknown terminal type"
 
-      nrs = "sudo nixos-rebuild switch --impure --flake ~/nixos";
-      nrb = "sudo nixos-rebuild boot --impure --flake ~/nixos";
+      nrs = "sudo true && nh os switch --impure ~/nixos";
+      #nrs = "sudo nixos-rebuild switch --impure --flake ~/nixos";
+      nrb = "sudo true && nh os boot --impure ~/nixos";
+      #nrb = "sudo nixos-rebuild boot --impure --flake ~/nixos";
       nru = "sudo nix flake update --flake ~/nixos && nrb";
       nrup = "sudo nix flake update --flake ~/nixos && nrb && sleep 60 && poweroff";
-      ngd = "sudo nix-collect-garbage -d";
 
+      ns = "nh search"; #search nixpkgs with nh
+
+      ngd = "sudo true && nh clean all";
+      #ngd = "sudo nix-collect-garbage -d";
       nlg = "nixos-rebuild list-generations";
 
       vn = "nvim ~/nixos";

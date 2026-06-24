@@ -28,6 +28,12 @@
     cores = 2;
     max-jobs = 2;
   };
+  #https://github.com/nix-community/nh#nixos
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 4d --keep 3";
+  };
 
   #good to haves to hardware support
   hardware.enableAllFirmware = true;
@@ -289,7 +295,15 @@
     cmatrix #for fun
     pavucontrol #audio device settings
     libnotify
+    exiftool #view file metadata
+    inetutils #common network programs
+    iotop #find out which process does the most io
+    man-pages #manual pages + various utilities
+    parted #partition management
+    tparted #tui for parted
+    pv #monitor progress of data through a pipeline
     # Else
+    lynx #cli browser
     #cheese #camera
     stable.snapshot #camera
     gnome-calculator #calculator
