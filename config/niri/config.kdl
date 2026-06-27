@@ -62,7 +62,7 @@ input {
     }
 
     // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
-    focus-follows-mouse max-scroll-amount="40%"
+    focus-follows-mouse max-scroll-amount="25%"
     warp-mouse-to-focus //make mouse warp to the center of newly focused windows.
 }
 
@@ -233,8 +233,8 @@ window-rule {
     open-floating true
     default-floating-position x=10 y=10 relative-to="bottom-right"
     open-focused false
-    default-column-width { proportion 0.3; }
-    default-window-height { proportion 0.3; }
+    default-column-width { fixed 500; } //https://calculateaspectratio.com/
+    default-window-height { fixed 281; }
     opacity 1.0
 }
 
@@ -387,7 +387,7 @@ binds {
     Super+Mod5+Ctrl+Shift+B hotkey-overlay-title="Noctalia: restart Noctalia" { spawn-sh "sh ~/.config/niri/noctalia-restart.hm.sh"; }
 
     //////// script to allow toggle for dynamic-cast-target ///////////////
-    Super+Mod5+W hotkey-overlay-title="Cast focused window" { //only works if one window is casted, which is generally the case anyway with dynamic-cast-target
+    Mod+Alt+W hotkey-overlay-title="Cast focused window" { //only works if one window is casted, which is generally the case anyway with dynamic-cast-target
         spawn-sh "
             focused_id=$(niri msg -j focused-window | jq .id)
             currentCast_id=$(niri msg -j casts | jq .[].target.Window.id)
