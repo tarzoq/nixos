@@ -170,12 +170,14 @@
       "audio/vorbis" = "audacious.desktop";
       "audio/mp4" = "audacious.desktop";
       "audio/flac" = "audacious.desktop";
+      "audio/vnd.wave" = "audacious.desktop";
+      "audio/3gpp" = "audacious.desktop";
      
       # Video
-      "video/mp4" = "vlc.desktop";
-      "video/mpeg" = "vlc.desktop";
-      "video/quicktime" = "vlc.desktop";
-      "video/x-matroska" = "vlc.desktop";
+      "video/mp4" = "mpv.desktop";
+      "video/mpeg" = "mpv.desktop";
+      "video/quicktime" = "mpv.desktop";
+      "video/x-matroska" = "mpv.desktop";
       
       # Archives
       "application/zip" = "org.gnome.FileRoller.desktop";

@@ -313,6 +313,7 @@
     playerctl
     btop
     mission-center
+    qdirstat #gui disk usage analyzer, similar to Wiztree
     lsfg-vk
     lsfg-vk-ui
     spotify
