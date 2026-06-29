@@ -29,8 +29,8 @@ in {
           discord
           teams-for-linux
 	  protonvpn-app --start-minimized
+	  signal-desktop
       '';
-      #protonvpn-app --start-minimized
     };
   };
   config = let

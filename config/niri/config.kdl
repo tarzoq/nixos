@@ -197,6 +197,22 @@ animations {
     slowdown 0.5
 }
 
+
+
+workspace "start"
+window-rule {
+    match app-id="thunderbird"
+    match app-id="discord"
+    match app-id="teams-for-linux"
+    match app-id="signal"
+    match app-id="steam"
+
+    open-on-workspace "start"
+}
+
+
+
+
 //////////////////// all windows ///////////////////////////
 window-rule {
     geometry-corner-radius 15 //default 12
@@ -357,7 +373,9 @@ binds {
     //Mod+Shift+B hotkey-overlay-title="Run an Application: brave (floating)" { spawn "brave" "--class=dot.floating.brave"; }
 
     Mod+W hotkey-overlay-title="Run an Application: obsidian" { spawn "obsidian"; }
+
     Mod+Z hotkey-overlay-title="Run an Application: vscode" { spawn "code"; }
+    Mod+Shift+Z hotkey-overlay-title="Run an Application: vscode --new-window" { spawn "code" "--new-window"; }
 
     //niri msg --json workspaces | jq --arg out "$(niri msg --json focused-output | jq -r .name)" '[.[] | select(.output == $out)] | length'
 
