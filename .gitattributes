@@ -1,5 +1,7 @@
 .gitattributes !filter !diff
 
 config/noctalia/** filter=git-crypt diff=git-crypt 
+config/unused/noctalia-v4/** filter=git-crypt diff=git-crypt 
 config/misc/** filter=git-crypt diff=git-crypt 
 config/rclone/** filter=git-crypt diff=git-crypt 
+home/sfx/** filter=git-crypt diff=git-crypt 

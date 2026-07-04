@@ -8,7 +8,7 @@
       OUTPUT=$(niri msg --json focused-output | jq -r '.name')
       #current scale
       CURRENT=$(niri msg --json outputs | jq -r ".\"$OUTPUT\".logical.scale")
-      # Step size
+      #Step size
       STEP=0.25
       
       if [ "$1" == "up" ]; then
@@ -18,7 +18,9 @@
       fi
       
       niri msg output "$OUTPUT" scale "$NEW"
-      noctalia-shell ipc call toast send "{\"title\": \"$NEW\", \"body\": \"Scale: $OUTPUT\", \"duration\": 2000}"
+      notify-send -u low -t 500 -i video-display \
+        "$NEW" \
+	"Scale: $OUTPUT"
     '';
   };
 }

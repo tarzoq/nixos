@@ -254,6 +254,13 @@ window-rule {
     opacity 1.0
 }
 
+/////////// open unfocused /////////////
+window-rule {
+    match app-id="Audacity" //title="change"
+
+    open-focused false
+}
+
 window-rule { //keybind floating
     match app-id=r#"^dot.floating"#
 
@@ -346,7 +353,7 @@ window-rule {
 
 //https://docs.noctalia.dev/getting-started/compositor-settings/niri/#option-1-blurred-overview-wallpaper
 layer-rule {
-    match namespace="^noctalia-overview*"
+    match namespace="^noctalia-backdrop"
     place-within-backdrop true
 }
 
@@ -363,7 +370,7 @@ binds {
     Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Mod+Shift+T hotkey-overlay-title="Open a Terminal: kitty (floating)" { spawn "kitty" "--class=dot.floating.kitty"; }
 
-    Super+Mod5+Space hotkey-overlay-title="Run an Application: launcher" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
+    //Super+Mod5+Space hotkey-overlay-title="Run an Application: launcher" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
     Mod+Space repeat=false hotkey-overlay-title="Run an Application: vicinae" { spawn-sh "vicinae toggle"; }
     //Mod+Shift+Space repeat=false // fuzzy finder?
 
@@ -388,12 +395,12 @@ binds {
     Super+Mod5+F hotkey-overlay-title="Niri: Pick Window" { spawn-sh "kitty --class=float.bottomright -e sh -c 'niri msg pick-window && read'"; }
     Super+Mod5+E hotkey-overlay-title="File Explorer: Nemo" { spawn-sh "nemo"; }
     Super+Mod5+Shift+C hotkey-overlay-title="Color Picker: hyprpicker" { spawn-sh "kitty --class=float.bottomright -e sh -c 'hyprpicker -u 500 -a -n -r && sleep 3'"; }
-    //noctalia-shell ipc show
+    //noctalia msg --help
     Super+Mod5+V repeat=false hotkey-overlay-title="Vicinae: Clipper" { spawn-sh "vicinae vicinae://launch/clipboard/history?toggle=true"; }
     //Super+Mod5+V hotkey-overlay-title="Noctalia: Clipper" { spawn-sh "noctalia-shell ipc call plugin:clipper toggle"; }
-    Super+Mod5+B hotkey-overlay-title="Noctalia: Background" { spawn-sh "noctalia-shell ipc call wallpaper toggle"; }
-    Ctrl+Alt+Delete hotkey-overlay-title="Noctalia: Powermenu" { spawn-sh "noctalia-shell ipc call sessionMenu toggle"; }
-    Super+Mod5+C hotkey-overlay-title="Noctalia: KeepAwake" { spawn-sh "noctalia-shell ipc call idleInhibitor toggle"; }
+    Super+Mod5+B hotkey-overlay-title="Noctalia: Background" { spawn-sh "noctalia msg panel-toggle wallpaper toggle"; }
+    Ctrl+Alt+Delete hotkey-overlay-title="Noctalia: Powermenu" { spawn-sh "noctalia msg panel-toggle session"; }
+    Super+Mod5+C hotkey-overlay-title="Noctalia: Caffeine (idleInhibitor)" { spawn-sh "noctalia msg caffeine-toggle"; }
     Super+Mod5+Period hotkey-overlay-title="Vicinae: Emoji" { spawn-sh "vicinae vicinae://launch/core/search-emojis?toggle=true"; }
     //Super+Mod5+Period hotkey-overlay-title="Noctalia: Emoji" { spawn-sh "noctalia-shell ipc call launcher emoji"; }
 

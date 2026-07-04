@@ -8,25 +8,21 @@ result-*
 #contains personal information
 variables.nix
 
-#is completely determined by wallpaper
-config/noctalia/colors.json
-
 ########### Noctalia Plugins ############
-config/noctalia/plugins/*/*
-!config/noctalia/plugins/*/settings.json
+config/noctalia/*
 
-# !config/noctalia/plugins/clipper
-# config/noctalia/plugins/clipper/*
-# !config/noctalia/plugins/clipper/settings.json
+!config/noctalia/.setup-complete
+!config/noctalia/settings.toml
 
-# !config/noctalia/plugins/kde-connect
-# config/noctalia/plugins/kde-connect/*
-# !config/noctalia/plugins/kde-connect/settings.json
+########### Noctalia-v4 ############
+config/unused/noctalia-v4/colors.json
+config/unused/noctalia-v4/plugins/*/*
+!config/unused/noctalia-v4/plugins/*/settings.json
 
-#niri modules
+
+########### niri modules ###########
 config/niri/*hm.*
 
-#hypr modules
+########### hypr modules #############
 config/hypr/*hm.conf
-
 config/hypr/hypridle.conf

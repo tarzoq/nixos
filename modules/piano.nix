@@ -21,7 +21,7 @@
               niri msg output $(niri msg --json focused-output | jq -r '.name') transform 270
 
               //keep awake on
-              noctalia-shell ipc call idleInhibitor enable
+              noctalia msg caffeine-enable
 
               //start sheetmusicviewer
 	      sheet-music-viewer
@@ -30,7 +30,7 @@
               niri msg output $(niri msg --json focused-output | jq -r '.name') transform normal
 
               //keep awake off
-              noctalia-shell ipc call idleInhibitor disable
+              noctalia msg caffeine-disable
 
 	      //kill sheetmusicviewer
 	      programID=$(niri msg --json windows | jq -r '.[] | select(.[\"app_id\"] == \"SheetMusicViewer\") | .id')

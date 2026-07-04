@@ -47,7 +47,7 @@
     source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/config/kitty";
     recursive = true;
   };
-  xdg.configFile."noctalia" = {
+  home.file.".local/state/noctalia" = {
     source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/config/noctalia";
     recursive = true;
   };
@@ -90,7 +90,7 @@
       hn = "hx ~/nixos";
       cn = "cd ~/nixos";
 
-      ding = "ffplay -nodisp -autoexit ${vars.user.home}/nixos/home/winfin.mp3 > /dev/null 2>&1"; #command to put at end to signify when finished
+      ding = "ffplay -nodisp -autoexit ${vars.user.home}/nixos/home/sfx/winfin.mp3 > /dev/null 2>&1"; #command to put at end to signify when finished
     };
   };
 

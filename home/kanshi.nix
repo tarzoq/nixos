@@ -17,7 +17,11 @@
     Service = {
       Type = "oneshot";
       ExecStart = ''
-        ${pkgs.bash}/bin/bash -c "/etc/profiles/per-user/${vars.user.name}/bin/kanshictl reload && /run/current-system/sw/bin/noctalia-shell ipc call toast send '{\"title\": \"Kanshi\", \"body\": \"Reloaded!\", \"duration\": 2000}'"
+        ${pkgs.bash}/bin/bash -c \
+	  "/etc/profiles/per-user/${vars.user.name}/bin/kanshictl reload && \
+	  /run/current-system/sw/bin/notify-send -u low -t 2000 -i video-display \
+	    \"Kanshi\" \
+	    \"Reloaded!\""
       ''; 
     };
   };
