@@ -63,7 +63,7 @@ input {
 
     // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
     focus-follows-mouse max-scroll-amount="75%"
-    warp-mouse-to-focus //make mouse warp to the center of newly focused windows.
+    //warp-mouse-to-focus //make mouse warp to the center of newly focused windows.
 }
 
 //"niri msg outputs"
@@ -254,12 +254,12 @@ window-rule {
     opacity 1.0
 }
 
-/////////// open unfocused /////////////
-window-rule {
-    match app-id="Audacity" //title="change"
-
-    open-focused false
-}
+///////////// open unfocused /////////////
+//window-rule {
+//    match app-id="Audacity" //title="change"
+//
+//    open-focused false
+//}
 
 window-rule { //keybind floating
     match app-id=r#"^dot.floating"#
