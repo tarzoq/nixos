@@ -100,11 +100,10 @@ in {
         command = onPower "ac" "${display "off"}";
 	resumeCommand = "${display "on"}";
       }
-      { #suspend
+      #{ #suspend (currently disabled)
         #timeout = 20 * 60;
-        timeout = 50 * 60;
-        command = onPower "ac" "${suspend}";
-      }
+        #command = onPower "ac" "${suspend}";
+      #}
 
       ############ Lock (used for both) ###############
       {

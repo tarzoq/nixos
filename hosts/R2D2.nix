@@ -38,6 +38,6 @@
   #'';
 
   services.cron.systemCronJobs = [
-    "*/15 * * * * root ${pkgs.kmod}/bin/modprobe -r psmouse && ${pkgs.kmod}/bin/modprobe psmouse"
+    "*/10 * * * * root ${pkgs.kmod}/bin/modprobe -r psmouse && ${pkgs.kmod}/bin/modprobe psmouse"
   ];
 }

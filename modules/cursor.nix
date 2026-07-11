@@ -9,6 +9,7 @@ in
 
   home-manager.users."${vars.user.name}" = {
     home.pointerCursor = {
+      enable = true;
       name = "${CURSOR_NAME}"; #find theme names=ls $(nix-build '<nixpkgs>' -A apple-cursor --no-out-link)/share/icons
       package = CURSOR_PACKAGE;
       size = CURSOR_SIZE;
