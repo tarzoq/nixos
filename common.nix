@@ -78,6 +78,11 @@
       };
     };
   };
+  services.xserver.xkb = {
+    layout = "se";
+    variant = "";
+  };
+  console.keyMap = "sv-latin1";
 
   networking.hostName = "${vars.system.hostname}"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -205,13 +210,6 @@
     };
   };
 
-  # Configure keymap in X11 - only for X11?
-  services.xserver.xkb = {
-    layout = "se";
-    variant = "";
-  };
-  console.keyMap = "sv-latin1";
-
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -293,6 +291,7 @@
     bind #nslookup etc.
     openssl
     cmatrix #for fun
+    #networkmanagerapplet #fallback network settings
     pavucontrol #audio device settings
     libnotify
     exiftool #view file metadata
@@ -302,6 +301,7 @@
     parted #partition management
     tparted #tui for parted
     pv #monitor progress of data through a pipeline
+    nmap
     # Else
     lynx #cli browser
     #cheese #camera

@@ -23,6 +23,9 @@ environment {
 // https://yalter.github.io/niri/Configuration:-Input
 input {
     keyboard {
+	xkb {
+	    layout "se"
+        }
         numlock // Enable numlock on startup
     }
     //libinputs
@@ -62,7 +65,7 @@ input {
     }
 
     // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
-    focus-follows-mouse max-scroll-amount="75%"
+    focus-follows-mouse max-scroll-amount="30%"
     //warp-mouse-to-focus //make mouse warp to the center of newly focused windows.
 }
 
@@ -574,7 +577,7 @@ binds {
     Mod+E { maximize-column; }    
     Mod+Shift+E { expand-column-to-available-width; }
     Mod+Alt+E { toggle-windowed-fullscreen; }
-    Mod+Ctrl+E { maximize-window-to-edges; } //no focus bars or struts
+    Mod+Shift+Alt+E { maximize-window-to-edges; } //no focus bars or struts
     Alt+Return { fullscreen-window; }
 
     Mod+C { center-column; }
