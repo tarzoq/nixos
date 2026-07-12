@@ -331,6 +331,7 @@
     stable.dupeguru #GUI duplicate file finder
     gparted-full
     constrict #video compressor
+    freefilesync
     ####### ISO ########
     #ventoy-full-gtk
     woeusb-ng #windows isos only

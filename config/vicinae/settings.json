@@ -38,6 +38,13 @@
             }
          }
       },
+      "files": {
+         "preferences": {
+            "autoIndexing": false,
+            "excludedIndexingPaths": [],
+            "indexingPaths": []
+         }
+      },
       "power": {
          "enabled": false
       }
