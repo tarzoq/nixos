@@ -451,7 +451,19 @@ binds {
             if [ \"$focused_id\" = \"$currentCast_id\" ]; then
                 niri msg action clear-dynamic-cast-target
             else
-                niri msg action set-dynamic-cast-window --id \"$focused_id\"
+                niri msg action set-dynamic-cast-window
+            fi
+        ";
+    }
+    Mod+Alt+D hotkey-overlay-title="Cast focused monitor" { //does not yet have a layer-rule, since there is not "is-output-cast-target"-option yet...
+        spawn-sh "
+            focused_id=$(niri msg -j focused-output | jq .name)
+            currentCast_id=$(niri msg -j casts | jq .[].target.Output.name)
+
+            if [ \"$focused_id\" = \"$currentCast_id\" ]; then
+                niri msg action clear-dynamic-cast-target
+            else
+                niri msg action set-dynamic-cast-monitor
             fi
         ";
     }
