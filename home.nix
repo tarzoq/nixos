@@ -73,11 +73,12 @@
       v = "nvim"; #editor of choice
       ssh = "kitty +kitten ssh"; #fix "xterm-kitty: unknown terminal type"
 
-      nrs = "sudo true && nh os switch --impure ~/nixos";
+      nrs = "sudo true && nh os switch --impure ~/nixos --accept-flake-config";
       onrs = "sudo nixos-rebuild switch --impure --flake ~/nixos";
-      nrb = "sudo true && nh os boot --impure ~/nixos";
+      nrb = "sudo true && nh os boot --impure ~/nixos --accept-flake-config";
       onrb = "sudo nixos-rebuild boot --impure --flake ~/nixos";
       nru = "sudo nix flake update --flake ~/nixos && nrb";
+      onru = "sudo nix flake update --flake ~/nixos && onrb";
       nrup = "sudo nix flake update --flake ~/nixos && nrb && sleep 60 && poweroff";
 
       ns = "nh search"; #search nixpkgs with nh
