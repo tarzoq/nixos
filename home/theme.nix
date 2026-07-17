@@ -15,6 +15,12 @@ in
     style.name = "adwaita-dark";
   };
 
+  dconf.settings = { #dconf reset -f /org/gnome/desktop/interface/ #to reset theme settings for dconf
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+    };
+  };
+
   #stylix = {
   #  enable = true;
   #  autoEnable = false;
