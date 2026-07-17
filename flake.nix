@@ -1,6 +1,11 @@
 {
   description = "A very basic flake";
 
+  nixConfig = {
+    extra-substituters = [ "https://noctalia.cachix.org" ];
+    extra-trusted-public-keys = [ "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4=" ];
+  };
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable"; #main
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
@@ -8,8 +13,8 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     noctalia = {
-      url = "github:noctalia-dev/noctalia";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:noctalia-dev/noctalia/cachix";
+      #inputs.nixpkgs.follows = "nixpkgs"; #omitted because cachix
     };
 
     home-manager = {
