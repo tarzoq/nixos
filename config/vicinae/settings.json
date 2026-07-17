@@ -19,6 +19,9 @@
    "launcher_window": {
       "opacity": 0.9
    },
+   "keybinds": {
+      "toggle-action-panel": "control+."
+   },
    "providers": {
       "browser-extension": {
          "enabled": true

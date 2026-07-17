@@ -27,10 +27,10 @@ in {
           kdeconnectd
           thunderbird
           discord
-          teams-for-linux
 	  protonvpn-app --start-minimized
 	  signal-desktop
       '';
+          #teams-for-linux
     };
   };
   config = let
