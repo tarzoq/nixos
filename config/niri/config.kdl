@@ -395,7 +395,7 @@ binds {
 
     /////////////////// HYPER-key //////////////////
     Super+Mod5+L hotkey-overlay-title="Lock the Screen" { spawn-sh "loginctl lock-session"; }
-    Super+Mod5+Alt+L hotkey-overlay-title="Lock and Turn Off the Screen with Caffeine" { 
+    Super+Mod5+Alt+L allow-when-locked=true hotkey-overlay-title="Lock and Turn Off the Screen with Caffeine" { 
         spawn-sh "
 	    caffeineState=$(test -f $XDG_RUNTIME_DIR/noctalia-caffeine-enabled.state && echo 0)
 
