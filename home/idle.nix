@@ -19,8 +19,8 @@ let
   onPower = status: cmd:
     let script = pkgs.writeShellScript "on-power" ''
       STATE_FILE=/sys/class/power_supply/AC/online
-      STATE_PRESENCE=$(test -f $STATE_FILE; echo $?)
-      STATE_STATUS=$(cat $STATE_FILE)
+      STATE_PRESENCE=$(${pkgs.coreutils}/bin/test -f $STATE_FILE; echo $?)
+      STATE_STATUS=$(${pkgs.coreutils}/bin/cat $STATE_FILE)
 
       if [[ "${status}" == "ac" && ( $STATE_PRESENCE -ne 0 || "$STATE_STATUS" == "1" ) ]]; then ${cmd}
       elif [[ "${status}" == "bat" && ( $STATE_PRESENCE -eq 0 && "$STATE_STATUS" == "0" ) ]]; then ${cmd}
@@ -73,11 +73,11 @@ in {
       }
       { #reminder screen locking in 5 sec
         timeout = 3 * 60 - 5; # 5sec before lock
-        command = "${pkgs.libnotify}/bin/notify-send 'Locking in 5 seconds' -t 5000";
+        command = onPower "bat" "${pkgs.libnotify}/bin/notify-send 'Locking in 5 seconds' -t 5000";
       }
       { #lock screen
         timeout = 3 * 60;
-        command = lock;
+        command = onPower "bat" "${lock}";
       }
       { #screen off
         timeout = 5 * 60;
@@ -97,11 +97,11 @@ in {
       }
       { #reminder screen locking in 5 sec
         timeout = 10 * 60 - 5; # 5sec before lock
-        command = "${pkgs.libnotify}/bin/notify-send 'Locking in 5 seconds' -t 5000";
+        command = onPower "ac" "${pkgs.libnotify}/bin/notify-send 'Locking in 5 seconds' -t 5000";
       }
       { #lock screen
         timeout = 10 * 60;
-        command = lock;
+        command = onPower "ac" "${lock}";
       }
       { #screen off
         timeout = 11 * 60;
