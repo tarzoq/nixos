@@ -405,7 +405,7 @@ binds {
 		    noctalia msg caffeine-disable &
 	    fi
 
-	    loginctl lock-session
+	    pidof hyprlock || loginctl lock-session
 	    niri msg action power-off-monitors
         "; 
     }
