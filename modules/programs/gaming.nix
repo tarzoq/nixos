@@ -6,6 +6,10 @@
   #gamemoderun %command%
   #mangohud %command%
 
+  #imports = [
+  #  #./lsfg.nix
+  #];
+
   hardware.hid-fanatecff.enable = true; #kernel driver with force feedback support for fanatec
 
   programs.steam = {
@@ -35,11 +39,8 @@
 
   environment.systemPackages = with pkgs; [
     mangohud #in-game performance monitor
-
     #heroic
-    lsfg-vk #lossless scaling
-    lsfg-vk-ui #lossless scaling
-
+    
     #https://wiki.nixos.org/wiki/Prism_Launcher
     prismlauncher #minecraft
   ];
