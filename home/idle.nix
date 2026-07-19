@@ -1,11 +1,11 @@
-{ config, pkgs, vars, ... }:
+{ config, pkgs, ... }:
 let
   hyprlock = "${pkgs.hyprlock}/bin/hyprlock";
   pidof = "${pkgs.procps}/bin/pidof";
 
   offScreenIfLocked = "${pidof} hyprlock && ${display "off"}"; #turn screen off if hyprlock is running
    
-  lock = "${pidof} hyprlock || ${hyprlock} &"; #only run hyprlock if hyprlock isn't already running !!can't be prepended by other commands!!
+  lock = "${pidof} hyprlock || ${hyprlock}"; #only run hyprlock if hyprlock isn't already running !!can't be prepended by other commands!!
   suspend = "${pkgs.systemd}/bin/systemctl suspend";
   display = status: "${pkgs.niri}/bin/niri msg action power-${status}-monitors";
 
@@ -16,22 +16,17 @@ let
   restoreKeyboard = "${brightnessctl} --device='*kbd_backlight' --restore"; #restore
 
   #status can be either "ac" or "bat"
-  onPower = status: cmd: 
-    let condition = if status == "bat" then "-eq 1" else "-ne 1";
-    in "${pkgs.bash}/bin/bash -c '[[ $(${pkgs.coreutils}/bin/cat /sys/class/power_supply/AC/online) ${condition} ]] || ${cmd}'";
+  onPower = status: cmd:
+    let script = pkgs.writeShellScript "on-power" ''
+      STATE_FILE=/sys/class/power_supply/AC/online
+      STATE_PRESENCE=$(test -f $STATE_FILE; echo $?)
+      STATE_STATUS=$(cat $STATE_FILE)
 
-  ###########################
-  #caffeineDisableScript = pkgs.writeShellScript "caffeine-disable" ''
-  #  caffeineState=$(test -f $XDG_RUNTIME_DIR/noctalia-caffeine-enabled.state)
-
-  #  if ! [ \"$caffeineState\" ]; then
-  #    /etc/profiles/per-user/user/bin/noctalia msg caffeine-disable
-  #  fi
-  #'';
-  caffeineDisableScript = pkgs.writeShellScript "caffeine-disable" ''
-    /etc/profiles/per-user/${vars.user.name}/bin/noctalia msg caffeine-disable
-  '';
-  ###########################
+      if [[ "${status}" == "ac" && ( $STATE_PRESENCE -ne 0 || "$STATE_STATUS" == "1" ) ]]; then ${cmd}
+      elif [[ "${status}" == "bat" && ( $STATE_PRESENCE -eq 0 && "$STATE_STATUS" == "0" ) ]]; then ${cmd}
+      fi
+    '';
+    in "${script}";
 
   #only runs consecutive command (notHibernating && ...) if system isn't hibernating. This since I have FDE, where I want autologin directly, unlike normal suspend.
   #notHibernating = pkgs.writeShellScript "not-hibernating" ''
