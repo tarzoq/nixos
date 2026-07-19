@@ -209,6 +209,7 @@ window-rule {
     match app-id="teams-for-linux"
     match app-id="signal"
     match app-id="steam"
+    match app-id="spotify"
 
     open-on-workspace "start"
 }
@@ -441,32 +442,10 @@ binds {
     Ctrl+Shift+Alt+Escape hotkey-overlay-title="Task Manager Alt: btop" { spawn-sh "kitty -e btop"; }
 
     Super+Mod5+Ctrl+Shift+B hotkey-overlay-title="Noctalia: restart Noctalia" { spawn-sh "sh ~/.config/niri/noctalia-restart.hm.sh"; }
-
     //////// script to allow toggle for dynamic-cast-target ///////////////
-    Mod+Alt+W hotkey-overlay-title="Cast focused window" { //only works if one window is casted, which is generally the case anyway with dynamic-cast-target
-        spawn-sh "
-            focused_id=$(niri msg -j focused-window | jq .id)
-            currentCast_id=$(niri msg -j casts | jq .[].target.Window.id)
-
-            if [ \"$focused_id\" = \"$currentCast_id\" ]; then
-                niri msg action clear-dynamic-cast-target
-            else
-                niri msg action set-dynamic-cast-window
-            fi
-        ";
-    }
-    Mod+Alt+D hotkey-overlay-title="Cast focused monitor" { //does not yet have a layer-rule, since there is not "is-output-cast-target"-option yet...
-        spawn-sh "
-            focused_id=$(niri msg -j focused-output | jq .name)
-            currentCast_id=$(niri msg -j casts | jq .[].target.Output.name)
-
-            if [ \"$focused_id\" = \"$currentCast_id\" ]; then
-                niri msg action clear-dynamic-cast-target
-            else
-                niri msg action set-dynamic-cast-monitor
-            fi
-        ";
-    }
+    Mod+Alt+W hotkey-overlay-title="Cast focused window" { spawn-sh "niri msg action set-dynamic-cast-window"; }
+    Mod+Alt+D hotkey-overlay-title="Cast focused monitor" { spawn-sh "niri msg action set-dynamic-cast-monitor"; } //does not yet have a layer-rule, since there is not "is-output-cast-target"-option yet...
+    Mod+Alt+S hotkey-overlay-title="Clear dynamic cast target" { spawn-sh "niri msg action clear-dynamic-cast-target"; }
 
     // "-l 1.0" limits the volume to 100%.
     XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+ -l 1.0"; }
