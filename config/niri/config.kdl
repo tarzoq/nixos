@@ -398,12 +398,12 @@ binds {
     Super+Mod5+L hotkey-overlay-title="Lock the Screen" { spawn-sh "loginctl lock-session"; }
     Super+Mod5+Alt+L allow-when-locked=true hotkey-overlay-title="Lock and Turn Off the Screen with Caffeine" { 
         spawn-sh "
-	    caffeineState=$(test -f $XDG_RUNTIME_DIR/noctalia-caffeine-enabled.state && echo 0)
+	    caffeineState=$(test -f $XDG_RUNTIME_DIR/noctalia-caffeine-enabled.state; echo $?)
 
-	    if ! [ \"$caffeineState\" ]; then
+	    if [ \"$caffeineState\" -ne 0 ]; then
 		noctalia msg caffeine-enable
                 sleep 1 && pidwait hyprlock && \\
-		    noctalia msg caffeine-disable &
+		    noctalia msg caffeine-disable & #disown to get pidwait running in background
 	    fi
 
 	    pidof hyprlock || loginctl lock-session
@@ -422,9 +422,9 @@ binds {
     Super+Mod5+C hotkey-overlay-title="Noctalia: Caffeine (idleInhibitor)" { 
         spawn-sh "
 	    appState=$XDG_RUNTIME_DIR/noctalia-caffeine-enabled.state
-	    caffeineStatus=$(systemd-inhibit --list | grep 'noctalia')
+	    caffeineStatus=$(systemd-inhibit --list | grep 'noctalia'; echo $?)
 
-	    if ! [ \"$caffeineStatus\" ]; then
+	    if [ \"$caffeineStatus\" -ne 0 ]; then
 		noctalia msg caffeine-enable
 	        touch $appState
 	    else
