@@ -11,5 +11,10 @@
       restore-session = false;
       style-scheme = "peninsula-dark";
     };
+    
+    "org/gnome/cheese" = {
+      countdown = false;
+      flash = false;
+    };
   };
 }

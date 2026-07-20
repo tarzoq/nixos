@@ -40,8 +40,8 @@ in {
               cmd = "pinta";
             };
             "c" = {
-              desc = "Camera (snapshot)";
-              cmd = "snapshot";
+              desc = "Camera (cheese)";
+              cmd = "cheese";
             };
             "d" = {
               desc = "Disk Management (gparted)";

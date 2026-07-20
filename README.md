@@ -59,7 +59,7 @@ My personal NixOS config
 | **Calculator**            | Gnome Calculator |
 | **Text Editor**             | Gnome Text Editor |
 | **Paint**            | Pinta |
-| **Camera**                  | Snapshot or Cheese |
+| **Camera**                  | Cheese |
 ||
 |Dev:|
 | **Code Editor**             | Neovim + VSCode (Helix?) |
