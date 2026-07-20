@@ -6,7 +6,6 @@
     #./home/helix.nix
     ./home/kanshi.nix
     ./home/rclone.nix
-    ./home/theme.nix
     ./home/dconf.nix
   ];
 

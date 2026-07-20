@@ -19,10 +19,10 @@
 
     nix-flatpak.url = "github:gmodena/nix-flatpak/22a3adbe7c5c8c8a10a635d32c9ef7fc01a6e4b8";
 
-    #stylix = {
-    #  url = "github:nix-community/stylix";
-    #  inputs.nixpkgs.follows = "nixpkgs";
-    #};
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   nixConfig = {
@@ -30,7 +30,7 @@
     extra-trusted-public-keys = [ "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4=" ];
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-flatpak, ... }@inputs: 
+  outputs = { self, nixpkgs, home-manager, nix-flatpak, stylix, ... }@inputs: 
   let
     vars = import /etc/nixos/variables.nix; #just a symlink, still edited directly from ./ (which is gitignored as to not have it commited to public repo)
   in {
@@ -39,7 +39,7 @@
       modules = [
         ./hosts/${vars.system.hostname}.nix
         home-manager.nixosModules.home-manager
-	#stylix.nixosModules.stylix
+	stylix.nixosModules.stylix
 	nix-flatpak.nixosModules.nix-flatpak
         {
           home-manager = {
@@ -47,7 +47,7 @@
             useUserPackages = true;
             users.${vars.user.name}.imports = [
 	      ./home.nix
-	      #stylix.homeModules.stylix
+	      stylix.homeModules.stylix
 	    ];
             backupFileExtension = "backup";
             overwriteBackup = true;

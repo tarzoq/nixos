@@ -13,6 +13,7 @@
     ./modules/programs/obsidian.nix
     ./modules/programs/flatpak.nix
     ./modules/cursor.nix
+    ./modules/theme.nix
     ./modules/wlrwhichkey.nix
     ./modules/vicinae.nix
   ];
@@ -20,8 +21,9 @@
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1"; # force applications to use wayland
     GTK_USE_PORTAL = "1";
-    QT_QPA_PLATFORMTHEME = "xdgdesktopportal"; #not sure what this does, I'll have to look into it
-    QT_STYLE_OVERRIDE = "gtk2";
+    #QT_QPA_PLATFORMTHEME = "xdgdesktopportal"; #not sure what this does, I'll have to look into it
+    #QT_STYLE_OVERRIDE = "gtk2";
+    #QT_STYLE_OVERRIDE = "adwaita-dark"; #https://www.reddit.com/r/NixOS/comments/1d5oep4/comment/l6mu0ry/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
   };
 
   nix.settings = {
@@ -304,8 +306,7 @@
     nmap
     # Else
     lynx #cli browser
-    #cheese #camera
-    stable.snapshot #camera
+    cheese #camera #settings done in dconf
     gnome-calculator #calculator
     gnome-clocks #clock and timer
     hyprpicker #color picker and zoom
