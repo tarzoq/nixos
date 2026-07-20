@@ -178,6 +178,7 @@
       "video/mpeg" = "mpv.desktop";
       "video/quicktime" = "mpv.desktop";
       "video/x-matroska" = "mpv.desktop";
+      "video/webm" = "mpv.desktop";
       
       # Archives
       "application/zip" = "org.gnome.FileRoller.desktop";
