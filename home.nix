@@ -98,8 +98,8 @@ in
 
       ########### GIT ##############
       gpf = "git -C ${REPO} fetch";
-      gpl = "git -C ${REPO} pull";
-      gpp = "git -C ${REPO} push";
+      gpp = "git -C ${REPO} pull";
+      gpu = "git -C ${REPO} push";
       gps = "git -C ${REPO} status";
       gpo = "git -C ${REPO} show";
       gpd = "git -C ${REPO} diff";
