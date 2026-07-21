@@ -10,6 +10,7 @@ in
     ./home/kanshi.nix
     ./home/rclone.nix
     ./home/dconf.nix
+    ./home/exec-desktop.nix
   ];
 
   home.username = "${vars.user.name}";
