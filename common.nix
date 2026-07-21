@@ -267,6 +267,7 @@
     bat #better looking cat
     tldr #better man
     neovim
+    wl-clipboard
     brave
     gimp
     ffmpeg

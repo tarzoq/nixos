@@ -51,6 +51,10 @@ in {
               desc = "Sound Management (pavucontrol)";
               cmd = "pavucontrol";
             };
+            "m" = {
+              desc = "Play URL From Current Clipboard (mpv)";
+              cmd = "mpv $(wl-paste | tr -d '\n') || notify-send 'mpv' 'Something went wrong...'";
+            };
             "n" = {
               desc = "Shutdown Options";
               submenu = {
