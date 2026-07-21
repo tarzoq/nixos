@@ -1,4 +1,7 @@
 { config, pkgs, vars, ... }:
+let
+  REPO = "~/nixos";
+in
 {
   imports = [
     ./home/idle.nix
@@ -72,13 +75,14 @@
       v = "nvim"; #editor of choice
       ssh = "kitty +kitten ssh"; #fix "xterm-kitty: unknown terminal type"
 
-      nrs = "sudo true && nh os switch --impure ~/nixos --accept-flake-config";
-      onrs = "sudo nixos-rebuild switch --impure --flake ~/nixos";
-      nrb = "sudo true && nh os boot --impure ~/nixos --accept-flake-config";
-      onrb = "sudo nixos-rebuild boot --impure --flake ~/nixos";
-      nru = "sudo nix flake update --flake ~/nixos && nrb";
-      onru = "sudo nix flake update --flake ~/nixos && onrb";
-      nrup = "sudo nix flake update --flake ~/nixos && nrb && sleep 60 && poweroff";
+      nrs = "sudo true && nh os switch --impure ${REPO} --accept-flake-config";
+      onrs = "sudo nixos-rebuild switch --impure --flake ${REPO}";
+      nrb = "sudo true && nh os boot --impure ${REPO} --accept-flake-config";
+      onrb = "sudo nixos-rebuild boot --impure --flake ${REPO}";
+      nru = "sudo nix flake update --flake ${REPO} && nrb";
+      onru = "sudo nix flake update --flake ${REPO} && onrb";
+      nrup = "nru && sleep 60 && poweroff";
+      onrup = "onru && sleep 60 && poweroff";
 
       ns = "nh search"; #search nixpkgs with nh
 
@@ -86,11 +90,19 @@
       ongd = "sudo nix-collect-garbage -d";
       nlg = "nixos-rebuild list-generations";
 
-      vn = "nvim ~/nixos";
-      hn = "hx ~/nixos";
-      cn = "cd ~/nixos";
+      vn = "nvim ${REPO}";
+      hn = "hx ${REPO}";
+      cn = "cd ${REPO}";
 
       ding = "ffplay -nodisp -autoexit ${vars.user.home}/nixos/home/sfx/winfin.mp3 > /dev/null 2>&1"; #command to put at end to signify when finished
+
+      ########### GIT ##############
+      gpf = "git -C ${REPO} fetch";
+      gpl = "git -C ${REPO} pull";
+      gpp = "git -C ${REPO} push";
+      gps = "git -C ${REPO} status";
+      gpo = "git -C ${REPO} show";
+      gpd = "git -C ${REPO} diff";
     };
   };
 
