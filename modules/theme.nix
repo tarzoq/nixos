@@ -25,6 +25,7 @@ in
     stylix.targets.gnome.enable = true;
     stylix.targets.gtk.enable = true;
     stylix.targets.qt.enable = true;
+    stylix.targets.kde.enable = true;
 
     stylix.targets.mpv.enable = true;
 

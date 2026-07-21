@@ -1,7 +1,7 @@
 { config, pkgs, inputs, ... }:
 {
   #https://wiki.nixos.org/wiki/Dolphin
-  nixpkgs.overlays = [ inputs.dolphin-overlay.overlays.default ];
+  #nixpkgs.overlays = [ inputs.dolphin-overlay.overlays.default ];
 
   environment.systemPackages = with pkgs; [
     kdePackages.qtsvg
@@ -10,5 +10,6 @@
     kdePackages.kio-extras
     kdePackages.dolphin
     kdePackages.ark
+    kdePackages.baloo
   ];
 }
