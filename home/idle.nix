@@ -27,16 +27,6 @@ let
       fi
     '';
     in "${script}";
-
-  #only runs consecutive command (notHibernating && ...) if system isn't hibernating. This since I have FDE, where I want autologin directly, unlike normal suspend.
-  #notHibernating = pkgs.writeShellScript "not-hibernating" ''
-  #  if ${pkgs.systemd}/bin/systemctl is-active --quiet hibernate.target; then
-  #    exit 1
-  #  else
-  #    exit 0 
-  #  fi
-  #'';
-  #lockIfNotHibernate = "${pkgs.bash}/bin/bash -c '${pkgs.systemd}/bin/systemctl is-active --quiet hibernate.target && exit; ${lock}'";
 in {
   ############################## keyboard only (ignores inhibitors) ################################
   services.hypridle = { 
@@ -80,12 +70,12 @@ in {
         command = onPower "bat" "${lock}";
       }
       { #screen off
-        timeout = 5 * 60;
+        timeout = builtins.floor (3.5 * 60);
         command = onPower "bat" "${display "off"}";
 	resumeCommand = "${display "on"}"; #should not require restoreScreen and Keyboard, since that is already done by the other resumesCommands
       }
       { #suspend
-        timeout = 10 * 60;
+        timeout = 8 * 60;
         command = onPower "bat" "${suspend}";
       }
 
@@ -104,7 +94,7 @@ in {
         command = onPower "ac" "${lock}";
       }
       { #screen off
-        timeout = 11 * 60;
+        timeout = builtins.floor (10.5 * 60);
         command = onPower "ac" "${display "off"}";
 	resumeCommand = "${display "on"}";
       }
@@ -115,7 +105,7 @@ in {
 
       ############ Lock (used for both) ###############
       {
-        timeout = 1 * 60; #1min after lock, only turns off screen lock is manually triggered
+        timeout = builtins.floor (0.5 * 60); #1min after lock, only turns off screen lock is manually triggered
 	command = offScreenIfLocked;
       }
     ];
