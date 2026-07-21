@@ -406,7 +406,7 @@ binds {
 		    noctalia msg caffeine-disable & #disown to get pidwait running in background
 	    fi
 
-	    pidof hyprlock || loginctl lock-session
+	    loginctl lock-session
 	    niri msg action power-off-monitors
         "; 
     }

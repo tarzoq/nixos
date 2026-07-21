@@ -5,7 +5,7 @@ let
 
   offScreenIfLocked = "${pidof} hyprlock && ${display "off"}"; #turn screen off if hyprlock is running
    
-  lock = "${pidof} hyprlock || ${hyprlock}"; #only run hyprlock if hyprlock isn't already running !!can't be prepended by other commands!!
+  lock = "${pidof} hyprlock || ${hyprlock} &"; #only run hyprlock if hyprlock isn't already running !!can't be prepended by other commands!!
   suspend = "${pkgs.systemd}/bin/systemctl suspend";
   display = status: "${pkgs.niri}/bin/niri msg action power-${status}-monitors";
 
