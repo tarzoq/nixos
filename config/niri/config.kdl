@@ -286,11 +286,14 @@ window-rule { //keybind floating
 ///////////// full opacity //////////////////
 window-rule {
     match app-id="brave" title="YouTube"
+    match app-id="brave" title="Twitch"
     match app-id="Pinta"
     match app-id="gimp"
     match app-id="resolve"
     match app-id="org.gnome.Snapshot"
     match app-id="synthesia"
+    match app-id="mpv"
+    match app-id="vlc"
 
     opacity 1.0
 }
