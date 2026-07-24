@@ -594,8 +594,10 @@ binds {
 
     //window sizes
     Mod+R { switch-preset-column-width; }
+    Mod+Alt+R { switch-preset-column-width-back; }
     Mod+Shift+R { switch-preset-window-height; }
-    Mod+Alt+R { reset-window-height; }
+    Mod+Alt+Shift+R { switch-preset-window-height-back; }
+    //Mod+Alt+R { reset-window-height; }
     Mod+E { maximize-column; }    
     Mod+Shift+E { expand-column-to-available-width; }
     Mod+Alt+E { toggle-windowed-fullscreen; }
@@ -615,7 +617,7 @@ binds {
     Mod+Shift+Plus { set-window-height "+10%"; }
 
     // Move the focused window between the floating and the tiling layout.
-    Mod+V       { toggle-window-floating; }
+    Mod+V { toggle-window-floating; }
     Mod+Shift+V { switch-focus-between-floating-and-tiling; }
     // Toggle vertically tabbed column display mode.
     Mod+Alt+V { toggle-column-tabbed-display; } ///////////////////////////////////////////////////////////// <--------------
