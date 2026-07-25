@@ -76,19 +76,20 @@ in
       v = "nvim"; #editor of choice
       ssh = "kitty +kitten ssh"; #fix "xterm-kitty: unknown terminal type"
 
-      nrs = "sudo true && nh os switch --impure ${REPO} --accept-flake-config";
-      onrs = "sudo nixos-rebuild switch --impure --flake ${REPO}";
-      nrb = "sudo true && nh os boot --impure ${REPO} --accept-flake-config";
-      onrb = "sudo nixos-rebuild boot --impure --flake ${REPO}";
+      #nrs = "sudo true && nh os switch --impure ${REPO} --accept-flake-config";
+      nrs = "sudo nixos-rebuild switch --impure --flake ${REPO}";
+      #nrb = "sudo true && nh os boot --impure ${REPO} --accept-flake-config";
+      nrb = "sudo nixos-rebuild boot --impure --flake ${REPO}";
+      nrbp = "sudo nixos-rebuild boot --impure --flake ${REPO} && sleep 60 && poweroff";
+      #nru = "sudo nix flake update --flake ${REPO} && nrb";
       nru = "sudo nix flake update --flake ${REPO} && nrb";
-      onru = "sudo nix flake update --flake ${REPO} && onrb";
+      #nrup = "nru && sleep 60 && poweroff";
       nrup = "nru && sleep 60 && poweroff";
-      onrup = "onru && sleep 60 && poweroff";
 
-      ns = "nh search"; #search nixpkgs with nh
+      #ns = "nh search"; #search nixpkgs with nh
 
-      ngd = "sudo true && nh clean all";
-      ongd = "sudo nix-collect-garbage -d";
+      #ngd = "sudo true && nh clean all";
+      ngd = "sudo nix-collect-garbage -d";
       nlg = "nixos-rebuild list-generations";
 
       vn = "nvim ${REPO}";
