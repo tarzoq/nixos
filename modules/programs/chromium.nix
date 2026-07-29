@@ -22,15 +22,31 @@
       "BraveWebDiscoveryEnabled" = false;
     };
   };
-  environment.systemPackages = with pkgs; [
-    (brave.override {
-      commandLineArgs = [ #enable vulkan etc.
-	"--enable-features=AcceleratedVideoEncoder,VaapiOnNvidiaGPUs"
-	#"--enable-features=AcceleratedVideoEncoder,VaapiOnNvidiaGPUs,Vulkan,DefaultANGLEVulkan,VulkanFromANGLE"
+  home-manager.users."${vars.user.name}" = {
+    programs.chromium = {
+      enable = true;
+      package = pkgs.brave;
+      commandLineArgs = [
+        #enable vulkan etc.
+        "--enable-features=AcceleratedVideoEncoder,VaapiOnNvidiaGPUs"
+        #"--enable-features=AcceleratedVideoEncoder,VaapiOnNvidiaGPUs,Vulkan,DefaultANGLEVulkan,VulkanFromANGLE"
         #"--enable-features=VaapiVideoDecoder,PlatformHEVCDecoderSupport"
         "--ignore-gpu-blocklist" #webgpu interop
         "--enable-zero-copy"
       ];
-    })
-  ];
+    };
+  };
+  #environment.systemPackages = with pkgs; [
+  #  brave
+  #];
+  #self: super: {
+  #  brave = super.brave.overrideAttrs (oldAttrs: {
+  #    #enable vulkan etc.
+  #    "--enable-features=AcceleratedVideoEncoder,VaapiOnNvidiaGPUs"
+  #    #"--enable-features=AcceleratedVideoEncoder,VaapiOnNvidiaGPUs,Vulkan,DefaultANGLEVulkan,VulkanFromANGLE"
+  #    #"--enable-features=VaapiVideoDecoder,PlatformHEVCDecoderSupport"
+  #    "--ignore-gpu-blocklist" #webgpu interop
+  #    "--enable-zero-copy"
+  #  });
+  #}
 }

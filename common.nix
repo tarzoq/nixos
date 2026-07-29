@@ -268,7 +268,6 @@
     tldr #better man
     neovim
     wl-clipboard
-    brave
     gimp
     ffmpeg
     yt-dlp
@@ -299,6 +298,7 @@
     pavucontrol #audio device settings
     libnotify
     exiftool #view file metadata
+    imagemagick #manipulate images
     inetutils #common network programs
     iotop #find out which process does the most io
     man-pages #manual pages + various utilities
@@ -331,7 +331,7 @@
     #firmware-manager
     davinci-resolve #https://nixos.wiki/wiki/DaVinci_Resolve
     ############### SOFTWARE (tools) #########################
-    stable.dupeguru #GUI duplicate file finder
+    dupeguru #GUI duplicate file finder
     gparted-full
     constrict #video compressor
     freefilesync
