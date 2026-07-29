@@ -67,6 +67,10 @@ in
     source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/config/misc/protonvpn";
     recursive = true;
   };
+  xdg.configFile."puddletag" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${vars.user.home}/nixos/config/misc/puddletag";
+    recursive = true;
+  };
 
   programs.bash = {
     enable = true;
