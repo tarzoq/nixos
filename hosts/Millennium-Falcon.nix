@@ -6,6 +6,7 @@
       ../modules/nvidia.nix
       ../modules/wol.nix
       ../modules/programs/gaming.nix
+      ../modules/programs/ai.nix
     ];
   modules.autostart.entries = "steam";
 
@@ -15,8 +16,4 @@
   modules.wol.card = "enp12s0";
 
   services.hardware.openrgb.motherboard = "amd";
-
-  #environment.systemPackages = with pkgs; [
-  #  nvtopPackages.amd #or full for all 
-  #];
 }
