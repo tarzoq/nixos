@@ -5,6 +5,7 @@
   environment.systemPackages = with pkgs; [
     inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
     ddcutil #desktop monitor brightness control
+    pulseaudio
     #qt6.qtwebsockets #hass plugin
     #wtype #clipper
     ];
