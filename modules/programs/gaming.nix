@@ -37,9 +37,28 @@
   programs.gamemode.enable = true; #daemon that improves game performance
   users.users.${vars.user.name}.extraGroups = [ "gamemode" ];
 
+  services.flatpak.packages = [ "com.heroicgameslauncher.hgl" ];
+  services.flatpak.overrides.settings = {
+    # App-specific tweak just for Heroic Games Launcher
+    "com.heroicgameslauncher.hgl" = {
+      Context = {
+        # Allows Heroic to talk to Flatpak management so the "Add to Steam" button works
+        talk-name = [ "org.freedesktop.Flatpak" ];
+      };
+    };
+  };
+
   environment.systemPackages = with pkgs; [
     mangohud #in-game performance monitor
+
+    ##https://wiki.nixos.org/wiki/Heroic_Games_Launcher
     #heroic
+    #(heroic.override {
+    #  extraPkgs = pkgs': with pkgs'; [
+    #    gamescope
+    #    gamemode
+    #  ];
+    #})
     
     #https://wiki.nixos.org/wiki/Prism_Launcher
     prismlauncher #minecraft
