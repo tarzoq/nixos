@@ -7,6 +7,7 @@
       ../modules/wol.nix
       ../modules/programs/gaming.nix
       ../modules/programs/ai.nix
+      ../modules/programs/transcode.nix
     ];
   modules.autostart.entries = "steam";
 
