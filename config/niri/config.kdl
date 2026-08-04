@@ -326,6 +326,7 @@ window-rule {
     match app-id="SheetMusicViewer"
 
     open-maximized true
+    open-floating false
     opacity 1.0
 }
 
