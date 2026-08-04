@@ -77,6 +77,9 @@
 	  "hyper:M-G" = { #meta+rightalt/altgr (mod5) used for special keybinds in Niri since meta is already occupied by capslock
 	    capslock = "capslock"; #allow to enable capslock (LMeta + CapsLock)
 	  };
+	  global = {
+	    overload_tap_timeout = 200;
+	  };
         };
       };
     };
