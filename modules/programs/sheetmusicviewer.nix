@@ -24,8 +24,14 @@ let
   cursorPackage = config.home-manager.users."${vars.user.name}".home.pointerCursor.package;
 in
   let
-    sheetMusicViewer = pkgs.buildFHSEnv {
-      name = "sheet-music-viewer";
+    credentialsFile = "${vars.user.home}/nixos/config/misc/sheetmusicviewer/webdav.env";
+    rcloneMountPath = "${vars.user.home}/.cache/sheetmusic/webdav";
+    mergedPath = "${vars.user.home}/.cache/sheetmusic/merged";
+    upperPath = "${vars.user.home}/.cache/sheetmusic/upper";
+    workPath = "${vars.user.home}/.cache/sheetmusic/work";
+
+    sheetMusicViewerApp = pkgs.buildFHSEnv {
+      name = "sheet-music-viewer-app";
       targetPkgs = pkgs: with pkgs; [
         sheetMusicViewerBin
         stdenv.cc.cc.lib
@@ -39,14 +45,55 @@ in
       ];
       runScript = "${sheetMusicViewerBin}/bin/SheetMusicViewer";
       extraBwrapArgs = [
-        #"--ro-bind \${HOME}/sheetmusic \${HOME}/sheetmusic"
-        #"--tmpfs \${HOME}"
+	"--bind ${mergedPath} ${vars.user.home}/sheetmusic"
         "--unshare-net"
         "--setenv XCURSOR_PATH ${vars.user.home}/.icons"
         "--setenv XCURSOR_THEME ${cursorName}"
         "--setenv XCURSOR_SIZE ${cursorSize}"
       ];
     };
+
+    sheetMusicViewer = pkgs.writeShellScriptBin "sheet-music-viewer" ''
+      set -e
+      CRED_FILE="${credentialsFile}"
+      RCLONE_MOUNT="${rcloneMountPath}"
+      MERGED="${mergedPath}"
+
+      # shellcheck disable=SC1090
+      . "$CRED_FILE"
+
+      mkdir -p "$RCLONE_MOUNT" "${upperPath}" "${workPath}" "$MERGED"
+
+      STARTED_RCLONE=0
+      if ! ${pkgs.util-linux}/bin/mountpoint -q "$RCLONE_MOUNT"; then
+        ${pkgs.rclone}/bin/rclone mount ":webdav:" "$RCLONE_MOUNT" \
+          --webdav-url="$WEBDAV_URL" \
+          --webdav-user="$WEBDAV_USER" \
+          --webdav-pass="$WEBDAV_PASS" \
+          --webdav-vendor=owncloud \
+          --daemon --daemon-wait=10 \
+          --vfs-cache-mode=minimal \
+          --read-only
+        STARTED_RCLONE=1
+      fi
+
+      STARTED_OVERLAY=0
+      if ! ${pkgs.util-linux}/bin/mountpoint -q "$MERGED"; then
+        ${pkgs.fuse-overlayfs}/bin/fuse-overlayfs \
+          -o lowerdir="$RCLONE_MOUNT",upperdir="${upperPath}",workdir="${workPath}" \
+          "$MERGED"
+        STARTED_OVERLAY=1
+      fi
+
+      #umounts after exit or crash
+      cleanup() {
+        [ "$STARTED_OVERLAY" = "1" ] && /run/wrappers/bin/fusermount3 -uz "$MERGED"
+        [ "$STARTED_RCLONE" = "1" ] && /run/wrappers/bin/fusermount3 -uz "$RCLONE_MOUNT"
+      }
+      trap cleanup EXIT INT TERM
+
+      ${sheetMusicViewerApp}/bin/sheet-music-viewer-app
+    '';
 in
 {
   home-manager.users."${vars.user.name}" = {
@@ -58,7 +105,11 @@ in
       categories = [ "AudioVideo" "Music" ];
       terminal = false;
     };
-
-    home.packages = [ sheetMusicViewer ];
+    home.packages = [
+      sheetMusicViewer
+      pkgs.rclone
+      pkgs.fuse-overlayfs
+      pkgs.fuse3
+    ];
   };
 }
