@@ -6,7 +6,7 @@ in
   imports = [
     ./home/idle.nix
     ./home/outputscale.nix
-    #./home/helix.nix
+    ./home/helix.nix
     ./home/kanshi.nix
     ./home/rclone.nix
     ./home/dconf.nix
@@ -98,6 +98,7 @@ in
 
       vn = "nvim ${REPO}";
       hn = "hx ${REPO}";
+      h = "hx";
       cn = "cd ${REPO}";
 
       ding = "ffplay -nodisp -autoexit ${vars.user.home}/nixos/home/sfx/winfin.mp3 > /dev/null 2>&1"; #command to put at end to signify when finished
@@ -109,6 +110,7 @@ in
       gps = "git -C ${REPO} status";
       gpo = "git -C ${REPO} show";
       gpd = "git -C ${REPO} diff";
+      rnru = "git -C ${REPO} restore flake.lock"; #revert flake.lock in case of failed update
     };
   };
 

@@ -1,0 +1,26 @@
+{ config, pkgs, lib, ... }:
+{
+  #https://wiki.nixos.org/wiki/Helix
+  programs.helix = {
+    enable = true;
+    settings = {
+      theme = "autumn_night_transparent";
+      editor.cursor-shape = {
+        normal = "block";
+        insert = "bar";
+        select = "underline";
+      };
+    };
+    themes = {
+      autumn_night_transparent = {
+        "inherits" = "autumn_night";
+        "ui.background" = { };
+      };
+    };
+    #languages.language = [{
+    #  name = "nix";
+    #  auto-format = true;
+    #  formatter.command = lib.getExe pkgs.nixfmt;
+    #}];
+  };
+}
