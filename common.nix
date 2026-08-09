@@ -309,6 +309,7 @@
     tparted #tui for parted
     pv #monitor progress of data through a pipeline
     nmap
+    moreutils #more useful unix tools e.g. combine
     # Else
     lynx #cli browser
     cheese #camera #settings done in dconf
@@ -320,8 +321,7 @@
     btop
     mission-center
     qdirstat #gui disk usage analyzer, similar to Wiztree
-    lsfg-vk
-    lsfg-vk-ui
+    terminal-typeracer #play typeracer when the internet is out
     spotify
     teams-for-linux
     polkit_gnome

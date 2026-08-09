@@ -29,9 +29,9 @@ in {
           discord
 	  protonvpn-app --start-minimized
 	  signal-desktop
+          teams-for-linux
 	  spotify
       '';
-          #teams-for-linux
     };
   };
   config = let
