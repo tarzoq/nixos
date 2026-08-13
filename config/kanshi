@@ -13,11 +13,9 @@ output "Samsung Electric Company SyncMaster 0x4B493236" {
   mode "1920x1200@59.950" 
   scale 1
 }
-
 output "eDP-1" {
   alias $laptop
 }
-
 output "Philips Consumer Electronics Company PHL 275S9J UK02402010099" {
   alias $workMain
   mode "2560x1440@74.968" 
@@ -29,7 +27,10 @@ output "Philips Consumer Electronics Company PHL 275S9J UK02402009980" {
   scale 1
 }
 
-################# PROFILES ####################3
+################# PROFILES ####################
+profile single_monitor {
+  output "*" 0,0 enable
+}
 profile desk_temp {
   output $wideScreen position 0,0 enable
   output $laptop position 3440,900 enable
@@ -44,6 +45,12 @@ profile docked_work {
   output $workSecondary position 2560,-20 enable
   output $laptop disable 
 }
+profile docked_work_full {
+  output $workMain position 0,0 enable
+  output $workSecondary position 2560,-20 enable
+  output "Dell Inc. DELL P2014H 8HRPC4CGB8DL" disable
+  output $laptop disable 
+}
 
-
+######## EXAMPLE ONE-LINE #########
 #output "LG Electronics LG ULTRAWIDE 0x00021E47" mode "3440x1440@59.973" scale 1 position 0,0 enable

@@ -21,7 +21,11 @@
 	  "/etc/profiles/per-user/${vars.user.name}/bin/kanshictl reload && \
 	  /run/current-system/sw/bin/notify-send -u low -t 2000 -i video-display \
 	    \"Kanshi\" \
-	    \"Reloaded!\""
+	    \"Reload successful!\" \
+	  || \
+	  /run/current-system/sw/bin/notify-send -u low -t 2000 -i dialog-error \
+	    \"Kanshi\" \
+	    \"Something went wrong...\""
       ''; 
     };
   };
