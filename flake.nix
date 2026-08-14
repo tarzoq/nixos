@@ -3,7 +3,8 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable"; #main
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05"; #current stable channel
+    nixpkgs-2511.url = "github:nixos/nixpkgs/nixos-25.11";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
@@ -56,6 +57,10 @@
 	  nixpkgs.overlays = [
 	    (final: prev: {
 	      stable = import inputs.nixpkgs-stable {
+	        system = final.stdenv.hostPlatform.system;
+	        config.allowUnfree = true;
+	      };
+	      stable2511 = import inputs.nixpkgs-2511 {
 	        system = final.stdenv.hostPlatform.system;
 	        config.allowUnfree = true;
 	      };

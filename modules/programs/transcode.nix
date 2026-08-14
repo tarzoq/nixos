@@ -2,6 +2,6 @@
 {
   environment.systemPackages = with pkgs; [
     handbrake
-    makemkv
+    stable.makemkv #ffmpeg error on unstable
   ];
 }

@@ -191,7 +191,7 @@
   #solve issue with new gdm not finding niri
   nixpkgs.overlays = [
     (final: prev: {
-      gdm = final.pkgs.stable.gdm;
+      gdm = final.pkgs.stable2511.gdm;
     })
   ];
   services.displayManager = {
