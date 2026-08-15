@@ -31,14 +31,9 @@ output "Philips Consumer Electronics Company PHL 275S9J UK02402009980" {
 profile single_monitor {
   output "*" 0,0 enable
 }
-profile desk_temp {
-  output $wideScreen position 0,0 enable
-  output $laptop position 3440,900 enable
-}
 profile desk_home {
   output $gamingMain position 0,0 enable
-  #output $wideScreen position 1920,-150 enable
-  output $syncMaster position 1920,-50 enable
+  output $wideScreen position 1920,-150 enable
 }
 profile docked_work {
   output $workMain position 0,0 enable
