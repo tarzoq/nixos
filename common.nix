@@ -258,7 +258,7 @@
     onlyoffice-desktopeditors #office suite
     gnome-text-editor #text editor
     nomacs #image viewer
-    pinta #painter
+    drawy #paint, pinta equivalent
     wget
     libinput
     bc #math in bash

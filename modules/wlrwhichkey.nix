@@ -36,8 +36,8 @@ in {
               cmd = "obs";
             };
             "p" = {
-              desc = "Paint (pinta)";
-              cmd = "pinta";
+              desc = "Paint (drawy)";
+              cmd = "drawy";
             };
             "c" = {
               desc = "Camera (cheese)";

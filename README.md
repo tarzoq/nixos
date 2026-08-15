@@ -58,7 +58,7 @@ My personal NixOS config
 | **PDF Viewer**            | Okular, Zathura |
 | **Calculator**            | Gnome Calculator |
 | **Text Editor**             | Gnome Text Editor |
-| **Paint**            | Pinta |
+| **Paint**            | Drawy |
 | **Camera**                  | Cheese |
 ||
 |Dev:|
