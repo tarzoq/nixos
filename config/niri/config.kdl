@@ -241,6 +241,7 @@ window-rule {
     match app-id="vlc" title="Current Media Information"
     match app-id="thunar" title="Bulk Rename"
     match app-id="org.gnome.clocks"
+    match app-id="nemo" title=r#".+ Properties$"#
 
     open-floating true
 }
@@ -382,7 +383,6 @@ binds {
 
     //Super+Mod5+Space hotkey-overlay-title="Run an Application: launcher" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
     Mod+Space repeat=false hotkey-overlay-title="Run an Application: vicinae" { spawn-sh "vicinae toggle"; }
-    //Mod+Shift+Space repeat=false // fuzzy finder?
 
     Mod+N hotkey-overlay-title="Run an Application: gnome-text-editor" { spawn "gnome-text-editor" "--new-window"; }
     Mod+B hotkey-overlay-title="Run an Application: brave" { spawn "brave"; }
