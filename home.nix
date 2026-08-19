@@ -84,13 +84,13 @@ in
       nrs = "sudo nixos-rebuild switch --impure --flake ${REPO}";
       #nrb = "sudo true && nh os boot --impure ${REPO} --accept-flake-config";
       nrb = "sudo nixos-rebuild boot --impure --flake ${REPO}";
-      nrbp = "sudo nixos-rebuild boot --impure --flake ${REPO} && sleep 60 && poweroff";
+      nrbp = "sudo nixos-rebuild boot --impure --flake ${REPO} && echo \"Finished, waiting 60 seconds...\" && sleep 60 && poweroff";
       #nru = "sudo nix flake update --flake ${REPO} && nrb";
       nru = "sudo nix flake update --flake ${REPO} && nrb";
       #nrup = "nru && sleep 60 && poweroff";
       nrup = "nru && sleep 60 && poweroff";
 
-      #ns = "nh search"; #search nixpkgs with nh
+      ns = "nh search"; #search nixpkgs with nh
 
       #ngd = "sudo true && nh clean all";
       ngd = "sudo nix-collect-garbage -d";
