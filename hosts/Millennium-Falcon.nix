@@ -8,6 +8,7 @@
       ../modules/programs/gaming.nix
       ../modules/programs/ai.nix
       ../modules/programs/transcode.nix
+      ../modules/programs/recovery.nix
     ];
   modules.autostart.entries = "steam";
 
