@@ -79,6 +79,7 @@ in
       cat = "bat"; #like cat, but prettier
       v = "nvim"; #editor of choice
       ssh = "kitty +kitten ssh"; #fix "xterm-kitty: unknown terminal type"
+      monkeytype = "smassh";
 
       #nrs = "sudo true && nh os switch --impure ${REPO} --accept-flake-config";
       nrs = "sudo nixos-rebuild switch --impure --flake ${REPO}";
