@@ -9,8 +9,6 @@
   programs.hyprlock.enable = true;
   security.pam.services.hyprlock = {};
 
-  services.niri-autoselect-portal.enable = true; #installed via flake.nix
-
   environment.systemPackages = with pkgs; [
     alacritty #ICE, standard term by niri
     #mako #needed for niri config notifications

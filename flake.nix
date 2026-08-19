@@ -24,11 +24,6 @@
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    niri-autoselect-portal = {
-      url = "git+https://codeberg.org/debugloop/niri-autoselect-portal.git";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   nixConfig = {
@@ -36,7 +31,7 @@
     extra-trusted-public-keys = [ "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4=" ];
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-flatpak, stylix, niri-autoselect-portal, ... }@inputs: 
+  outputs = { self, nixpkgs, home-manager, nix-flatpak, stylix, ... }@inputs: 
   let
     vars = import /etc/nixos/variables.nix; #just a symlink, still edited directly from ./ (which is gitignored as to not have it commited to public repo)
   in {
@@ -47,7 +42,6 @@
         home-manager.nixosModules.home-manager
 	nix-flatpak.nixosModules.nix-flatpak
 	stylix.nixosModules.stylix
-	niri-autoselect-portal.nixosModules.default
         {
           home-manager = {
             useGlobalPkgs = true;
