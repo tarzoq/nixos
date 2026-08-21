@@ -63,7 +63,7 @@ My personal NixOS config
 ||
 |Dev:|
 | **Code Editor**             | Neovim + VSCode (Helix?) |
-| **Docker Manager**            | lazydocker (alternative to Docker Desktop) |
+| **Docker Manager**            | lazydocker (TUI alternative to Docker Desktop) |
 ||
 |Good to haves:|
 | **Duplicate Finder**             | DupeGuru |
