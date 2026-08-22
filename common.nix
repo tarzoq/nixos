@@ -296,7 +296,10 @@
     ethtool
     bind #nslookup etc.
     openssl
-    cmatrix #for fun
+    ##### for fun ######
+    cmatrix #the matrix
+    nms #sneakers movie decryption
+    ##### for fun ######
     #networkmanagerapplet #fallback network settings
     pavucontrol #audio device settings
     libnotify
@@ -310,6 +313,7 @@
     pv #monitor progress of data through a pipeline
     nmap
     moreutils #more useful unix tools e.g. combine
+    file #file system information
     # Else
     lynx #cli browser
     cheese #camera #settings done in dconf
