@@ -12,6 +12,7 @@
       ../modules/resumeScript.nix
       ../modules/programs/gaming.nix
       ../modules/piano.nix
+      ../config/misc/vopono.nix
     ];
   modules.hibernate.resumeOffset = 4278272;
   modules.hibernate.diskUuid = "253b6ad1-b80b-4441-9081-4e2f54a17782";
