@@ -10,7 +10,10 @@
 
 {
    "$schema": "https://vicinae.com/schemas/config.json",
+   "close_on_focus_loss": true,
    "encrypt_sensitive_data": true,
+   "escape_key_behavior": "close_window",
+   "keybinding": "default",
    "theme": {
       "dark": {
          "name": "vicinae-dark",
@@ -30,7 +33,7 @@
       "clipboard": {
          "preferences": {
             "encryption": true,
-            "eraseOnStartup": false,
+            "eraseOnStartup": true,
             "ignorePasswords": true,
             "monitoring": true
          },
