@@ -276,9 +276,10 @@ window-rule { //keybind floating
     default-window-height { proportion 0.5; }
 }
 
-/-window-rule {
-    match app-id=r#"^org\.keepassxc\.KeePassXC$"#
-    match app-id=r#"^org\.gnome\.World\.Secrets$"#
+window-rule {
+    //match app-id=r#"^org\.keepassxc\.KeePassXC$"#
+    //match app-id=r#"^org\.gnome\.World\.Secrets$"#
+    match app-id=r#"^class.secretive"#
 
     block-out-from "screen-capture"
 
