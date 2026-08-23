@@ -296,6 +296,7 @@
     nmap
     moreutils #more useful unix tools e.g. combine
     file #file system information
+    fswatch #watch for changes in dir with: fswatch -rtx /directory
     # Else
     lynx #cli browser
     cheese #camera #settings done in dconf
