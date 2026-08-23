@@ -325,6 +325,28 @@ window-rule {
     }
 }
 
+///////// secretive border /////////////
+window-rule {
+    match app-id=r#"^class.secretive"#
+
+    border {
+	on
+        active-gradient from="#cc241dee" to="#bf0ed7" angle=45
+        inactive-gradient from="#cc241dee" to="#bf0ed7" angle=215
+    }
+    focus-ring {
+	off
+    }
+    shadow {
+        color "#7d0d2d70"
+    }
+
+    tab-indicator {
+        active-color "#f38ba8"
+        inactive-color "#7d0d2d"
+    }
+}
+
 window-rule {
     match app-id="SheetMusicViewer"
 

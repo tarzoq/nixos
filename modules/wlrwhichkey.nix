@@ -1,4 +1,5 @@
-{ config, pkgs, lib, vars, ...}:
+{ config, pkgs, lib, vars, ... }:
+#to define keymaps from other .nix-file, look at vopono.nix
 let
   bLeftMenu = menu: let
     configFile = pkgs.writeText "${vars.user.home}/.config/wlr-which-key/bleft.yaml"
@@ -25,12 +26,26 @@ let
   LMETA = "Super+Mod5";
   MOD = "Mod";
 in {
-  modules.niri.imports = "include \"wlr-which-key.hm.kdl\"";
+  options.myMenu = {
+    rawBlocks = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [];
+    };
+    helpers = lib.mkOption {
+      type = lib.types.attrs;
+      default = { inherit LMETA MOD bLeftMenu centerMenu pkgs lib; };
+    };
+  };
 
-  home-manager.users."${vars.user.name}" = {
-    home.file."nixos/config/niri/wlr-which-key.hm.kdl".text = ''
-      binds {
-        ${LMETA}+X { spawn-sh "${lib.getExe (bLeftMenu {
+  config = {
+    modules.niri.imports = "include \"wlr-which-key.hm.kdl\"";
+
+    home-manager.users."${vars.user.name}" = {
+      home.file."nixos/config/niri/wlr-which-key.hm.kdl".text = lib.mkForce ''
+        binds {
+	  ${lib.concatStringsSep "\n" config.myMenu.rawBlocks}
+
+          ${LMETA}+X { spawn-sh "${lib.getExe (bLeftMenu {
             "r" = {
               desc = "OBS Studio";
               cmd = "obs";
@@ -80,30 +95,31 @@ in {
                 };
               };
             };
-    })}"; }
-    ${MOD}+Y { spawn-sh "${lib.getExe (centerMenu {
-      "p" = {
-        desc = "NixOS Packages";
-        cmd = "xdg-open https://search.nixos.org/packages";
-      };
-      "o" = {
-        desc = "NixOS Options";
-        cmd = "xdg-open https://search.nixos.org/options";
-      };
-      "f" = {
-        desc = "NixOS 3rd-party Flakes";
-        cmd = "xdg-open https://search.nixos.org/flakes";
-      };
-      "n" = {
-        desc = "NixOS Noggle (functions)";
-        cmd = "xdg-open https://noogle.dev";
-      };
-      "w" = {
-        desc = "NixOS Wiki";
-        cmd = "xdg-open https://search.nixos.org/packages";
-      };
-    })}"; }
-      }
-    '';
+          })}"; }
+          ${MOD}+Y { spawn-sh "${lib.getExe (centerMenu {
+            "p" = {
+              desc = "NixOS Packages";
+              cmd = "xdg-open https://search.nixos.org/packages";
+            };
+            "o" = {
+              desc = "NixOS Options";
+              cmd = "xdg-open https://search.nixos.org/options";
+            };
+            "f" = {
+              desc = "NixOS 3rd-party Flakes";
+              cmd = "xdg-open https://search.nixos.org/flakes";
+            };
+            "n" = {
+              desc = "NixOS Noggle (functions)";
+              cmd = "xdg-open https://noogle.dev";
+            };
+            "w" = {
+              desc = "NixOS Wiki";
+              cmd = "xdg-open https://search.nixos.org/packages";
+            };
+          })}"; }
+        }
+      '';
+    };
   };
 }
