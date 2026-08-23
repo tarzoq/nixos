@@ -39,7 +39,6 @@ in {
 
   config = {
     modules.niri.imports = "include \"wlr-which-key.hm.kdl\"";
-
     home-manager.users."${vars.user.name}" = {
       home.file."nixos/config/niri/wlr-which-key.hm.kdl".text = lib.mkForce ''
         binds {

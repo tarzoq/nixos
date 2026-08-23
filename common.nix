@@ -16,6 +16,7 @@
     ./modules/theme.nix
     ./modules/wlrwhichkey.nix
     ./modules/vicinae.nix
+    ./modules/programs/obs.nix
   ];
 
   environment.sessionVariables = {
@@ -133,26 +134,6 @@
       enable = true;
       setSocketVariable = true;
     };
-  };
-
-  #https://wiki.nixos.org/wiki/OBS_Studio
-  programs.obs-studio = {
-    enable = true;
-    enableVirtualCamera = true;
-    # optional Nvidia hardware acceleration
-    package = (
-      pkgs.obs-studio.override {
-        cudaSupport = true;
-      }
-    );
-    plugins = with pkgs.obs-studio-plugins; [
-      wlrobs
-      obs-backgroundremoval
-      obs-pipewire-audio-capture
-      obs-vaapi #optional AMD hardware acceleration
-      obs-gstreamer
-      obs-vkcapture
-    ];
   };
 
   #https://wiki.nixos.org/wiki/OpenRGB
