@@ -226,6 +226,7 @@
 
   programs.kdeconnect.enable = true;
   programs.thunderbird.enable = true;
+  programs.firejail.enable = true; #easy sandboxing
 
   # https://nixos.wiki/wiki/Fonts
   fonts.packages = builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
