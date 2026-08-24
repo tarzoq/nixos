@@ -10,6 +10,7 @@
       ../modules/programs/transcode.nix
       ../modules/programs/recovery.nix
       ../config/misc/vopono.nix
+      ../config/misc/webapps.nix
     ];
   modules.autostart.entries = "steam";
 
