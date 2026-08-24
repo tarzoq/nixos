@@ -628,8 +628,8 @@ binds {
     Mod+Alt+Shift+R { switch-preset-window-height-back; }
     //Mod+Alt+R { reset-window-height; }
     Mod+E { maximize-column; }    
-    Mod+Shift+E { expand-column-to-available-width; }
-    Mod+Alt+E { toggle-windowed-fullscreen; }
+    Mod+Alt+E { expand-column-to-available-width; }
+    Mod+Shift+E { toggle-windowed-fullscreen; }
     Mod+Shift+Alt+E { maximize-window-to-edges; } //no focus bars or struts
     Alt+Return { fullscreen-window; }
 
@@ -661,7 +661,8 @@ binds {
     // The quit action will show a confirmation dialog to avoid accidental exits.
     //Mod+Shift+Q { quit; }
 
-    Mod+Shift+P { power-off-monitors; }
+    Mod+Mod5+P repeat=false hotkey-overlay-title="Mirror current screen (wl-mirror)" { spawn-sh "pkill wl-mirror; wl-mirror -F $(niri msg --json focused-output | jq -r .name)"; } //https://github.com/niri-wm/niri/wiki/Screencasting#screen-mirroring
+    Mod+Shift+P repeat=false hotkey-overlay-title="Power off monitors" { power-off-monitors; }
 }
 
 include "niri-imports.hm.kdl"

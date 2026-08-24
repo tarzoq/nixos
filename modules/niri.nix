@@ -15,5 +15,6 @@
     xwayland-satellite
     jq #required for json one-liner command
     #xdg-desktop-portal-gtk #troubleshoot audacity gtk scaling issue
+    wl-mirror
   ];
 }
