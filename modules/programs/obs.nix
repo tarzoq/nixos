@@ -19,14 +19,45 @@
       obs-vkcapture
     ];
   };
+  environment.systemPackages = with pkgs; [
+    obs-cmd
+  ];
 
-  #modules.niri.imports = "include \"obs.hm.kdl\"";
-  #home-manager.users."${vars.user.name}" = {
-  #  home.file."nixos/config/niri/obs.hm.kdl". text = ''
-  #    binds {
-  #      Mod+KP_End { spawn-sh "niri msg action pass-keyboard-shortcuts --app-id com.obsproject.Studio"; }
-  #      Mod+KP_Down { spawn-sh "niri msg action pass-keyboard-shortcuts --app-id com.obsproject.Studio"; }
-  #    }
-  #  '';
-  #};
+  modules.niri.imports = "include \"obs.hm.kdl\"";
+  home-manager.users."${vars.user.name}" = { lib, ... }: let
+    OBS_WEBSOCKET_CONFIG = "${vars.user.home}/.config/obs-studio/plugin_config/obs-websocket/config.json";
+    SECRET_FILE = "${vars.user.home}/.local/state/obs-studio_websocket-secret";
+    SECRET_WEBSOCKET = "$(cat ${SECRET_FILE})";
+
+    obsConfigTemplate = pkgs.writeText "obs_websocket-config-template.json" ''
+      {
+        "alerts_enabled": false,
+        "auth_required": true,
+        "first_load": false,
+        "server_enabled": true,
+        "server_password": "@WEBSOCKET_SECRET@",
+        "server_port": 4455
+      }
+    '';
+    OBS_CMD = "obs-cmd --websocket obsws://localhost:4455/${SECRET_WEBSOCKET}";
+  in {
+    ######################### KEYBINDS ############################
+    home.file."nixos/config/niri/obs.hm.kdl".text = ''
+      binds {
+        Mod+KP_End { spawn-sh "${OBS_CMD} scene switch Scene"; }
+        Mod+KP_Down { spawn-sh "${OBS_CMD} scene switch Webcam"; }
+      }
+    '';
+    ######################### KEYBINDS ############################
+
+    home.activation.obsWebsocketConfig = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      if [ ! -f "${SECRET_FILE}" ]; then
+        run ${pkgs.openssl}/bin/openssl rand -hex 32 > "${SECRET_FILE}"
+        run chmod 600 "${SECRET_FILE}"
+      fi
+
+      run mkdir -p "$(dirname "${OBS_WEBSOCKET_CONFIG}")"
+      run sed "s|@WEBSOCKET_SECRET@|${SECRET_WEBSOCKET}|" ${obsConfigTemplate} > "${OBS_WEBSOCKET_CONFIG}"
+    '';
+  };
 }

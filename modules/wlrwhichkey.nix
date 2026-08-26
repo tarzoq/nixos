@@ -116,6 +116,10 @@ in {
               desc = "NixOS Wiki";
               cmd = "xdg-open https://search.nixos.org/packages";
             };
+            "g" = {
+              desc = "My GitHub (NixOS)";
+              cmd = "xdg-open https://github.com/tarzoq/nixos";
+            };
           })}"; }
         }
       '';
