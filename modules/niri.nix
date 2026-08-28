@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 {
   environment.sessionVariables.XDG_CURRENT_DESKTOP = "niri";
 
@@ -16,5 +16,6 @@
     jq #required for json one-liner command
     #xdg-desktop-portal-gtk #troubleshoot audacity gtk scaling issue
     wl-mirror
+    inputs.miru.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 }
