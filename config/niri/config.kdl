@@ -300,6 +300,7 @@ window-rule {
     match app-id="synthesia"
     match app-id="mpv"
     match app-id="vlc"
+    match app-id=r#".+wl_mirror$"# //screen-mirror
 
     opacity 1.0
 }
@@ -661,7 +662,8 @@ binds {
     // The quit action will show a confirmation dialog to avoid accidental exits.
     //Mod+Shift+Q { quit; }
 
-    Mod+Mod5+P repeat=false hotkey-overlay-title="Mirror current screen (wl-mirror)" { spawn-sh "pkill wl-mirror; wl-mirror -F $(niri msg --json focused-output | jq -r .name)"; } //https://github.com/niri-wm/niri/wiki/Screencasting#screen-mirroring
+    Mod+Mod5+P repeat=false hotkey-overlay-title="Mirror current screen (wl-mirror) Fullscreen" { spawn-sh "pkill wl-mirror; wl-mirror -F $(niri msg --json focused-output | jq -r .name)"; } //https://github.com/niri-wm/niri/wiki/Screencasting#screen-mirroring
+    Mod+Mod5+Shift+P repeat=false hotkey-overlay-title="Mirror current screen (wl-mirror) Windowed" { spawn-sh "pkill wl-mirror; wl-mirror $(niri msg --json focused-output | jq -r .name)"; } //https://github.com/niri-wm/niri/wiki/Screencasting#screen-mirroring
     Mod+Shift+P repeat=false hotkey-overlay-title="Power off monitors" { power-off-monitors; }
 }
 

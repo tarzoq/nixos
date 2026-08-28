@@ -44,8 +44,10 @@
     ######################### KEYBINDS ############################
     home.file."nixos/config/niri/obs.hm.kdl".text = ''
       binds {
-        Mod+KP_End { spawn-sh "${OBS_CMD} scene switch Scene"; }
-        Mod+KP_Down { spawn-sh "${OBS_CMD} scene switch Webcam"; }
+        Mod+KP_Insert { spawn-sh "${OBS_CMD} scene switch Camera"; } //0
+        Mod+KP_End { spawn-sh "${OBS_CMD} scene switch Scene"; } //1
+
+        Mod+KP_Subtract { spawn-sh "${OBS_CMD} recording toggle"; } //minus
       }
     '';
     ######################### KEYBINDS ############################
