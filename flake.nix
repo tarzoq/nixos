@@ -24,11 +24,6 @@
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    miru = {
-      url = "github:Vaishnav-Sabari-Girish/miru";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   nixConfig = {
@@ -36,7 +31,7 @@
     extra-trusted-public-keys = [ "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4=" ];
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-flatpak, stylix, miru, ... }@inputs: 
+  outputs = { self, nixpkgs, home-manager, nix-flatpak, stylix, ... }@inputs: 
   let
     vars = import /etc/nixos/variables.nix; #just a symlink, still edited directly from ./ (which is gitignored as to not have it commited to public repo)
   in {
