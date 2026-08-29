@@ -131,11 +131,6 @@ in
   #https://nixos.wiki/wiki/Git
   programs.git = {
     enable = true;
-    #config = {
-    #  safe = { # needed for home-manager
-    #  	directory = "/etc/nixos";
-    #  };
-    #};
     settings = {
       user = {
         name = "${vars.user.alias}";
@@ -144,6 +139,9 @@ in
       credential.helper = "${
           pkgs.git.override { withLibsecret = true; }
         }/bin/git-credential-libsecret";
+      extraConfig = {
+        user.useConfigOnly = true; #prevent accidental commits with wrong identities
+      };
     };
   };
 
