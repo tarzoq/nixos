@@ -369,25 +369,6 @@ window-rule {
     opacity 1.0
 }
 
-///////////////// pavucontrol ///////////////////
-window-rule {
-    match app-id="org.pulseaudio.pavucontrol"
-
-    open-floating true
-    default-floating-position x=10 y=10 relative-to="top-right"
-    //open-focused false
-    default-column-width { proportion 0.2; }
-    default-window-height { proportion 0.4; }
-    //opacity 1.0
-}
-
-///////////// lower scroll factor /////////////// workaround for brave/chromium browsers on wayland reading raw libinput instead of scroll stack
-//window-rule {
-//    match app-id=r#"(?i)electron|brave|discord|vscode|spotify"# //case-insensitive
-//
-//    scroll-factor 0.15
-//}
-
 //https://docs.noctalia.dev/getting-started/compositor-settings/niri/#option-1-blurred-overview-wallpaper
 layer-rule {
     match namespace="^noctalia-backdrop"

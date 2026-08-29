@@ -12,6 +12,7 @@
     ./modules/programs/nemo.nix
     ./modules/programs/obsidian.nix
     ./modules/programs/flatpak.nix
+    ./modules/niri/outputscale.nix
     ./modules/cursor.nix
     ./modules/theme.nix
     ./modules/wlrwhichkey.nix
@@ -283,7 +284,6 @@
     nms #sneakers movie decryption
     ##### for fun ######
     #networkmanagerapplet #fallback network settings
-    pavucontrol #audio device settings
     libnotify
     exiftool #view file metadata
     imagemagick #manipulate images

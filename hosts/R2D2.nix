@@ -11,6 +11,7 @@
       ../modules/hibernate.nix
       ../modules/resumeScript.nix
       ../modules/programs/gaming.nix
+      ../modules/niri/scrollfactor.nix
       ../modules/piano.nix
       ../config/misc/vopono.nix
       ../config/misc/webapps.nix

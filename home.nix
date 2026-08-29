@@ -5,7 +5,6 @@ in
 {
   imports = [
     ./home/idle.nix
-    ./home/outputscale.nix
     ./home/helix.nix
     ./home/kanshi.nix
     ./home/rclone.nix
@@ -90,6 +89,7 @@ in
       nru = "sudo nix flake update --flake ${REPO} && nrb";
       #nrup = "nru && sleep 60 && poweroff";
       nrup = "nru && sleep 60 && poweroff";
+      nre = "sudo nixos-rebuild dry-build --impure --flake ${REPO}"; #evaluate
 
       ns = "nh search"; #search nixpkgs with nh
 
