@@ -279,6 +279,7 @@
     ethtool
     bind #nslookup etc.
     openssl
+    hashdeep #for example "md5hash -r DIR | md5hash"
     ##### for fun ######
     cmatrix #the matrix
     nms #sneakers movie decryption
