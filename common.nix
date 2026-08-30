@@ -267,6 +267,7 @@
     audacity
     ############ DEV #############
     lazydocker
+    bfg-repo-cleaner #cleanup repo, remove blobs over 1M, replace strings
     ############ DEV #############
     fastfetch
     kitty #needed for hyprland
