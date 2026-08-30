@@ -13,7 +13,6 @@
     alacritty #ICE, standard term by niri
     #mako #needed for niri config notifications
     xwayland-satellite
-    jq #required for json one-liner command
     #xdg-desktop-portal-gtk #troubleshoot audacity gtk scaling issue
     wl-mirror
   ];

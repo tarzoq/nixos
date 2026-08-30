@@ -10,6 +10,25 @@
     #wtype #clipper
     glib #phone connect
     sshfs #phone connect
+    #### alexander/screen-toolkit #######
+    slurp
+    grim
+    tesseract
+    imagemagick
+    zbar
+    gpu-screen-recorder
+    wl-screenrec
+    wf-recorder
+    satty
+    translate-shell
+    #### alexander/screen-toolkit #######
+    ### whyoolw/dropwall ###
+    #(stable.python3.withPackages (python-pkgs: with python-pkgs; [
+    #  pygobject3 #https://discourse.nixos.org/t/no-module-named-gi/58158/3
+    #]))
+    #gtk3
+    #gtk-layer-shell
+    ### whyoolw/dropwall ###
     ];
 
   #add support for calendar events

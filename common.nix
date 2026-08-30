@@ -297,6 +297,7 @@
     moreutils #more useful unix tools e.g. combine
     file #file system information
     fswatch #watch for changes in dir with: fswatch -rtx /directory
+    jq #required for json one-liner command
     # Else
     lynx #cli browser
     cheese #camera #settings done in dconf

@@ -432,6 +432,7 @@ binds {
     //Super+Mod5+V hotkey-overlay-title="Noctalia: Clipper" { spawn-sh "noctalia-shell ipc call plugin:clipper toggle"; }
     Super+Mod5+B hotkey-overlay-title="Noctalia: Background" { spawn-sh "noctalia msg panel-toggle wallpaper toggle"; }
     Super+Mod5+Alt+B hotkey-overlay-title="Noctalia: Wallhaven" { spawn-sh "noctalia msg panel-toggle noctalia/wallhaven:browser"; }
+    Super+Mod5+D hotkey-overlay-title="Noctalia: Screen Toolkit" { spawn-sh "noctalia msg panel-toggle alexander/screen-toolkit:panel"; }
     Ctrl+Alt+Delete hotkey-overlay-title="Noctalia: Powermenu" { spawn-sh "noctalia msg panel-toggle session"; }
     Super+Mod5+C hotkey-overlay-title="Noctalia: Caffeine (idleInhibitor)" { 
         spawn-sh "
