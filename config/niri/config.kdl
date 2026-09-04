@@ -250,16 +250,22 @@ window-rule { //keybind floating
     default-window-height { proportion 0.5; }
 }
 
+///////////// block from screen-capture /////////////
 window-rule {
     //match app-id=r#"^org\.keepassxc\.KeePassXC$"#
     //match app-id=r#"^org\.gnome\.World\.Secrets$"#
     match app-id=r#"^class.secretive"#
 
     block-out-from "screen-capture"
-
     // Use this instead if you want them visible on third-party screenshot tools.
     // block-out-from "screencast"
 }
+layer-rule {
+    match namespace="^notifications$"
+
+    block-out-from "screen-capture"
+}
+///////////// block from screen-capture /////////////
 
 ///////////// full opacity //////////////////
 window-rule {
