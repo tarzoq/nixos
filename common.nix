@@ -43,6 +43,7 @@
   hardware.enableAllFirmware = true;
   hardware.enableRedistributableFirmware = true;
   services.fwupd.enable = true; #fwupdmgr refresh; fwupdmgr get-updates; fwupdmgr update
+  services.earlyoom.enable = true; #prevent linux freeze from being out of memory
 
   #boot.kernelPackages = pkgs.linuxPackages_latest; #https://discourse.nixos.org/t/thinkpad-t14s-wont-power-down/46809/10
 
