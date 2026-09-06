@@ -313,6 +313,7 @@
     mission-center
     qdirstat #gui disk usage analyzer, similar to Wiztree
     smassh #play monkeytype when the internet is out
+    terminal-typeracer #play typeracer when the internet is out
     spotify
     teams-for-linux
     polkit_gnome
