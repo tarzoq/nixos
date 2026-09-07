@@ -29,7 +29,12 @@
    },
    "providers": {
       "browser-extension": {
-         "enabled": true
+         "enabled": true,
+         "entrypoints": {
+            "shortcut-active-tab": {
+               "enabled": false
+            }
+         }
       },
       "clipboard": {
          "preferences": {
@@ -39,10 +44,64 @@
             "monitoring": true
          },
          "entrypoints": {
+            "clear": {
+               "enabled": false
+            },
+            "clear-history": {
+               "enabled": false
+            },
             "history": {
+               "enabled": false,
                "preferences": {
                   "defaultAction": "paste"
                }
+            }
+         }
+      },
+      "core": {
+         "entrypoints": {
+            "list-extensions": {
+               "enabled": false
+            },
+            "manage-fallback": {
+               "enabled": false
+            },
+            "open-config-file": {
+               "enabled": false
+            },
+            "open-default-config": {
+               "enabled": false
+            },
+            "reload-scripts": {
+               "enabled": true
+            },
+            "report-bug": {
+               "enabled": false
+            },
+            "search-emojis": {
+               "enabled": false
+            },
+            "search-tray": {
+               "enabled": false
+            },
+            "settings": {
+               "enabled": false
+            },
+            "show-logs": {
+               "enabled": false
+            },
+            "sponsor": {
+               "enabled": false
+            },
+            "store": {
+               "enabled": false
+            }
+         }
+      },
+      "developer": {
+         "entrypoints": {
+            "create": {
+               "enabled": false
             }
          }
       },
@@ -51,10 +110,82 @@
             "autoIndexing": false,
             "excludedIndexingPaths": [],
             "indexingPaths": []
+         },
+         "entrypoints": {
+            "search": {
+               "enabled": false
+            }
+         }
+      },
+      "font": {
+         "entrypoints": {
+            "browse": {
+               "enabled": false
+            }
+         }
+      },
+      "manage-shortcuts": {
+         "entrypoints": {
+            "create": {
+               "enabled": false
+            },
+            "manage": {
+               "enabled": false
+            }
          }
       },
       "power": {
          "enabled": false
+      },
+      "raycast-compat": {
+         "entrypoints": {
+            "store": {
+               "enabled": false
+            }
+         }
+      },
+      "snippets": {
+         "entrypoints": {
+            "create": {
+               "enabled": false
+            },
+            "manage": {
+               "enabled": false
+            }
+         }
+      },
+      "system": {
+         "entrypoints": {
+            "set-default-terminal": {
+               "enabled": false
+            }
+         }
+      },
+      "theme": {
+         "entrypoints": {
+            "set": {
+               "enabled": false
+            }
+         }
+      },
+      "wm": {
+         "entrypoints": {
+            "switch-windows": {
+               "enabled": false
+            },
+            "switch-workspaces": {
+               "enabled": false
+            },
+            "toggle-floating": {
+               "enabled": false
+            },
+            "toggle-fullscreen": {
+               "enabled": false
+            },
+            "toggle-overview": {
+               "enabled": false
+            }
+         }
       }
    }
 }
