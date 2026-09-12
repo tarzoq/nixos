@@ -10,6 +10,7 @@ in
     ./home/rclone.nix
     ./home/dconf.nix
     ./home/exec-desktop.nix
+    ./config/misc/bookmarks.nix
   ];
 
   home.username = "${vars.user.name}";

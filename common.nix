@@ -9,7 +9,7 @@
     ./modules/programs/tailscale.nix
     ./modules/programs/chromium.nix
     ./modules/programs/virtualbox.nix
-    ./modules/programs/nemo.nix
+    ./modules/programs/dolphin.nix
     ./modules/programs/obsidian.nix
     ./modules/programs/flatpak.nix
     ./modules/niri/outputscale.nix
@@ -324,7 +324,8 @@
     nvtopPackages.full #graphics card task monitor, also works with .amd and .nvidia
     #gnome-firmware #frontend for fwupd
     #firmware-manager
-    davinci-resolve #https://nixos.wiki/wiki/DaVinci_Resolve
+    #davinci-resolve #https://nixos.wiki/wiki/DaVinci_Resolve
+    stable.kdePackages.kdenlive
     ############### SOFTWARE (tools) #########################
     dupeguru #GUI duplicate file finder
     gparted-full

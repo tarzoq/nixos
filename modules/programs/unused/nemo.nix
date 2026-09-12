@@ -58,30 +58,11 @@
 	  "disabled-actions" = [ "add-desklets.nemo_action" ];
 	};
         "org/cinnamon/desktop/applications/terminal" = {
-            exec = "kitty";
+          exec = "kitty";
         };
       };
     };
-    #services.udiskie = {
-    #  enable = true;
-    #  settings = {
-    #    program_options = {
-    #      file_manager = "${pkgs.nemo-with-extensions}/bin/nemo";
-    #    };
-    #  };
-    #};
-    xdg.configFile."gtk-3.0/bookmarks".text = ''
-      file:///home/${vars.user.name}/nixos nixos
-      file:///home/${vars.user.name}/Downloads Downloads
-      file:///home/${vars.user.name}/Projects Projects
-      file:///home/${vars.user.name}/Documents Documents
-      file:///home/${vars.user.name}/Pictures Pictures
-      file:///home/${vars.user.name}/Music Music
-      file:///home/${vars.user.name}/Videos Videos
-      ${vars.misc.networkShare}
-    '';
   };
-
   #files to declare:
   #~/.config/gtk-3.0/bookmarks
   #rest is dconf
