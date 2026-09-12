@@ -283,7 +283,7 @@
     openssl
     hashdeep #for example "md5hash -r DIR | md5hash"
     ##### for fun ######
-    cmatrix #the matrix
+    neo #the matrix, cmatrix alternative (but better)
     nms #sneakers movie decryption
     ##### for fun ######
     #networkmanagerapplet #fallback network settings
