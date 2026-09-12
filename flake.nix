@@ -18,12 +18,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-flatpak.url = "github:gmodena/nix-flatpak/22a3adbe7c5c8c8a10a635d32c9ef7fc01a6e4b8";
+    nix-flatpak.url = "github:gmodena/nix-flatpak/20d42f0ee98c9fe9f85e8d1de474f1409ed10d05";
 
     stylix = {
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    dolphin-overlay.url = "github:rumboon/dolphin-overlay/65dd612c8d72d4cf5cb0eb4d9188ed7a16a042dd";
   };
 
   nixConfig = {
