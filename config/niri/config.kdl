@@ -10,9 +10,11 @@ debug {
 }
 
 environment {
-    ELECTRON_OZONE_PLATFORM_HINT "auto" // Tvingar Electron-appar som Brave att använda Wayland
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
+    NIXOS_OZONE_WL "1"
     XDG_CURRENT_DESKTOP "niri"
     XDG_SESSION_TYPE "wayland"
+    QT_QPA_PLATFORMTHEME "kde"
 
     //https://www.reddit.com/r/niri/comments/1m8zpx4/comment/ncgkcbf/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
     //GSK_RENDERER "ngl"
@@ -405,7 +407,7 @@ binds {
     }
 
     Super+Mod5+F hotkey-overlay-title="Niri: Pick Window" { spawn-sh "kitty --class=float.bottomright -e sh -c 'niri msg pick-window && read'"; }
-    Super+Mod5+E hotkey-overlay-title="File Explorer: Nemo" { spawn-sh "nemo"; }
+    Super+Mod5+E hotkey-overlay-title="File Explorer: Nemo" { spawn-sh "dolphin"; }
     Super+Mod5+Shift+C hotkey-overlay-title="Color Picker: hyprpicker" { spawn-sh "kitty --class=float.bottomright -e sh -c 'hyprpicker -u 500 -a -n -r && sleep 3'"; }
     //noctalia msg --help
     Super+Mod5+V repeat=false hotkey-overlay-title="Vicinae: Clipper" { spawn-sh "vicinae vicinae://launch/clipboard/history?toggle=true"; }
@@ -414,6 +416,7 @@ binds {
     Super+Mod5+Alt+B hotkey-overlay-title="Noctalia: Wallhaven" { spawn-sh "noctalia msg panel-toggle noctalia/wallhaven:browser"; }
     Super+Mod5+D hotkey-overlay-title="Noctalia: Screen Toolkit" { spawn-sh "noctalia msg panel-toggle alexander/screen-toolkit:panel"; }
     Ctrl+Alt+Delete hotkey-overlay-title="Noctalia: Powermenu" { spawn-sh "noctalia msg panel-toggle session"; }
+    Super+Mod5+Alt+C hotkey-overlay-title="Noctalia: LidGuard (lidInhibitor)" { spawn-sh "noctalia msg plugin 8bury/lid-guard:lid-guard-service all toggle"; }
     Super+Mod5+C hotkey-overlay-title="Noctalia: Caffeine (idleInhibitor)" { 
         spawn-sh "
 	    appState=$XDG_RUNTIME_DIR/noctalia-caffeine-enabled.state

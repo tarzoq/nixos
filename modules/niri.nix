@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 {
-  environment.sessionVariables.XDG_CURRENT_DESKTOP = "niri";
+  #environment.sessionVariables.XDG_CURRENT_DESKTOP = "niri";
+  #environment.sessionVariables.QT_QPA_PLATFORMTHEME "kde";
 
   programs.niri = {
    enable = true;

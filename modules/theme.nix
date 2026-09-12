@@ -11,7 +11,7 @@ in
       enable = true;
       autoEnable = false;
       polarity = "dark";
-      base16Scheme = "${pkgs.base16-schemes}/share/themes/hardhacker.yaml";
+      base16Scheme = "${pkgs.base16-schemes}/share/themes/hardhacker.yaml"; #https://tinted-theming.github.io/tinted-gallery/
     };
 
     ######## ICONS #########
@@ -21,37 +21,30 @@ in
       package = ICON_PACKAGE;
     };
 
-    ####### Targets ########
-    stylix.targets.gnome.enable = true;
-    stylix.targets.gtk.enable = true;
-    stylix.targets.qt.enable = true;
-    stylix.targets.kde.enable = true;
+    gtk = {
+      enable = true;
+      theme = {
+        name = "Adwaita-dark"; 
+        package = pkgs.gnome-themes-extra;
+      };
+      gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
+      gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
+      gtk4.theme = null; #needed to adopt new behavior
+    };
+    dconf.settings."org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+      gtk-theme = "Adwaita-dark";
+    };
 
-    stylix.targets.mpv.enable = true;
-
-    #gtk = {
-    #  enable = true;
-    #  colorScheme = "dark";
-    #  gtk3.extraConfig.gtk-application-prefer-dark-theme = true;
-    #  gtk4 = {
-    #    theme = null;
-    #    extraConfig.gtk-application-prefer-dark-theme = true;
-    #  };
-    #  gtk3.colorScheme = "dark";
-    #  gtk4.colorScheme = "dark";
-
-    #  iconTheme = { name = "${ICON_NAME}"; package = ICON_PACKAGE; };
-    #};
-
-    #qt = {
-    #  enable = true;
-    #  platformTheme.name = "gtk3";
-    #};
-
-    #dconf.settings = { #dconf reset -f /org/gnome/desktop/interface/ #to reset theme settings for dconf
-    #  "org/gnome/desktop/interface" = {
-    #    color-scheme = "prefer-dark";
-    #  };
-    #};
+    qt = {
+      enable = true;
+      platformTheme.name = "kde";
+      style.name = "breeze";
+    };
+    home.file.".config/kdeglobals" = { #https://www.reddit.com/r/NixOS/comments/1qkh3zo/quick_tip_if_you_are_using_any_wayland_compositor/
+      text = ''
+        ${builtins.readFile "${pkgs.kdePackages.breeze}/share/color-schemes/BreezeDark.colors"}
+      '';
+    };
   };
 }
