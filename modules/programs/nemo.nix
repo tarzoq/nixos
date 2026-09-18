@@ -64,6 +64,6 @@
     };
   };
   #files to declare:
-  #~/.config/gtk-3.0/bookmarks
+  #~/.config/gtk-3.0/bookmarks (is defined in bookmarks.nix)
   #rest is dconf
 }

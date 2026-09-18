@@ -408,7 +408,7 @@ binds {
     }
 
     Super+Mod5+F hotkey-overlay-title="Niri: Pick Window" { spawn-sh "kitty --class=float.bottomright -e sh -c 'niri msg pick-window && read'"; }
-    Super+Mod5+E hotkey-overlay-title="File Explorer: Nemo" { spawn-sh "dolphin"; }
+    Super+Mod5+E hotkey-overlay-title="File Explorer: Nemo" { spawn-sh "nemo"; }
     Super+Mod5+Shift+C hotkey-overlay-title="Color Picker: hyprpicker" { spawn-sh "kitty --class=float.bottomright -e sh -c 'hyprpicker -u 500 -a -n -r && sleep 3'"; }
     //noctalia msg --help
     Super+Mod5+V repeat=false hotkey-overlay-title="Vicinae: Clipper" { spawn-sh "vicinae vicinae://launch/clipboard/history?toggle=true"; }

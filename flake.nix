@@ -24,8 +24,6 @@
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    dolphin-overlay.url = "github:rumboon/dolphin-overlay/65dd612c8d72d4cf5cb0eb4d9188ed7a16a042dd";
   };
 
   nixConfig = {

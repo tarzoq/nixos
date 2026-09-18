@@ -9,7 +9,7 @@
     ./modules/programs/tailscale.nix
     ./modules/programs/chromium.nix
     ./modules/programs/virtualbox.nix
-    ./modules/programs/dolphin.nix
+    ./modules/programs/nemo.nix
     ./modules/programs/obsidian.nix
     ./modules/programs/flatpak.nix
     ./modules/niri/outputscale.nix
