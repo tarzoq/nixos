@@ -66,8 +66,12 @@ in {
               cmd = "qdirstat";
             };
             "m" = {
-              desc = "Play URL From Current Clipboard (mpv)";
+              desc = "Play URL From Clipboard (mpv)";
               cmd = "mpv $(wl-paste | tr -d '\n') || notify-send 'mpv' 'Something went wrong...'";
+            };
+            "t" = {
+              desc = "Open URL From Clipboard (teams-for-linux)";
+              cmd = "teams-for-linux --url $(wl-paste | tr -d '\n') || notify-send 'teams-for-linux' 'Something went wrong...'";
             };
             "n" = {
               desc = "Shutdown Options";
