@@ -322,8 +322,7 @@
     powertop #power draw statistics > https://youtu.be/GG4RzUBoLFs
     #(python3.withPackages (p: [ p.requests ])) #https://discourse.nixos.org/t/most-straightforward-way-to-install-python/67506/3
     nvtopPackages.full #graphics card task monitor, also works with .amd and .nvidia
-    #gnome-firmware #frontend for fwupd
-    #firmware-manager
+    gnome-firmware #frontend for fwupd
     #davinci-resolve #https://nixos.wiki/wiki/DaVinci_Resolve
     stable.kdePackages.kdenlive
     ############### SOFTWARE (tools) #########################
