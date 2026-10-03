@@ -171,12 +171,12 @@
   #networking.nftables.enable #tailscale.nix
   #networking.firewall.enable #tailscale.nix
 
-  #solve issue with new gdm not finding niri
-  nixpkgs.overlays = [
-    (final: prev: {
-      gdm = final.pkgs.stable2511.gdm;
-    })
-  ];
+  ##solve issue with new gdm not finding niri
+  #nixpkgs.overlays = [
+  #  (final: prev: {
+  #    gdm = final.pkgs.stable2511.gdm;
+  #  })
+  #];
   services.displayManager = {
     gdm = {
       enable = true;
