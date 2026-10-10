@@ -219,6 +219,7 @@ window-rule {
     match app-id="org.gnome.clocks"
     match app-id="nemo" title=r#".+ Properties$"#
     match app-id="org.gnome.FileRoller"
+    match title=r#"^Audacious Settings$"#
     //match app-id="teams-for-linux" title="Teams for Linux - Screen is being shared"
 
     open-floating true
