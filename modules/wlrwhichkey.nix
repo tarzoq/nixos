@@ -61,16 +61,20 @@ in {
               desc = "Disk Management (gparted)";
               cmd = "gparted";
             };
+            "h" = {
+              desc = "Firmware Manager (gnome-firmware)";
+              cmd = "gnome-firmware";
+            };
             "w" = {
               desc = "Disk Space Visualizer (qdirstat)";
               cmd = "qdirstat";
             };
             "m" = {
-              desc = "Play URL From Clipboard (mpv)";
+              desc = "Open URL from Clipboard (mpv)";
               cmd = "mpv $(wl-paste | tr -d '\n') || notify-send 'mpv' 'Something went wrong...'";
             };
             "t" = {
-              desc = "Open URL From Clipboard (teams-for-linux)";
+              desc = "Join meeting URL from Clipboard (teams-for-linux)";
               cmd = "teams-for-linux --url $(wl-paste | tr -d '\n') || notify-send 'teams-for-linux' 'Something went wrong...'";
             };
             "n" = {
