@@ -28,6 +28,10 @@ input {
 	xkb {
 	    layout "se"
         }
+	track-layout "global"
+	//tonybtw
+	repeat-delay 200 //600
+	repeat-rate 35 //25
         numlock // Enable numlock on startup
     }
     //libinputs

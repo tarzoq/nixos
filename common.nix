@@ -51,7 +51,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.initrd.systemd.enable = true;
+  boot.initrd.systemd.enable = true; #GDM autounlock with LUKS password
 
   #networking.networkmanager.wifi.powersave = false;
   powerManagement.enable = true;
@@ -95,6 +95,9 @@
 
   networking.hostName = "${vars.system.hostname}"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+
+  #networking.nftables.enable #tailscale.nix
+  #networking.firewall.enable #tailscale.nix
 
   networking.networkmanager.enable = true;
 
@@ -144,48 +147,29 @@
     package = pkgs.openrgb-with-all-plugins;
   };
 
-  security.polkit.enable = true;
-  # remember Wi-Fi passwords
-  services.gnome.gnome-keyring.enable = true;
-  security.pam.services.gdm.enableGnomeKeyring = true;
-  #services.dbus.packages = [ pkgs.gnome-keyring ];
-
   services.power-profiles-daemon.enable = false;
   services.upower.enable = true;
 
-  ##https://wiki.nixos.org/wiki/Polkit
-  #systemd.user.services.polkit-gnome-authentication-agent-1 = {
-  #  description = "polkit-gnome-authentication-agent-1";
-  #  wantedBy = [ "graphical-session.target" ];
-  #  wants = [ "graphical-session.target" ];
-  #  after = [ "graphical-session.target" ];
-  #  serviceConfig = {
-  #    Type = "simple";
-  #    ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-  #    Restart = "on-failure";
-  #    RestartSec = 1;
-  #    TimeoutStopSec = 10;
-  #  };
-  #};
+  services.gnome.gnome-keyring.enable = true; #remember Wi-Fi passwords
+  security.pam.services.gdm.enableGnomeKeyring = true;
+  security.pam.services.gdm-password.enableGnomeKeyring = true;
 
-  #networking.nftables.enable #tailscale.nix
-  #networking.firewall.enable #tailscale.nix
-
-  ##solve issue with new gdm not finding niri
-  #nixpkgs.overlays = [
-  #  (final: prev: {
-  #    gdm = final.pkgs.stable2511.gdm;
-  #  })
-  #];
   services.displayManager = {
-    gdm = {
-      enable = true;
-    };
+    gdm.enable = true;
     autoLogin = {
       enable = true;
       user = "${vars.user.name}";
     };
   };
+  ##solve issue with new gdm not finding niri
+  #nixpkgs.overlays = [
+  #  (final: prev: {
+  #    gdm = final.pkgs.stable.gdm;
+  #  })
+  #];
+
+  #https://wiki.nixos.org/wiki/Polkit
+  security.polkit.enable = true;
 
   xdg.portal = {
     enable = true;
