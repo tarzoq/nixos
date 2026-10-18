@@ -4,6 +4,7 @@
     [
       ../common.nix
       ../modules/nvidia.nix
+      ../modules/secureboot.nix
       ../modules/wol.nix
       ../modules/programs/gaming.nix
       ../modules/programs/ai.nix
