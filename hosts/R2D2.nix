@@ -6,6 +6,7 @@
       inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t14s-amd-gen4
 
       ../common.nix
+      ../modules/secureboot.nix
       ../modules/amdgpu.nix
       ../modules/tlp.nix
       ../modules/hibernate.nix
