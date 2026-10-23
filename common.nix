@@ -17,7 +17,7 @@
     ./modules/theme.nix
     ./modules/wlrwhichkey.nix
     ./modules/vicinae.nix
-    ./modules/programs/obs.nix
+    ./modules/programs/recording.nix
   ];
 
   environment.sessionVariables = {
@@ -249,7 +249,6 @@
     discord
     signal-desktop #messaging
     proton-vpn
-    audacity
     ############ DEV #############
     lazydocker
     bfg-repo-cleaner #cleanup repo, remove blobs over 1M, replace strings
@@ -307,8 +306,6 @@
     #(python3.withPackages (p: [ p.requests ])) #https://discourse.nixos.org/t/most-straightforward-way-to-install-python/67506/3
     nvtopPackages.full #graphics card task monitor, also works with .amd and .nvidia
     gnome-firmware #frontend for fwupd
-    #davinci-resolve #https://nixos.wiki/wiki/DaVinci_Resolve
-    stable.kdePackages.kdenlive
     ############### SOFTWARE (tools) #########################
     dupeguru #GUI duplicate file finder
     gparted-full

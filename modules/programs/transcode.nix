@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 {
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs.stable; [
     handbrake
-    stable.makemkv #ffmpeg error on unstable
+    makemkv #ffmpeg error on unstable
   ];
 }

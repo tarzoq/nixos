@@ -29,7 +29,7 @@
     #gtk3
     #gtk-layer-shell
     ### whyoolw/dropwall ###
-    udiskie #aristides/udiskie
+    stable.udiskie #aristides/udiskie
     ];
 
   #add support for calendar events

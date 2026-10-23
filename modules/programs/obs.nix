@@ -3,7 +3,7 @@
   #https://wiki.nixos.org/wiki/OBS_Studio
   programs.obs-studio = {
     enable = true;
-    enableVirtualCamera = true;
+    #enableVirtualCamera = true; #v4l2loopback build failure 2026-10-23
     # optional Nvidia hardware acceleration
     package = (
       pkgs.obs-studio.override {
