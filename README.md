@@ -1,17 +1,28 @@
 # nixos
 Just a disclaimer, if you're trying to rebuild your entire system with this repo, don't. Some essential configurations are encrypted because of privacy reasons. I have this repo public for the specific purpose of having my different interesting modules be accessible to everyone and to have it be indexed by the internet for greater reach.
 
-## Installation
+## Installation from ISO
+1. Boot into ISO and install NixOS without desktop (with FDE)
+1. Still in ISO, unlock encrypted partition with gparted
+1. Mount system and boot partition: \
+``sudo mount /dev/mapper/sda2_crypt /mnt`` \
+``sudo mkdir /mnt/boot`` \
+``sudo mount /dev/sda1 /mnt/boot``
+1. Enter installation: \
+``sudo nix-enter`` (/mnt by default) \
+``su YOUR_USER``
 1. ``nix-shell -p git git-crypt``
 1. ``git clone https://github.com/tarzoq/nixos.git ~/nixos``
 1. ``echo "BASE64-ENCODED GIT-CRYPT-KEY" | base64 -d > ~/git-crypt-key`` (created with: ``base64 "PASSPHRASE"``. Make sure to remove whitespaces!)
 1. ``cd ~/nixos``
 1. ``git-crypt unlock ~/git-crypt-key``
 1. ``rm ~/git-crypt-key``
-1. ``cp ~/nixos/variables.nix.template ~/nixos/variables.nix`` (adjust it to your needs)
-1. ``sudo ln -s ~/nixos/variables.nix /etc/nixos/variables.nix`` (make it accessible by the flake, having it appear as being outside nix-store)
-1. If new computer, copy ``host.nix.template`` in ``/hosts``, name it something appropriate (hostname), and tailor it for the computer you're installing it on.
-1. ``sudo nixos-rebuild boot --impure --flake ~/nixos#HOSTNAME``
+1. ``cp ~/nixos/variables.nix.template ~/nixos/variables.nix``. Adjust it to your needs.
+1. If new computer, copy ``host.nix.template`` in ``/hosts``, name it something appropriate (hostname), and tailor it for the specific computer you're installing it on.
+1. ``git add .`` (make any newly created files findable by the flake)
+1. Go back to root.
+1. ``ln -s ~/nixos/variables.nix /etc/nixos/variables.nix`` (make it accessible by the flake, having it appear as being outside nix-store)
+1. ``nixos-rebuild boot --impure --flake ~/nixos#HOSTNAME``
 1. Reboot your computer and enjoy! 
 
 #https://github.com/Frost-Phoenix/nixos-config/blob/main/README.md
