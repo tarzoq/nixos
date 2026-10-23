@@ -5,9 +5,9 @@ rec {
   };
 
   user = {
-    name = "";
+    name = ""; #your username
     alias = ""; #online username for git etc.
-    email = "";
+    email = "119268536+Tarzoq@users.noreply.github.com";
     home = "/home/${user.name}"; #home folder, usually shouldn't be changed
   };
 
