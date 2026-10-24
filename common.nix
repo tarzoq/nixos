@@ -29,8 +29,8 @@
   };
 
   nix.settings = {
-    cores = 2;
-    max-jobs = 2;
+    cores = 3;
+    max-jobs = 3;
   };
   #https://github.com/nix-community/nh#nixos
   programs.nh = {
@@ -292,7 +292,6 @@
     brightnessctl
     playerctl
     btop
-    mission-center
     smassh #play monkeytype when the internet is out
     terminal-typeracer #play typeracer when the internet is out
     spotify
