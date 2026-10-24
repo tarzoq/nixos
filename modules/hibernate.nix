@@ -1,7 +1,10 @@
 { config, lib, ... }:
 {
   ########## Boilerplate ###########
-  #modules.hibernate.resumeOffset = ; #sudo filefrag -v /var/lib/swapfile | head
+  #imports:
+    #../modules/hibernate.nix
+    #../modules/resumeScript.nix
+  #modules.hibernate.resumeOffset = 4278272; #use template value for 1st rebuild, then do #sudo filefrag -v /var/lib/swapfile | head #use first big value under "physical_offset"
   #modules.hibernate.diskUuid = ""; #lsblk -f
   #modules.hibernate.ramGb = ;
   #modules.hibernate.hibernateScript = ""; # lspci -k | grep -A3 -i network
