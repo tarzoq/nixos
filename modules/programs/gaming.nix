@@ -10,7 +10,7 @@
   #  #./lsfg.nix
   #];
 
-  #hardware.hid-fanatecff.enable = true; #kernel driver with force feedback support for fanatec
+  hardware.hid-fanatecff.enable = true; #kernel driver with force feedback support for fanatec
 
   programs.steam = {
     enable = true;

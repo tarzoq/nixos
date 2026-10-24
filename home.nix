@@ -88,7 +88,7 @@ in
       nrb = "sudo nixos-rebuild boot --impure --flake ${HOSTREPO}";
       nrbp = "sudo nixos-rebuild boot --impure --flake ${HOSTREPO} && echo \"Finished, waiting 60 seconds...\" && sleep 60 && poweroff";
       #nru = "sudo nix flake update --flake ${HOSTREPO} && nrb";
-      nru = "sudo nix flake update --flake ${HOSTREPO} && nrb";
+      nru = "sudo nix flake update --flake ${REPO} && nrb";
       #nrup = "nru && sleep 60 && poweroff";
       nrup = "nru && sleep 60 && poweroff";
       nre = "sudo nixos-rebuild dry-build --impure --flake ${HOSTREPO}"; #evaluate
