@@ -284,6 +284,7 @@
     file #file system information
     fswatch #watch for changes in dir with: fswatch -rtx /directory
     jq #required for json one-liner command
+    dex #execute or generate .desktop-files
     # Else
     lynx #cli browser
     cheese #camera #settings done in dconf
