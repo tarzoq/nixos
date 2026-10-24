@@ -1,6 +1,7 @@
 { config, pkgs, vars, ... }:
 let
   REPO = "~/nixos";
+  HOSTREPO = "${REPO}#${vars.system.hostname}";
 in
 {
   imports = [
@@ -81,16 +82,16 @@ in
       ssh = "kitty +kitten ssh"; #fix "xterm-kitty: unknown terminal type"
       monkeytype = "smassh";
 
-      #nrs = "sudo true && nh os switch --impure ${REPO} --accept-flake-config";
-      nrs = "sudo nixos-rebuild switch --impure --flake ${REPO}";
-      #nrb = "sudo true && nh os boot --impure ${REPO} --accept-flake-config";
-      nrb = "sudo nixos-rebuild boot --impure --flake ${REPO}";
-      nrbp = "sudo nixos-rebuild boot --impure --flake ${REPO} && echo \"Finished, waiting 60 seconds...\" && sleep 60 && poweroff";
-      #nru = "sudo nix flake update --flake ${REPO} && nrb";
-      nru = "sudo nix flake update --flake ${REPO} && nrb";
+      #nrs = "sudo true && nh os switch --impure ${HOSTREPO} --accept-flake-config";
+      nrs = "sudo nixos-rebuild switch --impure --flake ${HOSTREPO}";
+      #nrb = "sudo true && nh os boot --impure ${HOSTREPO} --accept-flake-config";
+      nrb = "sudo nixos-rebuild boot --impure --flake ${HOSTREPO}";
+      nrbp = "sudo nixos-rebuild boot --impure --flake ${HOSTREPO} && echo \"Finished, waiting 60 seconds...\" && sleep 60 && poweroff";
+      #nru = "sudo nix flake update --flake ${HOSTREPO} && nrb";
+      nru = "sudo nix flake update --flake ${HOSTREPO} && nrb";
       #nrup = "nru && sleep 60 && poweroff";
       nrup = "nru && sleep 60 && poweroff";
-      nre = "sudo nixos-rebuild dry-build --impure --flake ${REPO}"; #evaluate
+      nre = "sudo nixos-rebuild dry-build --impure --flake ${HOSTREPO}"; #evaluate
 
       ns = "nh search"; #search nixpkgs with nh
 
