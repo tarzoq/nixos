@@ -294,7 +294,6 @@
     playerctl
     btop
     mission-center
-    qdirstat #gui disk usage analyzer, similar to Wiztree
     smassh #play monkeytype when the internet is out
     terminal-typeracer #play typeracer when the internet is out
     spotify
@@ -309,6 +308,8 @@
     ############### SOFTWARE (tools) #########################
     dupeguru #GUI duplicate file finder
     gparted-full
+    qdirstat #gui disk usage analyzer, similar to Wiztree
+    qdiskinfo #disk health visualizer/CrystalDiskInfo alternative
     constrict #video compressor
     freefilesync
     ####### ISO ########
