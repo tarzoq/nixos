@@ -12,6 +12,8 @@
       enable = true;
       #autoReboot = true;
     };
+    sortKey = "z_nixos"; #sort in reverse order (so newest gen always is next to Windows entry)
+    #press 'd' on whatever entry should be preferred! #https://www.reddit.com/r/archlinux/comments/4l3rhh/comment/d3k86cd/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
   };
 
   # Lanzaboote currently replaces the systemd-boot module.
