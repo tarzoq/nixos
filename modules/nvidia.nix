@@ -52,6 +52,7 @@ in {
       egl-wayland #needed for nvidia
     ];
 
+    #https://github.com/niri-wm/niri/wiki/Nvidia
     environment.etc."nvidia/nvidia-application-profiles-rc.d/50-limit-free-buffer-pool-in-wayland-compositors.json" = {
       text = builtins.toJSON {
         rules = [
