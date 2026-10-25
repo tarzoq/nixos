@@ -12,7 +12,6 @@
     sshfs #phone connect
     #### alexander/screen-toolkit #######
     slurp
-    grim
     tesseract
     imagemagick
     zbar
