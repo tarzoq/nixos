@@ -14,7 +14,12 @@
       ../config/misc/vopono.nix
       ../config/misc/webapps.nix
     ];
-  modules.autostart.entries = "steam";
+  modules.autostart.entries = ''
+    steam
+    thunderbird
+    discord
+    spotify
+  '';
 
   modules.nvidia.nvidiaBusId = "PCI:1@0:0:0";
   modules.nvidia.amdBusId = "PCI:16@0:0:0";

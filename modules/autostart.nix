@@ -25,13 +25,9 @@ in {
 	  kanshi
           tailscale systray
           kdeconnectd
-          thunderbird
-          discord
 	  protonvpn-app --start-minimized
 	  signal-desktop
-	  spotify
-      '';
-          #teams-for-linux
+        '';
     };
   };
   config = let
