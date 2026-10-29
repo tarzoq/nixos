@@ -417,6 +417,7 @@ binds {
     Super+Mod5+Shift+C hotkey-overlay-title="Color Picker: hyprpicker" { spawn-sh "kitty --class=float.bottomright -e sh -c 'hyprpicker -u 500 -a -n -r && sleep 3'"; }
     //noctalia msg --help
     Super+Mod5+V repeat=false hotkey-overlay-title="Vicinae: Clipper" { spawn-sh "vicinae vicinae://launch/clipboard/history?toggle=true"; }
+    Super+Mod5+Alt+V repeat=false hotkey-overlay-title="Paste typing emulation: wtype" { spawn-sh "sleep 2 && wtype -d 30 \"$(wl-paste -n)\""; }
     //Super+Mod5+V hotkey-overlay-title="Noctalia: Clipper" { spawn-sh "noctalia-shell ipc call plugin:clipper toggle"; }
     Super+Mod5+B hotkey-overlay-title="Noctalia: Background" { spawn-sh "noctalia msg panel-toggle wallpaper toggle"; }
     Super+Mod5+Alt+B hotkey-overlay-title="Noctalia: Wallhaven" { spawn-sh "noctalia msg panel-toggle noctalia/wallhaven:browser"; }

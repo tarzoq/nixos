@@ -212,6 +212,8 @@
   programs.thunderbird.enable = true;
   programs.firejail.enable = true; #easy sandboxing
 
+  #programs.ydotool.enable = true; #don't forget to add user to ydotool-group
+
   # https://nixos.wiki/wiki/Fonts
   fonts.packages = builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 
@@ -283,6 +285,7 @@
     fswatch #watch for changes in dir with: fswatch -rtx /directory
     jq #required for json one-liner command
     dex #execute or generate .desktop-files
+    wtype #paste as if you're manually typing it (ydotool does this better, but it's more invasive)
     # Else
     lynx #cli browser
     cheese #camera #settings done in dconf
