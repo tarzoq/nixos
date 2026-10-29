@@ -18,7 +18,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-flatpak.url = "github:gmodena/nix-flatpak/20d42f0ee98c9fe9f85e8d1de474f1409ed10d05";
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
 
     stylix = {
       url = "github:nix-community/stylix";
