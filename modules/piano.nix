@@ -26,7 +26,7 @@
               noctalia msg caffeine-enable
 
               //start sheetmusicviewer
-	      sheet-music-viewer
+	      // sheet-music-viewer
             else
               //rotate screen normal
               niri msg output $(niri msg --json focused-output | jq -r '.name') transform normal
@@ -37,8 +37,8 @@
 	      fi
 
 	      //kill sheetmusicviewer
-	      programID=$(niri msg --json windows | jq -r '.[] | select(.[\"app_id\"] == \"SheetMusicViewer\") | .id')
-	      niri msg action close-window --id $programID
+	      // programID=$(niri msg --json windows | jq -r '.[] | select(.[\"app_id\"] == \"SheetMusicViewer\") | .id')
+	      // niri msg action close-window --id $programID
             fi
           "; 
         }

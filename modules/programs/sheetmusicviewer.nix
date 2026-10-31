@@ -2,12 +2,12 @@
 #https://github.com/calvinhsia/SheetMusicViewer
 let
   sheetMusicViewerBin = pkgs.stdenv.mkDerivation {
-    pname = "sheet-music-viewer-bin";
-    version = "1.018";
+    name = "sheet-music-viewer-bin";
+    #version = "1.018";
 
     src = pkgs.fetchurl {
-      url = "https://github.com/calvinhsia/SheetMusicViewer/releases/download/v1.018/SheetMusicViewer-linux-x64.tar.gz";
-      hash = "sha256:4d2d3e4b921e69162323ef3283b4c2a52e6f91df63b20baa1cfd4c19ebc37656";
+      url = "https://github.com/calvinhsia/SheetMusicViewer/releases/latest/download/SheetMusicViewer-linux-x64.tar.gz"; #https://docs.github.com/en/repositories/releasing-projects-on-github/linking-to-releases
+      hash = "sha256-9p8VbeMQMLOK6eeU+Jp/TQ/pTcUOJ4ZLLH4hJ7m2n+8=";
     };
 
     sourceRoot = ".";
