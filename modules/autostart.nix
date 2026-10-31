@@ -10,7 +10,9 @@ let
 in {
 
   ######### Boilerplate ############
-  #modules.autostart.entries = "PROGRAM";
+  #modules.autostart.entries = ''
+  #  PROGRAM
+  #'';
   ##################################
 
   options.modules.autostart = {
