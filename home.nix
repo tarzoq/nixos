@@ -5,7 +5,6 @@ let
 in
 {
   imports = [
-    ./home/idle.nix
     ./home/helix.nix
     ./home/kanshi.nix
     ./home/rclone.nix
@@ -113,6 +112,7 @@ in
       gps = "git -C ${REPO} status";
       gpo = "git -C ${REPO} show";
       gpd = "git -C ${REPO} diff";
+      gpa = "git -C ${REPO} add .";
       rnru = "git -C ${REPO} restore flake.lock"; #revert flake.lock in case of failed update
     };
   };

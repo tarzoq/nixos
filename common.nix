@@ -5,6 +5,7 @@
     ./modules/autostart.nix
     ./modules/niri.nix
     ./modules/niri-imports.nix
+    ./modules/idle.nix
     ./modules/noctalia.nix
     ./modules/programs/tailscale.nix
     ./modules/programs/chromium.nix
