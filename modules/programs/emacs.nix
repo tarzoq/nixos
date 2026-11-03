@@ -7,8 +7,8 @@
     programs.doom-emacs = {
       enable = true;
       doomDir = builtins.path {
-        name = "doom-config";
-        path = /. + "${vars.user.home}/nixos/config/doom";
+        name = "doom-config"; #name of resulting path in nix-store
+        path = "${vars.user.home}/nixos/config/doom"; #path to private config
       };
     };
 
