@@ -26,3 +26,8 @@ config/niri/*hm.*
 ########### hypr modules #############
 config/hypr/*hm.conf
 config/hypr/hypridle.conf
+
+########### puddletag #############
+config/misc/puddletag/combos
+config/misc/puddletag/puddletag.log
+config/misc/puddletag/windowsizes
