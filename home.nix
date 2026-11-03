@@ -80,6 +80,7 @@ in
       v = "nvim"; #editor of choice
       ssh = "kitty +kitten ssh"; #fix "xterm-kitty: unknown terminal type"
       monkeytype = "smassh";
+      "," = "nix-shell -p"; #run programs without installing them
 
       #nrs = "sudo true && nh os switch --impure ${HOSTREPO} --accept-flake-config";
       nrs = "sudo nixos-rebuild switch --impure --flake ${HOSTREPO}";
