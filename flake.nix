@@ -29,6 +29,11 @@
       url = "github:nix-community/lanzaboote/v1.2.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    doom-emacs = {
+      url = "github:marienz/nix-doom-emacs-unstraightened";
+      inputs.nixpkgs.follows = "";
+    };
   };
 
   nixConfig = {
@@ -55,10 +60,11 @@
             users.${vars.user.name}.imports = [
 	      ./home.nix
 	      stylix.homeModules.stylix
+	      inputs.doom-emacs.homeModule
 	    ];
             backupFileExtension = "backup";
             overwriteBackup = true;
-            extraSpecialArgs = { inherit vars; };
+            extraSpecialArgs = { inherit inputs vars; };
           };
 	  nixpkgs.overlays = [
 	    (final: prev: {

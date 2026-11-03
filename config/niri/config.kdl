@@ -85,6 +85,7 @@ output "LG Electronics LG ULTRAWIDE 0x00021E47" {
 animations {
     // off
     workspace-switch {
+	off
         spring damping-ratio=1.0 stiffness=1000 epsilon=0.0001
     }
     slowdown 0.4
@@ -215,7 +216,7 @@ window-rule {
 //////////////// Floating ///////////////////////
 window-rule {
     match app-id="brave" app-id="nngceckbapebfimnlniiiahkandclblb" //bitwarden
-    match app-id="resolve" app-id="resolve" //bitwarden
+    match app-id="resolve" app-id="resolve"
     match app-id="org.gnome.Calculator"
     match app-id="org.gnome.TextEditor"
     match app-id="vlc" title="Current Media Information"
@@ -227,6 +228,13 @@ window-rule {
     //match app-id="teams-for-linux" title="Teams for Linux - Screen is being shared"
 
     open-floating true
+}
+
+//////////////// fullscreen / proportion 1.0 ///////////////////////
+window-rule {
+    match app-id="Emacs"
+
+    default-column-width { proportion 1.0; }
 }
 
 ///////////////// PiP ///////////////////
@@ -422,6 +430,7 @@ binds {
     Super+Mod5+B hotkey-overlay-title="Noctalia: Background" { spawn-sh "noctalia msg panel-toggle wallpaper toggle"; }
     Super+Mod5+Alt+B hotkey-overlay-title="Noctalia: Wallhaven" { spawn-sh "noctalia msg panel-toggle noctalia/wallhaven:browser"; }
     Super+Mod5+D hotkey-overlay-title="Noctalia: Screen Toolkit" { spawn-sh "noctalia msg panel-toggle alexander/screen-toolkit:panel"; }
+    Super+Mod5+Ctrl+V hotkey-overlay-title="Noctalia: Audio Mixer" { spawn-sh "noctalia msg panel-toggle control-center audio"; } //same as Windows shortcut for audio mixer
     Ctrl+Alt+Delete hotkey-overlay-title="Noctalia: Powermenu" { spawn-sh "noctalia msg panel-toggle session"; }
     Super+Mod5+Alt+C hotkey-overlay-title="Noctalia: LidGuard (lidInhibitor)" { spawn-sh "noctalia msg plugin 8bury/lid-guard:lid-guard-service all toggle"; }
     Super+Mod5+C hotkey-overlay-title="Noctalia: Caffeine (idleInhibitor)" { 
