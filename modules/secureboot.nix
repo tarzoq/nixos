@@ -2,7 +2,7 @@
 #https://nix-community.github.io/lanzaboote/getting-started/prepare-your-system.html#configure-nixos-with-flakes
 #https://nix-community.github.io/lanzaboote/explanation/automatic-provisioning.html
 {
-  environment.systemPackages = [ pkgs.sbctl pkgs.cmatrix ];
+  environment.systemPackages = [ pkgs.sbctl ];
 
   boot.lanzaboote = {
     enable = true;
