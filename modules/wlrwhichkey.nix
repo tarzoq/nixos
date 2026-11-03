@@ -104,25 +104,25 @@ in {
             };
           })}"; }
           ${MOD}+Y { spawn-sh "${lib.getExe (centerMenu {
+            "w" = {
+              desc = "Wiki (NixOS)";
+              cmd = "xdg-open https://search.nixos.org/packages";
+            };
             "p" = {
-              desc = "NixOS Packages";
+              desc = "Packages (NixOS)";
               cmd = "xdg-open https://search.nixos.org/packages";
             };
             "o" = {
-              desc = "NixOS Options";
+              desc = "Options (NixOS)";
               cmd = "xdg-open https://search.nixos.org/options";
             };
             "f" = {
-              desc = "NixOS 3rd-party Flakes";
+              desc = "3rd-party Flakes (NixOS)";
               cmd = "xdg-open https://search.nixos.org/flakes";
             };
             "n" = {
-              desc = "NixOS Noggle (functions)";
+              desc = "Functions (Noggle)";
               cmd = "xdg-open https://noogle.dev";
-            };
-            "w" = {
-              desc = "NixOS Wiki";
-              cmd = "xdg-open https://search.nixos.org/packages";
             };
             "g" = {
               desc = "My GitHub (NixOS)";
