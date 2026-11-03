@@ -14,12 +14,6 @@ environment {
     NIXOS_OZONE_WL "1"
     XDG_CURRENT_DESKTOP "niri"
     XDG_SESSION_TYPE "wayland"
-    QT_QPA_PLATFORMTHEME "kde"
-
-    //https://www.reddit.com/r/niri/comments/1m8zpx4/comment/ncgkcbf/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
-    //GSK_RENDERER "ngl"
-    //GDK_SCALE "1" 
-    //QT_SCALE_FACTOR "1"
 }
 
 // https://yalter.github.io/niri/Configuration:-Input
@@ -29,7 +23,6 @@ input {
 	    layout "se"
         }
 	track-layout "global"
-	//tonybtw
 	repeat-delay 450 //600
 	repeat-rate 30 //25
         numlock // Enable numlock on startup

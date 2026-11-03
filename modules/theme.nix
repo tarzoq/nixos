@@ -4,6 +4,18 @@ let
   ICON_NAME = "WhiteSur-dark"; #don't forget to also change in Vicinae
 in
 {
+  environment.sessionVariables = {
+    QT_QPA_PLATFORMTHEME = "kde";
+    #https://www.reddit.com/r/niri/comments/1m8zpx4/comment/ncgkcbf/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+    #GSK_RENDERER = "ngl";
+    #GDK_SCALE = "1";
+    #QT_SCALE_FACTOR = "1";
+  };
+
+  environment.systemPackages = with pkgs; [
+    gsettings-desktop-schemas
+  ];
+
   home-manager.users."${vars.user.name}" = {
     home.packages = [ ICON_PACKAGE pkgs.base16-schemes ];
 
@@ -34,6 +46,7 @@ in
     dconf.settings."org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
       gtk-theme = "Adwaita-dark";
+      text-scaling-factor = 0.9;
     };
 
     qt = {
