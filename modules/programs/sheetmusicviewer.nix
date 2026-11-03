@@ -3,7 +3,7 @@
 let
   sheetMusicViewerBin = pkgs.stdenv.mkDerivation {
     name = "sheet-music-viewer-bin";
-    #version = "1.018";
+    version = "1.020";
 
     src = pkgs.fetchurl {
       url = "https://github.com/calvinhsia/SheetMusicViewer/releases/latest/download/SheetMusicViewer-linux-x64.tar.gz"; #https://docs.github.com/en/repositories/releasing-projects-on-github/linking-to-releases
