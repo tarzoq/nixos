@@ -13,6 +13,7 @@
     ./modules/programs/nemo.nix
     ./modules/programs/obsidian.nix
     ./modules/programs/flatpak.nix
+    ./modules/programs/emacs.nix
     ./modules/niri/outputscale.nix
     ./modules/cursor.nix
     ./modules/theme.nix
@@ -224,7 +225,7 @@
     zathura #might use in the future for sheet music (requires some additional touchscreen gesture tweaking)
     kdePackages.okular #pdf viewer
     ##############
-    onlyoffice-desktopeditors #office suite
+    #onlyoffice-desktopeditors #office suite
     gnome-text-editor #text editor
     nomacs #image viewer
     drawy #paint, pinta equivalent
@@ -232,7 +233,6 @@
     libinput
     bc #math in bash
     maliit-keyboard #on-screen keyboard for table mode
-    comma #run programs without installing them
     git-crypt #encrypt specified personal folders and files automatically at commit
     git-filter-repo #rewrite git history
     tree #ls alternative
@@ -266,8 +266,11 @@
     bind #nslookup etc.
     openssl
     hashdeep #for example "md5hash -r DIR | md5hash"
-    ##### for fun ######
+    ##### VISUAL ######
     neo #the matrix, cmatrix alternative (but better)
+    fireplace
+    ##### VISUAL ######
+    ##### for fun ######
     nms #sneakers movie decryption
     ##### for fun ######
     #networkmanagerapplet #fallback network settings
