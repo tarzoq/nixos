@@ -20,6 +20,7 @@
     ./modules/wlrwhichkey.nix
     ./modules/vicinae.nix
     ./modules/programs/recording.nix
+    ./config/misc/syncthing.nix
   ];
 
   environment.sessionVariables = {
@@ -46,6 +47,7 @@
   hardware.enableRedistributableFirmware = true;
   services.fwupd.enable = true; #fwupdmgr refresh; fwupdmgr get-updates; fwupdmgr update
   services.earlyoom.enable = true; #prevent linux freeze from being out of memory
+  #systemd-oomd is enabled by default, but it didn't appear to have any effect, hence earlyoom
 
   #boot.kernelPackages = pkgs.linuxPackages_latest; #https://discourse.nixos.org/t/thinkpad-t14s-wont-power-down/46809/10
 
