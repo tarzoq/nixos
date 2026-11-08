@@ -194,6 +194,7 @@ in
       "audio/flac" = "audacious.desktop";
       "audio/vnd.wave" = "audacious.desktop";
       "audio/3gpp" = "audacious.desktop";
+      "audio/x-opus+ogg" = "audacious.desktop";
      
       # Video
       "video/mp4" = "mpv.desktop";
