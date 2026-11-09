@@ -20,7 +20,6 @@
     ./modules/wlrwhichkey.nix
     ./modules/vicinae.nix
     ./modules/programs/recording.nix
-    ./config/misc/syncthing.nix
   ];
 
   environment.sessionVariables = {

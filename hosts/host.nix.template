@@ -4,6 +4,7 @@
     [
       ../modules/displaylink
       ../modules/secureboot.nix
+      ../config/misc/syncthing.nix
     ];
 
   modules.autostart.entries = ''

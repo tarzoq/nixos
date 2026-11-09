@@ -16,6 +16,7 @@
       ../modules/piano.nix
       ../config/misc/vopono.nix
       ../config/misc/webapps.nix
+      ../config/misc/syncthing.nix
     ];
   modules.autostart.entries = ''
     thunderbird
