@@ -87,8 +87,3 @@
 ;; Hold Alt + Arrow keys to seamlessly jump between splits
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings 'meta))
-
-;;https://joeprevite.com/doom-emacs/
-;;enable auto-save for buffer every 15 seconds
-(setq auto-save-visited-interval 15)
-(auto-save-visited-mode +1)
