@@ -226,7 +226,7 @@
     zathura #might use in the future for sheet music (requires some additional touchscreen gesture tweaking)
     kdePackages.okular #pdf viewer
     ##############
-    #onlyoffice-desktopeditors #office suite
+    onlyoffice-desktopeditors #office suite
     gnome-text-editor #text editor
     nomacs #image viewer
     drawy #paint, pinta equivalent
