@@ -32,10 +32,10 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-acario-dark)
+;;(setq doom-theme 'doom-acario-dark)
 ;;(setq doom-theme 'doom-outrun-electric)
 ;;(setq doom-theme 'doom-dracula) ;;doesn't look right...
-;;(setq doom-theme 'doom-moonlight)
+(setq doom-theme 'doom-moonlight)
 ;; Specify both a dark and light theme, like so and Doom will choose which one
 ;; to load based on your system light/dark setting:
 ;;
@@ -84,6 +84,12 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-;; Hold Alt + Arrow keys to seamlessly jump between splits
-(when (fboundp 'windmove-default-keybindings)
-  (windmove-default-keybindings 'meta))
+;;https://themkat.net/2024/10/14/emacs_tip_windmove.html
+(use-package windmove
+  ;;use built-in package
+  :ensure nil
+  :bind* ;;wildcard overrides any other bindings in any other modes
+  (("M-h" . windmove-left)
+   ("M-l" . windmove-right)
+   ("M-k" . windmove-up)
+   ("M-j" . windmove-down)))
