@@ -12,22 +12,22 @@
     recursive = true;
   };
 
-  systemd.user.services.rclone-gdrive = {
-    Unit = {
-      Description = "rclone Google Drive mount";
-      After = [ "network-online.target" ];
-    };
-    Service = {
-      Type = "notify";
-      ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p '%h/mnt/Google Drive'";
-      ExecStart = ''
-        ${pkgs.rclone}/bin/rclone mount gdrive:/ '%h/mnt/Google Drive' \
-          --vfs-cache-mode writes
-      '';
-      ExecStop = "${pkgs.fuse}/bin/fusermount -uz '%h/mnt/Google Drive'";
-      Restart = "on-failure";
-      RestartSec = "10s";
-    };
-    Install.WantedBy = [ "default.target" ];
-  };
+  #systemd.user.services.rclone-gdrive = {
+  #  Unit = {
+  #    Description = "rclone Google Drive mount";
+  #    After = [ "network-online.target" ];
+  #  };
+  #  Service = {
+  #    Type = "notify";
+  #    ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p '%h/mnt/Google Drive'";
+  #    ExecStart = ''
+  #      ${pkgs.rclone}/bin/rclone mount gdrive:/ '%h/mnt/Google Drive' \
+  #        --vfs-cache-mode writes
+  #    '';
+  #    ExecStop = "${pkgs.fuse}/bin/fusermount -uz '%h/mnt/Google Drive'";
+  #    Restart = "on-failure";
+  #    RestartSec = "10s";
+  #  };
+  #  Install.WantedBy = [ "default.target" ];
+  #};
 }
