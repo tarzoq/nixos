@@ -225,7 +225,7 @@ window-rule {
 
 //////////////// fullscreen / proportion 1.0 ///////////////////////
 window-rule {
-    match app-id="Emacs"
+    match app-id="emacs"
 
     default-column-width { proportion 1.0; }
 }
