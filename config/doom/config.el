@@ -93,3 +93,6 @@
    ("M-l" . windmove-right)
    ("M-k" . windmove-up)
    ("M-j" . windmove-down)))
+
+(setq display-line-numbers-type 'relative) ;;doom/toggle-line-numbers
+;;(add-hook 'window-setup-hook #'+treemacs/toggle 'append)

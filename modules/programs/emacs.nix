@@ -1,8 +1,9 @@
 { config, pkgs, vars, ... }:
 let
   emacsPackage = pkgs.emacs-pgtk;
-  startEmacs = ''${emacsPackage}/bin/emacsclient -c -a ""'';
-  startEmacsEscape = ''${emacsPackage}/bin/emacsclient -c -a \"\"'';
+  emacsBin = "${emacsPackage}/bin/emacsclient";
+  startEmacs = ''${emacsBin} -c -a \"\"'';
+  startEmacsNoEscape = ''${emacsBin} -c -a ""'';
 in {
   #https://github.com/marienz/nix-doom-emacs-unstraightened #nix managed (no need for doom sync)
   modules.niri.imports = "include \"emacs.hm.kdl\"";
@@ -26,9 +27,15 @@ in {
 
     home.file."nixos/config/niri/emacs.hm.kdl".text = ''
       binds {
-        Super+Mod5+I hotkey-overlay-title="Doom Emacs" {
-	  spawn-sh "${startEmacsEscape}"; //start daemon if not already running
-	}
+        Mod+Z hotkey-overlay-title="Doom Emacs" {
+          spawn-sh "${startEmacs}"; //start daemon if not already running
+        }
+        Super+Mod5+I hotkey-overlay-title="NixOS Configuration: Doom Emacs" {
+          spawn-sh "${startEmacs} \"~/nixos\""; //start daemon if not already running
+        }
+        Mod+G hotkey-overlay-title="Magit: NixOS Configuration (Doom Emacs)" {
+          spawn-sh "${startEmacs} -e '(progn (magit-status \"~/nixos\") (magit-fetch-all nil))'" //open magit in emacs and fetch-all
+        }
       }
     '';
 

@@ -387,8 +387,7 @@ binds {
 
     Mod+W hotkey-overlay-title="Run an Application: obsidian" { spawn "obsidian"; }
 
-    Mod+Z hotkey-overlay-title="Run an Application: vscode" { spawn "code"; }
-    Mod+Shift+Z hotkey-overlay-title="Run an Application: vscode --new-window" { spawn "code" "--new-window"; }
+    Mod+Shift+Z hotkey-overlay-title="Run an Application: vscode" { spawn "code"; }
 
     //niri msg --json workspaces | jq --arg out "$(niri msg --json focused-output | jq -r .name)" '[.[] | select(.output == $out)] | length'
 
