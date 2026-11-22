@@ -90,20 +90,23 @@
 
 ;;;;;;;;;;;; KEYBINDS ;;;;;;;;;;;;;
 ;;Ways to do keybinds:
+;; normal binds
 ;;(map! ;:nvim "C-h" #'evil-backward-word-begin) ;;nvim = all modes, nvm = all modes except insert
-;;(bind-key* "C-h" #'evil-backward-word-begin)
-;;(bind-key* "C-0" (lambda () (interactive) (text-scale-set 0)))
+;;
+;; override everything (work everywhere):
+;;(bind-key* "C-h" (lambda () (interactive) (text-scale-set 0)))
+
+(map! ;;:nvm "C-h" #'evil-backward-word-begin ;;help-menu (same as SPC h, but quicker)
+      :nvm "C-j" #'evil-forward-paragraph
+      :nvm "C-k" #'evil-backward-paragraph
+      ;;:nvm "C-l" #'evil-forward-word-end ;;center cursor on screen
+)
 
 ;;https://themkat.net/2024/10/14/emacs_tip_windmove.html
 (bind-key* "M-h" #'windmove-left)
 (bind-key* "M-l" #'windmove-right)
 (bind-key* "M-k" #'windmove-up)
 (bind-key* "M-j" #'windmove-down)
-
-;;(bind-key* "C-h" #'evil-backward-word-begin) ;;help-menu (same as SPC h, but quicker)
-(bind-key* "C-j" #'forward-paragraph)
-(bind-key* "C-k" #'backward-paragraph)
-;;(bind-key* "C-l" #'evil-forward-word-end) ;;center cursor on screen
 
 (bind-key* "C-?" #'text-scale-increase)
 (bind-key* "C-_" #'text-scale-decrease)
