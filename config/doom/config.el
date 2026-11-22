@@ -84,15 +84,27 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-;;https://themkat.net/2024/10/14/emacs_tip_windmove.html
-(use-package windmove
-  ;;use built-in package
-  :ensure nil
-  :bind* ;;wildcard overrides any other bindings in any other modes
-  (("M-h" . windmove-left)
-   ("M-l" . windmove-right)
-   ("M-k" . windmove-up)
-   ("M-j" . windmove-down)))
-
+;;;;;;;;;;;; OPTIONS ;;;;;;;;;;;;;
 (setq display-line-numbers-type 'relative) ;;doom/toggle-line-numbers
 ;;(add-hook 'window-setup-hook #'+treemacs/toggle 'append)
+
+;;;;;;;;;;;; KEYBINDS ;;;;;;;;;;;;;
+;;Ways to do keybinds:
+;;(map! ;:nvim "C-h" #'evil-backward-word-begin) ;;nvim = all modes, nvm = all modes except insert
+;;(bind-key* "C-h" #'evil-backward-word-begin)
+;;(bind-key* "C-0" (lambda () (interactive) (text-scale-set 0)))
+
+;;https://themkat.net/2024/10/14/emacs_tip_windmove.html
+(bind-key* "M-h" #'windmove-left)
+(bind-key* "M-l" #'windmove-right)
+(bind-key* "M-k" #'windmove-up)
+(bind-key* "M-j" #'windmove-down)
+
+;;(bind-key* "C-h" #'evil-backward-word-begin) ;;help-menu (same as SPC h, but quicker)
+(bind-key* "C-j" #'forward-paragraph)
+(bind-key* "C-k" #'backward-paragraph)
+;;(bind-key* "C-l" #'evil-forward-word-end) ;;center cursor on screen
+
+(bind-key* "C-?" #'text-scale-increase)
+(bind-key* "C-_" #'text-scale-decrease)
+(bind-key* "C-=" (cmd! (text-scale-set 0)))
