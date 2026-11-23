@@ -86,6 +86,7 @@
 
 ;;;;;;;;;;;; OPTIONS ;;;;;;;;;;;;;
 (setq display-line-numbers-type 'relative) ;;doom/toggle-line-numbers
+(setq doom-font (font-spec :size 14)) ;;default size 12
 ;;(add-hook 'window-setup-hook #'+treemacs/toggle 'append)
 
 ;;;;;;;;;;;; KEYBINDS ;;;;;;;;;;;;;
@@ -100,6 +101,8 @@
       :nvm "C-j" #'evil-forward-paragraph
       :nvm "C-k" #'evil-backward-paragraph
       ;;:nvm "C-l" #'evil-forward-word-end ;;center cursor on screen
+
+      :nvm "C-'" #'evilnc-comment-or-uncomment-lines
 )
 
 ;;https://themkat.net/2024/10/14/emacs_tip_windmove.html
