@@ -255,8 +255,8 @@ window-rule { //keybind floating
     match app-id=r#"^dot.floating"#
 
     open-floating true
-    default-column-width { proportion 0.33; }
-    default-window-height { proportion 0.5; }
+    default-column-width { proportion 0.5; }
+    default-window-height { proportion 0.65; }
 }
 
 ///////////// block from screen-capture /////////////
