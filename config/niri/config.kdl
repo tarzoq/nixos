@@ -290,6 +290,7 @@ window-rule {
     match app-id="mpv"
     match app-id="vlc"
     match app-id=r#".+wl_mirror$"# //screen-mirror
+    match app-id="org.nomacs.ImageLounge"
 
     opacity 1.0
 }
