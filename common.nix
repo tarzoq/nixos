@@ -20,6 +20,7 @@
     ./modules/wlrwhichkey.nix
     ./modules/vicinae.nix
     ./modules/programs/recording.nix
+    ./modules/programs/tmux.nix
   ];
 
   environment.sessionVariables = {
