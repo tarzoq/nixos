@@ -603,7 +603,17 @@ binds {
     Mod+Shift+R { switch-preset-window-height; }
     Mod+Alt+Shift+R { switch-preset-window-height-back; }
     //Mod+Alt+R { reset-window-height; }
-    Mod+E { maximize-column; }    
+    //Mod+E { maximize-column; }
+    Mod+E hotkey-overlay-title="Niri: Column Maximize or 50%" { spawn-sh "
+        monitorWidth=$(niri msg --json focused-output | jq '.logical.width')
+        windowWidth=$(niri msg --json focused-window | jq -r '.layout.window_size.[0]')
+
+        if (( windowWidth * 100 > monitorWidth * 90 )); then
+	    niri msg action set-column-width \"50%\"
+        else
+            niri msg action maximize-column
+	fi
+    "; }    
     Mod+Alt+E { expand-column-to-available-width; }
     Mod+Shift+E { toggle-windowed-fullscreen; }
     Mod+Shift+Alt+E { maximize-window-to-edges; } //no focus bars or struts
